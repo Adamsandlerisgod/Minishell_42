@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/08/25 13:38:45 by whendrik         ###   ########.fr       */
+/*   Created: 2023/07/24 19:15:04 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/07/25 11:32:53 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/pipex.h"
 
-
-
-#endif
+void	exit_error(char *str1, char *str2)
+{
+	ft_putstr_fd(str1, STDERR_FILENO);
+	ft_putendl_fd(str2, STDERR_FILENO);
+	if (access("here_doc", F_OK) == 0)
+		unlink("here_doc");
+	exit(EXIT_FAILURE);
+}

@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   03_execute_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/07/25 04:08:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/08/30 01:58:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+/*
+The function get_cmd() splits the command string into an array of strings.
+It takes a string as parameter.
+It returns an array of strings.
+*/
 
 static char	**get_cmd(char *av)
 {
@@ -25,6 +31,12 @@ static char	**get_cmd(char *av)
 		exit_error("pipex: ", "command not found ");
 	return (cmd);
 }
+
+/*
+The function get_env() returns the environment variable array.
+It takes an environment variable array as parameter.
+It returns an array of strings.
+*/
 
 static char	**get_env(char **ev)
 {
@@ -43,6 +55,12 @@ static char	**get_env(char **ev)
 	}
 	return (array);
 }
+
+/*
+The function check_path() checks if the command is in the PATH.
+It takes a string and an environment variable array as parameters.
+It returns the path of the command if it exists, otherwise it returns NULL.
+*/
 
 static char	*check_path(char *av, char **ev)
 {
@@ -72,6 +90,12 @@ static char	*check_path(char *av, char **ev)
 	return (path);
 }
 
+/*
+The function get_path() returns the path of the command.
+It takes an array of strings and an environment variable array as parameters.
+It returns the path of the command if it exists, otherwise it returns NULL.
+*/
+
 static char	*get_path(char **cmd, char **ev)
 {
 	char	*path;
@@ -100,6 +124,12 @@ static char	*get_path(char **cmd, char **ev)
 	}
 	return (path);
 }
+
+/*
+The function execute_cmd() executes the command.
+It takes a string and an environment variable array as parameters.
+It returns nothing.
+*/
 
 void	execute_cmd(char *av, char **ev)
 {
