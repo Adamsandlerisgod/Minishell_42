@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 20:04:24 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/08/30 01:55:04 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/08 21:00:11 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	open_outfile(char *outfile, bool append)
 		fd_out = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd_out == -1)
 		{
-			perror("pipex");
+			perror("minishell");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -39,12 +39,12 @@ static void	open_outfile(char *outfile, bool append)
 		fd_out = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd_out == -1)
 		{
-			perror("pipex");
+			perror("minishell");
 			exit(EXIT_FAILURE);
 		}
 	}
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
-		exit_error("pipex: ", "dup2 failed ");
+		exit_error("minishell: ", "dup2 failed ");
 	close(fd_out);
 }
 
@@ -65,7 +65,7 @@ void	child_process(int pipefd[2], t_cmd *cmd, char **ev, int index)
 	else
 	{
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			exit_error("pipex: ", "dup2 failed ");
+			exit_error("minishell: ", "dup2 failed ");
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);

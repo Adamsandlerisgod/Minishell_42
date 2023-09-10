@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_error.c                                       :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 19:15:04 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/07/25 11:32:53 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/09/09 16:24:23 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/09/11 06:51:55 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../includes/execute.h"
 
-void	exit_error(char *str1, char *str2)
+void	msg_cmd(char *arg1, char *arg2, char *arg3, int fd)
 {
-	ft_putstr_fd(str1, STDERR_FILENO);
-	ft_putendl_fd(str2, STDERR_FILENO);
-	if (access("here_doc", F_OK) == 0)
-		unlink("here_doc");
-	exit(EXIT_FAILURE);
+	ft_putstr_fd(arg1, fd);
+	ft_putstr_fd(arg2, fd);
+	ft_putendl_fd(arg3, fd);
 }

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:54:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/08/30 10:35:31 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/09 02:40:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ It takes as parameters:
 It returns nothing.
 */
 
-static void	creat_here_doc(char *limiter)
+static int	creat_here_doc(char *limiter)
 {
 	char	*line;
 	int		fd;
 
 	fd = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
-		exit_error("pipex: ", "here_doc");
+		exit_error("minishell: ", "here_doc");
 	while (1)
 	{
 		write(STDOUT_FILENO, "heredoc> ", 9);
@@ -39,7 +39,7 @@ static void	creat_here_doc(char *limiter)
 		free(line);
 	}
 	free(line);
-	close(fd);
+	return (fd);
 }
 
 /*
@@ -57,24 +57,25 @@ static void	open_infile(char *infile, bool here_doc, char *limiter)
 	int	tmpfd[2];
 
 	if (here_doc == true)
-		creat_here_doc(limiter);
-	fd_in = open(infile, O_RDONLY);
+		fd_in = creat_here_doc(limiter);
+	else
+		fd_in = open(infile, O_RDONLY);
 	if (fd_in == -1)
-		perror("pipex");
+		perror("minishell");
 	if ((access(infile, R_OK) == -1 && access(infile, F_OK) == 0)
 		|| access(infile, F_OK) == -1 || fd_in == -1)
 	{
 		if (pipe(tmpfd) == -1)
-			exit_error("pipex: ", "pipe failed ");
+			exit_error("minishell: ", "pipe failed ");
 		if (dup2(tmpfd[0], STDIN_FILENO) == -1)
-			exit_error("pipex: ", "dup2 failed ");
+			exit_error("minishell: ", "dup2 failed ");
 		close(tmpfd[0]);
 		close(tmpfd[1]);
 	}
 	else
 	{
 		if (dup2(fd_in, STDIN_FILENO) == -1)
-			exit_error("pipex: ", "dup2 failed ");
+			exit_error("minishell: ", "dup2 failed ");
 		close(fd_in);
 	}
 }
@@ -91,7 +92,7 @@ It returns nothing.
 static void	pipe_process(t_cmd *cmd, int pipefd[2], int i, int index)
 {
 	if (pipe(pipefd) == -1)
-		exit_error("pipex: ", "pipe failed ");
+		exit_error("minishell: ", "pipe failed ");
 	if (i == 0)
 		open_infile(cmd[index + i].infile, cmd[index + i].here_doc,
 			cmd[index + i].limiter);
@@ -108,7 +109,7 @@ It takes as parameters:
 It returns an array of pid_t containing the pid of each child process.
 */
 
-pid_t	*fork_process(size_t len, t_cmd *cmd, char **ev, int index)
+pid_t	*fork_process(size_t len, t_data *data, char **ev, int index)
 {
 	pid_t	*pid;
 	int		pipefd[2];
@@ -116,18 +117,18 @@ pid_t	*fork_process(size_t len, t_cmd *cmd, char **ev, int index)
 
 	pid = (pid_t *)malloc(sizeof(pid_t) * len);
 	if (!pid)
-		exit_error("pipex: malloc failed", NULL);
+		exit_error("minishell: malloc failed", NULL);
 	i = 0;
 	while (i < len)
 	{
-		pipe_process(cmd, pipefd, i, index);
+		pipe_process(data->cmd, pipefd, i, index);
 		pid[i] = fork();
 		if (pid[i] == -1)
-			exit_error("pipex: fork failed", NULL);
+			exit_error("minishell: fork failed", NULL);
 		else if (pid[i] == 0)
-			child_process(pipefd, cmd, ev, index + i);
+			child_process(pipefd, data->cmd, ev, index + i);
 		else if (pid[i] > 0)
-			parent_process(pipefd);
+			parent_process(data, pipefd);
 		i++;
 	}
 	return (pid);

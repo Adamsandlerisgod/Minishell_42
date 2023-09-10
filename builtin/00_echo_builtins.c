@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_parent_process.c                                :+:      :+:    :+:   */
+/*   00_echo_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 21:48:57 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/09 02:40:24 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/08/30 11:03:10 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/09/09 17:16:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execute.h"
 
-/*
-The function parent_process() executes the command in the parent process.
-It takes as parameters:
-	- pipefd: the pipe file descriptor
-It returns nothing.
-*/
-
-void	parent_process(t_data *data, int pipefd[2])
+int	echo_builtins(t_cmd *cmd, int i)
 {
-	// insert condition for builtins cmds execute in parent process
-	close(pipefd[1]);
-	if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		exit_error("minishell: ", "dup2 failed ");
-	close(pipefd[0]);
+	int		i;
+	bool	flag;
+
+	i = 1;
+	if (ft_strncmp(cmd[i].cmd[i], "-n", 3) == 0)
+	{
+		flag = true;
+		i++;
+	}
+	while (cmd[i].cmd[i])
+	{
+		ft_putstr(cmd[i].cmd[i]);
+		if (cmd[i].cmd[i + 1])
+			ft_putchar(' ');
+		i++;
+	}
+	if (!flag)
+		ft_putchar('\n');
+	return (0);
 }

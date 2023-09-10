@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/08/30 01:58:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/08 21:00:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static char	**get_cmd(char *av)
 	char	**cmd;
 
 	if (av == NULL || ft_strlen(av) == 0)
-		exit_error("pipex: ", "command not found");
+		exit_error("minishell: ", "command not found");
 	cmd = ft_split(av, ' ');
 	if (cmd == NULL)
-		exit_error("pipex", "malloc failed ");
+		exit_error("minishell", "malloc failed ");
 	if (cmd[0] == NULL)
-		exit_error("pipex: ", "command not found ");
+		exit_error("minishell: ", "command not found ");
 	return (cmd);
 }
 
@@ -46,12 +46,12 @@ static char	**get_env(char **ev)
 	while (*ev != NULL && ft_strncmp(*ev, "PATH=", 5) != 0)
 		ev++;
 	if (*ev == NULL)
-		exit_error("pipex: ", "No such file or directory");
+		exit_error("minishell: ", "No such file or directory");
 	if (ft_strncmp(*ev, "PATH=", 5) == 0)
 	{
 		array = ft_split(*ev + 5, ':');
 		if (array == NULL)
-			exit_error("pipex", "malloc failed ");
+			exit_error("minishell", "malloc failed ");
 	}
 	return (array);
 }
@@ -109,7 +109,7 @@ static char	*get_path(char **cmd, char **ev)
 		path = check_path(cmd[0], ev);
 	if (path == NULL)
 	{
-		ft_putstr_fd("pipex: command not found: ", 2);
+		ft_putstr_fd("minishell: command not found: ", 2);
 		ft_putendl_fd(cmd[0], 2);
 		while (*cmd != NULL)
 			free(*cmd++);
@@ -120,7 +120,7 @@ static char	*get_path(char **cmd, char **ev)
 		while (*cmd != NULL)
 			free(*cmd++);
 		free(cmd);
-		exit_error("pipex: no such file or directory: ", path);
+		exit_error("minishell: no such file or directory: ", path);
 	}
 	return (path);
 }
@@ -144,6 +144,6 @@ void	execute_cmd(char *av, char **ev)
 			free(*cmd++);
 		free(cmd);
 		free(path);
-		exit_error("pipex: ", "execve failed ");
+		exit_error("minishell: ", "execve failed ");
 	}
 }

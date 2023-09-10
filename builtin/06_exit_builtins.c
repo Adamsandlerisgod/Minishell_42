@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_parent_process.c                                :+:      :+:    :+:   */
+/*   06_exit_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 21:48:57 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/09 02:40:24 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/08/30 11:03:19 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/09/09 20:06:17 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execute.h"
 
-/*
-The function parent_process() executes the command in the parent process.
-It takes as parameters:
-	- pipefd: the pipe file descriptor
-It returns nothing.
-*/
-
-void	parent_process(t_data *data, int pipefd[2])
+static int	get_exit_status(char *arg)
 {
-	// insert condition for builtins cmds execute in parent process
-	close(pipefd[1]);
-	if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		exit_error("minishell: ", "dup2 failed ");
-	close(pipefd[0]);
+
+}
+
+int	exit_builtins(t_data *data, char **ev, int i)
+{
+	int	status;
+
+	status = 0;
+
+	if (data->cmd[i - 1].pipe == true || data->cmd[i].pipe == true)
+		return (1);
+	else
+	{
+		free_struct(data);
+		free_tab(ev);
+	}
+	ft_putendl_fd("exit", 1);
+	exit (status);
 }

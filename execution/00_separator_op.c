@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:21:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/08/30 10:40:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/09 02:39:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ and an index as parameters.
 It returns the status of the last child process.
 */
 
-static int	pipe_op(t_cmd *cmd, char **ev, int *index)
+static int	pipe_op(t_data *data, char **ev, int *index)
 {
 	pid_t	*pid;
 	size_t	len_array;
 	int		status;
 
-	len_array = size_array_pipe(cmd, index);
-	pid = fork_process(len_array, cmd, ev, index);
+	len_array = size_array_pipe(data->cmd, index);
+	pid = fork_process(len_array, data, ev, index);
 	status = waiting_pid(len_array, pid);
 	*index += len_array;
 	return (status);
@@ -73,13 +73,13 @@ and the size of the array.
 It returns the exit status of the last command executed.
 */
 
-int	separator_op(t_cmd *cmd, char **ev, int len)
+int	separator_op(t_data *data, char **ev, int len)
 {
 	int		status;
 
 	(void)len;
 	status = 0;
-	status = pipe_op(cmd, ev, 0);
+	status = pipe_op(data, ev, 0);
 	//if (ft_strncmp("here_doc", av[1], 9) == 0)
 	//	unlink("here_doc");
 	return (WEXITSTATUS(status));
