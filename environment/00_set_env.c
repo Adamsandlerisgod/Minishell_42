@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:38:45 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/15 14:41:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/19 14:09:12 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	init_varaible(t_env *tmp, char *env)
 		tmp->name = ft_strjoin("SHLVL=", tmp_i);
 		free(tmp_i);
 	}
-	else if (ft_strncmp(*env, "OLDPWD=", 7) == 0)
-		tmp->name = ft_strdup("OLDPWD");
 	else
 		tmp->name = ft_strdup(env);
 }
@@ -42,23 +40,19 @@ The function creat_new_env() is used to create a new environment variable.
 static void	creat_new_env(t_env *my_env, char **env)
 {
 	t_env	*tmp;
-	int		i;
 
 	tmp = my_env;
-	tmp = (t_env *)malloc(sizeof(t_env));
-	if (tmp == NULL)
-		exit_error("minishell: ", "malloc failed");
 	while (*env)
 	{
+		tmp = (t_env *)malloc(sizeof(t_env));
+		if (tmp == NULL)
+			exit_error("minishell: ", "malloc failed");
 		init_varaible(tmp, env);
-		if (*(env + 1) != NULL)
-			tmp->next = (t_env *)malloc(sizeof(t_env));
-			if (tmp->next == NULL)
-				exit_error("minishell: ", "malloc failed");
-		else
-			tmp->next = NULL;
+		tmp->next = NULL;
 		tmp = tmp->next;
 		env++;
+		if (ft_strncmp(*env, "OLDPWD=", 7) == 0)
+			env++;
 	}
 }
 
