@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:10:35 by whendrik          #+#    #+#             */
-/*   Updated: 2023/06/08 17:20:40 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:19:18 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -85,5 +86,9 @@ void			*ft_memcpy(void *dst, const void *src, size_t n);
 /*Extra Functions */
 size_t			count_strings(char const *s, char c);
 int				ft_hexatoi(const char *str);
+
+/*More Extra */
+bool			ft_isspace(int c);
+bool			ft_isquote(int c);
 
 #endif
