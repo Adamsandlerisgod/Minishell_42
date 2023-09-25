@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:24:01 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/25 15:29:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ The function ft_exit is used to exit the minishell.
 It returns the exit status.
 */
 
-int	ft_exit(t_data *data, char **ev, int index)
+int	ft_exit(t_data *data, int index)
 {
 	int	status;
 
