@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 02:03:42 by jhurpy            #+#    #+#              #
-#    Updated: 2023/08/30 10:46:09 by jhurpy           ###   ########.fr        #
+#    Updated: 2023/09/25 15:32:37 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,22 @@ AR = ar rc
 NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
-SRC_FILES =	00_separator_op.c \
-			01_fork_process.c \
-			02_child_process.c \
-			03_execute_cmd.c \
-			04_parent_process.c \
+SRC_FILES =	environment/free_env.c \
+			environment/set_env.c \
+			builtins/ft_cd.c \
+			builtins/ft_echo.c \
+			builtins/ft_env.c \
+			builtins/ft_exit.c \
+			builtins/ft_export.c \
+			builtins/ft_pwd.c \
+			builtins/ft_unset.c \
+			execution/separate_op.c \
+			execution/fork_process.c \
+			execution/child_process.c \
+			execution/execute_cmd.c \
+			execution/parent_process.c \
+			execution/check_builtins.c \
+			utils/utils_builtins.c \
 
 OBJ_DIR = obj
 INC_DIR = include

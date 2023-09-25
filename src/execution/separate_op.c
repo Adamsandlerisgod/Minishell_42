@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_separator_op.c                                  :+:      :+:    :+:   */
+/*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 15:21:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/09 02:39:23 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/09/22 20:38:03 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,22 @@ and an index as parameters.
 It returns the status of the last child process.
 */
 
-static int	pipe_op(t_data *data, char **ev, int *index)
+static void	pipe_op(t_data *data, char **ev, int *index)
 {
 	pid_t	*pid;
 	size_t	len_array;
-	int		status;
 
 	len_array = size_array_pipe(data->cmd, index);
-	pid = fork_process(len_array, data, ev, index);
-	status = waiting_pid(len_array, pid);
+	if (len_array == 1 && (is_builtins(data->cmd[*index].cmd) == true))
+		data->status = execute_builtins(data, index);
+	else
+	{
+		pid = fork_process(len_array, data, ev, index);
+		if (pid == NULL)
+		return ;
+		data->status = waiting_pid(len_array, pid);
+	}
 	*index += len_array;
-	return (status);
 }
 
 /*
@@ -75,12 +80,8 @@ It returns the exit status of the last command executed.
 
 int	separator_op(t_data *data, char **ev, int len)
 {
-	int		status;
-
 	(void)len;
-	status = 0;
-	status = pipe_op(data, ev, 0);
-	//if (ft_strncmp("here_doc", av[1], 9) == 0)
-	//	unlink("here_doc");
-	return (WEXITSTATUS(status));
+	data->status = 0; // to remove Wolf will initialize it
+	pipe_op(data, ev, 0);
+	return (WEXITSTATUS(data->status));
 }
