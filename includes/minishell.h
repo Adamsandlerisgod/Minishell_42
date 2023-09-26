@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/09/20 18:51:26 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:16:44 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 #include "../libft/includes/libft.h"
+#include <stdbool.h>
+#include <string.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -43,6 +45,11 @@
 
 // }				t_token;
 
+typedef struct s_env
+{
+	char	*name;
+	t_env	*next;
+}		t_env;
 
 typedef struct s_data
 {
