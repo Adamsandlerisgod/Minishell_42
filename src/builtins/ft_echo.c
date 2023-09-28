@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 14:56:55 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/25 18:34:45 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 The function ft_echo is used to print the arguments.
 */
 
-int	ft_echo(t_cmd *cmd, int index)
+int	ft_echo(t_data *data, int index)
 {
 	int		args;
 	bool	flag;
 
 	args = 1;
-	if (ft_strncmp(cmd[index].cmd[args], "-n", 3) == 0)
+	if (ft_strncmp(data->cmd[index].cmd[args], "-n", 3) == 0)
 	{
 		flag = true;
 		args++;
 	}
-	while (cmd[index].cmd[args])
+	while (data->cmd[index].cmd[args])
 	{
-		ft_putstr(cmd[index].cmd[args]);
-		if (cmd[index].cmd[args + 1])
+		ft_putstr(data->cmd[index].cmd[args]);
+		if (data->cmd[index].cmd[args + 1])
 			ft_putchar(' ');
 		args++;
 	}

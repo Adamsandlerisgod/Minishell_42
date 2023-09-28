@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:29:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/28 23:11:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #  define PATH_MAX 4096
 # endif
 
+# define HEREDOC_NAME "/tmp/.here_doc"
 # define CMD_OK 0
 # define CMD_ERROR 1
 # define CMD_EXIT 2
@@ -45,6 +46,7 @@ typedef struct s_data
 	t_cmd	*cmd;
 	t_env	*env;
 	int		status;
+	int		pipe_len;
 }		t_data;
 
 typedef struct s_env
@@ -63,33 +65,36 @@ typedef struct s_cmd
 	bool			out_redir;
 	bool			here_doc;
 	char			*limiter;
-	bool			append;
-	bool			op;
+	int				w_mode; // maybe to modify with int O_APPEND or O_TRUNC
+	bool			op; // used only for the bonus
 }			t_cmd;
 
 /*Error message management*/
-void	msg_cmd(char *cmd, char *msg);
+
 
 /*Creation of the envirronement of minishell*/
 
 t_env	*set_env(char **env);
 void	free_env(t_env *my_env);
+char	**env_array(t_env *env);
 
 /*Executation part: execute a list of pipe command in childs or parent*/
 
-int		separator_op(t_data *data, char **ev, int len);
-pid_t	*fork_process(size_t len, t_data *data, char **ev, int index);
-void	child_process(int pipefd[2], t_cmd *cmd, char **ev, int index);
-void	parent_process(t_data *data, int pipefd[2]);
-void	execute_cmd(char *av, char **ev);
+int		separator_op(t_data *data);
+pid_t	*fork_process(t_data *data, char **ev, int index);
+int		redirection(t_data *data, int *pipefd, int index);
+int		execute_cmd(char *av, char **env);
+bool	is_builtins(t_data *data, int index);
+int		execute_builtins(t_data *data, char **env, int index);
 
 /*Builtins part: list of the builtins command*/
 
-int		ft_echo(t_cmd *cmd, int index);
-int		ft_cd(t_cmd *cmd, t_env *env, int index);
-int		ft_pwd(t_cmd *cmd, int index);
-int		ft_export(t_data *data, int index);
+int		ft_echo(t_data *data, int index);
+int		ft_cd(t_data *data, int index);
+int		ft_pwd(t_data *data, int index);
+int		ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
+int		ft_env(t_data *data, char **env, int index);
 int		ft_exit(t_data *data, int index);
 
 #endif

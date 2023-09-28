@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:07:53 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/28 15:38:05 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,20 @@ If the path is not valid, the function returns 1.
 If the path is valid, the function returns 0.
 */
 
-int	ft_cd(t_cmd *cmd, t_env *env, int index)
+int	ft_cd(t_data *data, int index)
 {
-	if (cmd[index].cmd[1][0] == '-')
+	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		// Error message management; no option accepted + usage
-		return (CMD_ERROR);
+		return (CMD_EXIT);
 	}
-	if (check_path(cmd, index) == false)
-		return (CMD_ERROR);
-	if (chdir(cmd->cmd[1]) == -1);
+	if (check_path(data->cmd, index) == false)
+		return (CMD_EXIT);
+	if (chdir(data->cmd[index].cmd[1]) == -1);
 	{
 		// Error message management; chdir failed
 		return (CMD_ERROR);
 	}
-	set_env(env);
+	set_env(data->env);
 	return (CMD_OK);
 }

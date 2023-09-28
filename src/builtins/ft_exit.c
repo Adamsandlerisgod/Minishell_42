@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:29:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/25 19:34:26 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_exit(t_data *data, int index)
 	status = get_exit_status(data, data->cmd[0].cmd[1]);
 	if (index > 1 || data->cmd[index].pipe == true)
 		return (status);
-	ft_putendl_fd("exit", 1);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	// call exit function of minishell
 	exit (status);
 }

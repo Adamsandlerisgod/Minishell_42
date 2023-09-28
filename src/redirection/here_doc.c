@@ -1,51 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 13:31:20 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/09/25 21:04:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execute.h"
 
-int	len_variable(char *var)
+int	creat_here_doc(char *limiter)
 {
-	int	i;
+	char	*line;
+	int		fd;
 
-	i = 0;
-	while (var[i] != '=')
-		i++;
-	return (i + 1);
-}
-
-bool	check_var(char *var)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(var[i]))
-		return (false);
-	while (var[i] != '=')
+	fd = open(HEREDOC_NAME, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd == -1)
+		return (-1);
+	while (1)
 	{
-		if (!ft_isalnum(var[i]) && var[i] != '_')
-			return (false);
-		i++;
+		write(STDOUT_FILENO, "heredoc> ", 9);
+		line = get_next_line(STDIN_FILENO);
+		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
+			&& ((ft_strlen(line) - 1) == ft_strlen(limiter)))
+			break ;
+		write(fd, line, ft_strlen(line));
+		free(line);
 	}
-	return (true);
-}
-
-void	print_env(t_env *env)
-{
-	t_env	*tmp_env;
-
-	tmp_env = env;
-	while (tmp_env)
-	{
-		ft_putendl_fd(tmp_env->name, 1);
-		tmp_env = tmp_env->next;
-	}
+	free(line);
+	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:06:15 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/25 19:15:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ If export is called with arguments, it adds or changes the value of
 environment variables.
 */
 
-int	ft_export(t_data *data, int index)
+int	ft_export(t_data *data, char **env, int index)
 {
 	int	status;
 	int	i;
 
 	status = CMD_OK;
 	if (data->cmd[index].cmd[1] == NULL)
-		return (print_env(data->env), status);
+		return (print_env(env), status);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		// Error message management; no option accepted + usage

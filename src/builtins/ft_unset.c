@@ -6,11 +6,11 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 15:04:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/28 15:38:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/execute.h"
+#include "../../includes/execute.h"
 
 static void	parce_list_var(t_env *env, char *var)
 {
@@ -71,7 +71,7 @@ int	ft_unset(t_data *data, int index)
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
 			// Error message management; invalid variable
-			status = CMD_ERROR;
+			status = CMD_EXIT;
 		}
 		i++;
 	}

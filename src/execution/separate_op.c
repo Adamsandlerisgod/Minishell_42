@@ -6,17 +6,21 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/22 20:38:03 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 00:05:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/execute.h"
+#include "../../includes/execute.h"
 
-/*
-The function size_array_pipe returns the number of commands in the array.
-It takes a t_cmd structure as parameter.
-It returns the number of commands.
-*/
+static void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
 
 static size_t	size_array_pipe(t_cmd *cmd, int index)
 {
@@ -27,12 +31,6 @@ static size_t	size_array_pipe(t_cmd *cmd, int index)
 		i++;
 	return (i + 1);
 }
-
-/*
-The function waitpid is used to wait for the child process to finish.
-It takes an array of pid_t and the size of the array as parameters.
-It returns the status of the last child process.
-*/
 
 static int	waiting_pid(size_t len, pid_t *pid)
 {
@@ -46,42 +44,39 @@ static int	waiting_pid(size_t len, pid_t *pid)
 	return (status);
 }
 
-/*
-The function pipe_op is used to execute the commands separated by a pipe.
-It takes a t_cmd structure, an environment variable array,
-and an index as parameters.
-It returns the status of the last child process.
-*/
-
-static void	pipe_op(t_data *data, char **ev, int *index)
+static int	pipe_op(t_data *data, char **env, int *index)
 {
 	pid_t	*pid;
-	size_t	len_array;
 
-	len_array = size_array_pipe(data->cmd, index);
-	if (len_array == 1 && (is_builtins(data->cmd[*index].cmd) == true))
-		data->status = execute_builtins(data, index);
+	data->pipe_len = size_array_pipe(data->cmd, index);
+	if (data->pipe_len == 1 && (is_builtins(data, index) == true))
+		data->status = execute_builtins(data, env, index); // create a function to execute builtins alone
 	else
 	{
-		pid = fork_process(len_array, data, ev, index);
+		pid = fork_process(data, env, index);
 		if (pid == NULL)
-		return ;
-		data->status = waiting_pid(len_array, pid);
+			return (CMD_ERROR);
+		data->status = waiting_pid(data->pipe_len, pid);
 	}
-	*index += len_array;
+	*index += data->pipe_len;
+	return (CMD_OK);
 }
 
 /*
-The function separator_op is the main function of the execution part.
-It takes a t_cmd structure and an environment variable array as parameters,
-and the size of the array.
-It returns the exit status of the last command executed.
+The function separator_op is used to execute a list of pipe command.
+It returns the status of the last command executed.
 */
 
-int	separator_op(t_data *data, char **ev, int len)
+int	separator_op(t_data *data)
 {
-	(void)len;
+	char	**env;
+
 	data->status = 0; // to remove Wolf will initialize it
-	pipe_op(data, ev, 0);
+	env = env_array(data->env);
+	if (env == NULL)
+		return (CMD_ERROR);
+	if (pipe_op(data, env, 0) != CMD_OK)
+		return (CMD_ERROR);
+	free_array(env);
 	return (WEXITSTATUS(data->status));
 }

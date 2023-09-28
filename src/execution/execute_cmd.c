@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_execute_cmd.c                                   :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/15 15:17:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 00:03:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
-
-/*
-The function get_cmd() splits the command string into an array of strings.
-It takes a string as parameter.
-It returns an array of strings.
-*/
+#include "../../includes/execute.h"
 
 static char	**get_cmd(char *av)
 {
@@ -31,12 +25,6 @@ static char	**get_cmd(char *av)
 		exit_error("minishell: ", "command not found "); // TODO: error message
 	return (cmd);
 }
-
-/*
-The function get_env() returns the environment variable array.
-It takes an environment variable array as parameter.
-It returns an array of strings.
-*/
 
 static char	**get_env(char **ev)
 {
@@ -55,12 +43,6 @@ static char	**get_env(char **ev)
 	}
 	return (array);
 }
-
-/*
-The function check_path() checks if the command is in the PATH.
-It takes a string and an environment variable array as parameters.
-It returns the path of the command if it exists, otherwise it returns NULL.
-*/
 
 static char	*check_path(char *av, char **ev)
 {
@@ -89,12 +71,6 @@ static char	*check_path(char *av, char **ev)
 	free(path_array);
 	return (path);
 }
-
-/*
-The function get_path() returns the path of the command.
-It takes an array of strings and an environment variable array as parameters.
-It returns the path of the command if it exists, otherwise it returns NULL.
-*/
 
 static char	*get_path(char **cmd, char **ev)
 {
@@ -126,24 +102,21 @@ static char	*get_path(char **cmd, char **ev)
 }
 
 /*
-The function execute_cmd() executes the command.
-It takes a string and an environment variable array as parameters.
+The function execute_cmd is used to execute a command in a child process.
+It takes as parameters the command to be executed and the environment.
 It returns nothing.
 */
 
-void	execute_cmd(char *av, char **ev)
+void	execute_cmd(char *av, char **env)
 {
 	char	**cmd;
 	char	*path;
 
 	cmd = get_cmd(av);
-	path = get_path(cmd, ev);
-	if (execve(path, cmd, ev) == -1)
+	path = get_path(cmd, env);
+	if (execve(path, cmd, env) == -1)
 	{
-		while (*cmd != NULL)
-			free(*cmd++);
-		free(cmd);
-		free(path);
-		exit_error("minishell: ", "execve failed "); // TODO: error message
+		// Error message management; execve failed
+		exit (CMD_NOT_EXEC);
 	}
 }
