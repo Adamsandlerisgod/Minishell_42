@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/28 15:38:58 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:20:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_unset(t_data *data, int index)
 	status = CMD_OK;
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		// Error message management; no option accepted + usage
+		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
 	if (data->cmd[index].cmd[1] == NULL)
@@ -70,7 +70,7 @@ int	ft_unset(t_data *data, int index)
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
-			// Error message management; invalid variable
+			error_cmd(data->cmd[index].cmd[0], "invalid variable.");
 			status = CMD_EXIT;
 		}
 		i++;

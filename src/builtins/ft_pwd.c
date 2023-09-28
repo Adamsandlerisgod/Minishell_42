@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/28 15:38:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:20:02 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	ft_pwd(t_data *data, int index)
 
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		// Error message management; no option accepted + usage
+		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
 	getcwd(pwd, PATH_MAX);
 	if (pwd == NULL)
 	{
-		// Error message management; getcwd failed
+		error_system("pwd failed\n", errno);
 		return (CMD_ERROR);
 	}
 	ft_putendl_fd(pwd, STDOUT_FILENO);

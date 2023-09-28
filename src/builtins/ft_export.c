@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 19:15:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:19:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	add_variable(t_env *tmp_env, char *var)
 
 	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
-		// Error message management; malloc failed
+		error_system("malloc failed\n", errno);
 	new->name = ft_strdup(var);
 	new->next = NULL;
 	tmp_env->next = new;
@@ -66,7 +66,7 @@ int	ft_export(t_data *data, char **env, int index)
 		return (print_env(env), status);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		// Error message management; no option accepted + usage
+		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
 	i = 1;
@@ -74,7 +74,7 @@ int	ft_export(t_data *data, char **env, int index)
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
-			// Error message management; invalid variable
+			error_cmd(data->cmd[index].cmd[0], "invalid variable.");
 			status = CMD_ERROR;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:51 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/28 15:38:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:16:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env(t_data *data, char **env, int index)
 {
 	if (data->cmd[index].cmd[1])
 	{
-		// Error message management; no option or argument accepted + usage
+		error_cmd(data->cmd[index].cmd[0], "no option or argument accepted.");
 		return (CMD_EXIT);
 	}
 	print_env(env);

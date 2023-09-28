@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/28 15:38:05 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:16:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	set_oldpwd(t_env *env, char *oldpwd)
 	{
 		tmp_env = (t_env *)malloc(sizeof(t_env));
 		if (tmp_env == NULL)
-			// Error message management; malloc failed
+			error_system("malloc failed\n", errno);
 		tmp_env->name = oldpwd;
 		tmp_env->next = NULL;
 	}
@@ -64,19 +64,19 @@ static bool	check_path(t_cmd *cmd, int i)
 		cmd[i].cmd[1] == NULL || ft_strncmp(cmd[i].cmd[1], "~", 2) == 0 ||
 		ft_strncmp(cmd[i].cmd[1], "/", 2) == 0)
 		{
-			// Error message management; invalid path
+			error_cmd(cmd[i].cmd[0], "invalid path.");
 			return (false);
 		}
 	buf = (struct stat *)malloc(sizeof(struct stat));
 	if (stat(cmd[i].cmd[1], buf) == -1)
 	{
-		// Error message management; No such file or directory
+		error_cmd(cmd[i].cmd[0], "no such file or directory.");
 		free(buf);
 		return (false);
 	}
 	if (!S_ISDIR(buf->st_mode))
 	{
-		// Error message management; Not a directory
+		error_cmd(cmd[i].cmd[0], "not a directory.");
 		free(buf);
 		return (false);
 	}
@@ -95,14 +95,14 @@ int	ft_cd(t_data *data, int index)
 {
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		// Error message management; no option accepted + usage
+		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
 	if (check_path(data->cmd, index) == false)
 		return (CMD_EXIT);
 	if (chdir(data->cmd[index].cmd[1]) == -1);
 	{
-		// Error message management; chdir failed
+		error_system("chdir failed\n", errno);
 		return (CMD_ERROR);
 	}
 	set_env(data->env);

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 19:34:26 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:19:24 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_exit_status(t_data *data, char *arg)
 			status = (ft_atol(arg)%256);
 		else
 		{
-			// Error message management; numeric argument required
+			error_cmd("exit", "numeric argument required");
 			status = 255;
 		}
 	}
