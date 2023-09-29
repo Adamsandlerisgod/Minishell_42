@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/28 23:11:54 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:33:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #include <sys/ioctl.h>
 #include <curses.h>
 #include <term.h>
+#include <errno.h>
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -47,6 +48,7 @@ typedef struct s_data
 	t_env	*env;
 	int		status;
 	int		pipe_len;
+	int		pipefd[2];
 }		t_data;
 
 typedef struct s_env
@@ -58,7 +60,8 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			**cmd;
-	bool			pipe;
+	bool			pipe_in;
+	bool			pipe_out;
 	char			*infile;
 	bool			in_redir;
 	char			*outfile;
@@ -69,9 +72,6 @@ typedef struct s_cmd
 	bool			op; // used only for the bonus
 }			t_cmd;
 
-/*Error message management*/
-
-
 /*Creation of the envirronement of minishell*/
 
 t_env	*set_env(char **env);
@@ -81,11 +81,18 @@ char	**env_array(t_env *env);
 /*Executation part: execute a list of pipe command in childs or parent*/
 
 int		separator_op(t_data *data);
-pid_t	*fork_process(t_data *data, char **ev, int index);
-int		redirection(t_data *data, int *pipefd, int index);
-int		execute_cmd(char *av, char **env);
-bool	is_builtins(t_data *data, int index);
+pid_t	*fork_process(t_data *data, char **env, int index);
+void	execute_cmd(char *av, char **env);
+int		prepare_builtins_exec(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
+bool	is_builtins(t_data *data, int index);
+
+/*Redirection part: open files, pipe and dup the input and ouput*/
+
+int		redirection(t_data *data, int index);
+int		dup_files(int fd_origin, int fd_target);
+int		open_files(t_data *data, int index);
+int		creat_here_doc(char *limiter);
 
 /*Builtins part: list of the builtins command*/
 
@@ -96,5 +103,16 @@ int		ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
 int		ft_env(t_data *data, char **env, int index);
 int		ft_exit(t_data *data, int index);
+
+/*Utils*/
+
+int		len_variable(char *var);
+bool	check_var(char *var);
+void	print_env(char **env);
+
+/*Message part: return  the error message system or command*/
+
+void	error_system(char *msg, int errno);
+void	error_cmd(char *cmd, char *msg);
 
 #endif

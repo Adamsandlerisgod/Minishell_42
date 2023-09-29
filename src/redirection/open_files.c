@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:57:28 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 16:17:49 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:29:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_access_files(char *files, int flag)
 	return (CMD_OK);
 }
 
-int	open_here_doc(t_data *data, int index)
+static int	open_here_doc(t_data *data, int index)
 {
 	int	fd_in;
 	int	tmpfd[2];
@@ -50,7 +50,7 @@ int	open_here_doc(t_data *data, int index)
 	return (status);
 }
 
-int	open_infile(t_data *data, int index)
+static int	open_infile(t_data *data, int index)
 {
 	int	fd_in;
 	int	tmpfd[2];
