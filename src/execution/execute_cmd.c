@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 00:03:47 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:20:12 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,21 @@ static char	**get_cmd(char *av)
 	char	**cmd;
 
 	if (av == NULL || ft_strlen(av) == 0)
-		exit_error("minishell: ", "command not found"); // TODO: error message
+	{
+		error_cmd(av, "command not found");
+		exit(CMD_NOT_FOUND);
+	}
 	cmd = ft_split(av, ' ');
 	if (cmd == NULL)
-		exit_error("minishell", "malloc failed "); // TODO: error message
+	{
+		error_system("malloc failed", errno);
+		exit(CMD_NOT_EXEC);
+	}
 	if (cmd[0] == NULL)
-		exit_error("minishell: ", "command not found "); // TODO: error message
+	{
+		error_cmd(av, "command not found");
+		exit(CMD_NOT_FOUND);
+	}
 	return (cmd);
 }
 
@@ -34,12 +43,18 @@ static char	**get_env(char **ev)
 	while (*ev != NULL && ft_strncmp(*ev, "PATH=", 5) != 0)
 		ev++;
 	if (*ev == NULL)
-		exit_error("minishell: ", "No such file or directory"); // TODO: error message
+	{
+		error_cmd("PATH", "No such file or directory");
+		exit(CMD_NOT_FOUND);
+	}
 	if (ft_strncmp(*ev, "PATH=", 5) == 0)
 	{
 		array = ft_split(*ev + 5, ':');
 		if (array == NULL)
-			exit_error("minishell", "malloc failed "); // TODO: error message
+		{
+			error_system("malloc failed", errno);
+			exit(CMD_NOT_EXEC);
+		}
 	}
 	return (array);
 }
@@ -85,18 +100,18 @@ static char	*get_path(char **cmd, char **ev)
 		path = check_path(cmd[0], ev);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2); // TODO: error message
-		ft_putendl_fd(cmd[0], 2);
+		error_cmd(cmd[0], "command not found");
 		while (*cmd != NULL)
 			free(*cmd++);
-		exit(127);
+		exit(CMD_NOT_FOUND);
 	}
 	if (access(path, F_OK) == -1)
 	{
 		while (*cmd != NULL)
 			free(*cmd++);
 		free(cmd);
-		exit_error("minishell: no such file or directory: ", path); // TODO: error message
+		error_cmd(path, "No such file or directory");
+		exit(CMD_NOT_FOUND);
 	}
 	return (path);
 }
@@ -116,7 +131,7 @@ void	execute_cmd(char *av, char **env)
 	path = get_path(cmd, env);
 	if (execve(path, cmd, env) == -1)
 	{
-		// Error message management; execve failed
+		error_system("execve failed\n", errno);
 		exit (CMD_NOT_EXEC);
 	}
 }
