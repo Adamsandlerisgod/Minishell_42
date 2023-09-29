@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:16:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:34:38 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,17 @@ static void	set_env(t_env *env)
 	set_oldpwd(env, tmp_pwd);
 }
 
-
 static bool	check_path(t_cmd *cmd, int i)
 {
 	struct stat	*buf;
 
-	if (ft_strlen(cmd[i].cmd[1]) == 0 || ft_strlen(cmd[i].cmd[1]) >= PATH_MAX ||
-		cmd[i].cmd[1] == NULL || ft_strncmp(cmd[i].cmd[1], "~", 2) == 0 ||
-		ft_strncmp(cmd[i].cmd[1], "/", 2) == 0)
-		{
-			error_cmd(cmd[i].cmd[0], "invalid path.");
-			return (false);
-		}
+	if (ft_strlen(cmd[i].cmd[1]) == 0 || ft_strlen(cmd[i].cmd[1]) >= PATH_MAX
+		|| cmd[i].cmd[1] == NULL || ft_strncmp(cmd[i].cmd[1], "~", 2) == 0
+		|| ft_strncmp(cmd[i].cmd[1], "/", 2) == 0)
+	{
+		error_cmd(cmd[i].cmd[0], "invalid path.");
+		return (false);
+	}
 	buf = (struct stat *)malloc(sizeof(struct stat));
 	if (stat(cmd[i].cmd[1], buf) == -1)
 	{
@@ -100,7 +99,7 @@ int	ft_cd(t_data *data, int index)
 	}
 	if (check_path(data->cmd, index) == false)
 		return (CMD_EXIT);
-	if (chdir(data->cmd[index].cmd[1]) == -1);
+	if (chdir(data->cmd[index].cmd[1]) == -1)
 	{
 		error_system("chdir failed\n", errno);
 		return (CMD_ERROR);

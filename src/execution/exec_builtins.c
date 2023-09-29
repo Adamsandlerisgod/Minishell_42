@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 00:05:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:19:59 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,13 @@ int	execute_builtins(t_data *data, char **env, int index)
 	else if (ft_strncmp(data->cmd[index], "exit", 5) == 0)
 		return (ft_exit(data, index));
 	return (CMD_NOT_FOUND);
+}
+
+int	prepare_builtins_exec(t_data *data, char **env, int index)
+{
+	if (redirection(data, index) != CMD_OK)
+		return (CMD_ERROR);
+	if (execute_builtins(data, env, index) != CMD_OK)
+		return (CMD_ERROR);
+	return (CMD_OK);
 }

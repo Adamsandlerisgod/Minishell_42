@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/25 18:39:57 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/29 01:23:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**env_array(t_env *env)
 	env = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (env == NULL)
 	{
-		// Error message management; malloc failed (EXIT FAILURE)
+		error_system("malloc failed\n", errno);
 		return (NULL);
 	}
 	ev[len_env] = NULL;
@@ -67,7 +67,7 @@ static void	creat_new_env(t_env *my_env, char **env)
 	{
 		tmp = (t_env *)malloc(sizeof(t_env));
 		if (tmp == NULL)
-			// Error message management; malloc failed (EXIT FAILURE)
+			error_system("malloc failed\n", errno);
 		init_varaible(tmp, env);
 		tmp->next = NULL;
 		tmp = tmp->next;
@@ -87,7 +87,10 @@ t_env	*set_env(char **env)
 	t_env	*my_env;
 
 	if (!env)
-		// Error message management; env is NULL (EXIT FAILURE)
+	{
+		ft_putstr_fd("Error: env is NULL\n", STDERR_FILENO);
+		return (CMD_ERROR);
+	}
 	creat_new_env(my_env, env);
 	return (my_env);
 }
