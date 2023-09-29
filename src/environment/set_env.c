@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:23:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/09/30 01:08:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_env	*set_env(char **env)
 	if (!env)
 	{
 		ft_putstr_fd("Error: env is NULL\n", STDERR_FILENO);
-		return (CMD_ERROR);
+		exit (CMD_ERROR);
 	}
 	creat_new_env(my_env, env);
 	return (my_env);
