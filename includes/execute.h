@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 16:33:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/07 15:46:06 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ typedef struct s_cmd
 	char			**cmd;
 	bool			pipe_in;
 	bool			pipe_out;
-	char			*infile;
-	bool			in_redir;
-	char			*outfile;
-	bool			out_redir;
-	bool			here_doc;
-	char			*limiter;
-	int				w_mode; // maybe to modify with int O_APPEND or O_TRUNC
-	bool			op; // used only for the bonus
+	char			**limiters;
+	char			**infiles;
+	char			**outfiles;
+	bool			file_in;
+	bool			file_out;
+	bool			here_doc_in;
+	bool			*append;
 }			t_cmd;
 
 /*Creation of the envirronement of minishell*/
@@ -81,7 +80,7 @@ char	**env_array(t_env *env);
 /*Executation part: execute a list of pipe command in childs or parent*/
 
 int		separator_op(t_data *data);
-pid_t	*fork_process(t_data *data, char **env, int index);
+pid_t	fork_process(t_data *data, char **env, int index);
 void	execute_cmd(char *av, char **env);
 int		prepare_builtins_exec(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
