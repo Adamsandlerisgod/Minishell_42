@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/07 15:46:06 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:06:20 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define CMD_NOT_EXEC 126
 # define CMD_NOT_FOUND 127
 
-
 typedef struct s_data
 {
 	t_cmd	*cmd;
@@ -62,12 +61,13 @@ typedef struct s_cmd
 	char			**cmd;
 	bool			pipe_in;
 	bool			pipe_out;
-	char			**limiters;
-	char			**infiles;
-	char			**outfiles;
-	bool			file_in;
-	bool			file_out;
 	bool			here_doc_in;
+	int				nb_heredocs;
+	char			**limiters;
+	bool			file_in;
+	char			**infiles;
+	bool			file_out;
+	char			**outfiles;
 	bool			*append;
 }			t_cmd;
 

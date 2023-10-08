@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/07 15:57:59 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/07 16:25:13 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	creat_here_doc(char *limiter)
 		return (-1);
 	while (1)
 	{
-		write(STDOUT_FILENO, "> ", 9);
+		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
 			&& ((ft_strlen(line) - 1) == ft_strlen(limiter)))
@@ -49,12 +49,12 @@ int	execute_heredoc(t_data *data, int index)
 	int		i;
 	int		fd;
 
-	if (check_exist_heredoc() != CMD_OK)
-		return (CMD_ERROR);
 	i = 0;
 	fd = -1;
-	while (data->cmd[index].limiters[i])
+	while (data->cmd[index].nb_heredocs > i)
 	{
+		if (check_exist_heredoc() != CMD_OK)
+			return (CMD_ERROR);
 		if (fd != -1)
 			close(fd);
 		fd = creat_here_doc(data->cmd[index].limiters[i]);
