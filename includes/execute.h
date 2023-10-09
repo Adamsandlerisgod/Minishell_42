@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 02:06:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:03:24 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,32 @@ typedef struct s_cmd
 	bool			*append;
 }			t_cmd;
 
-/*Creation of the envirronement of minishell*/
+/*Environment*/
 
 t_env	*set_env(char **env);
 void	free_env(t_env *my_env);
 char	**env_array(t_env *env);
 
-/*Executation part: execute a list of pipe command in childs or parent*/
+/*Executation*/
 
-int		separator_op(t_data *data);
-pid_t	fork_process(t_data *data, char **env, int index);
-void	execute_cmd(char *av, char **env);
-int		prepare_builtins_exec(t_data *data, char **env, int index);
+bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
+void	execute_cmd(char **cmd, char **env);
+pid_t	fork_process(t_data *data, char **env, int index);
+int		separator_op(t_data *data);
 
-/*Redirection part: open files, pipe and dup the input and ouput*/
+/*Redirection*/
 
-int		redirection(t_data *data, int index);
-int		dup_files(int fd_origin, int fd_target);
-int		open_files(t_data *data, int index);
-int		creat_here_doc(char *limiter);
+int		dup_files(int fd_target, int fd_origin);
+int		execute_heredoc(t_data *data, int index);
+int		redir_infiles(t_data *data, int index);
+int		redir_outfiles(t_data *data, int index);
+int		redirection_pipes(t_data *data, int index);
+int		redirection_files(t_data *data, int index);
+int		check_access_files(t_data *data, int index);
 
-/*Builtins part: list of the builtins command*/
+/*Builtins*/
 
 int		ft_echo(t_data *data, int index);
 int		ft_cd(t_data *data, int index);
@@ -102,14 +105,11 @@ int		ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
 int		ft_env(t_data *data, char **env, int index);
 int		ft_exit(t_data *data, int index);
-
-/*Utils*/
-
 int		len_variable(char *var);
 bool	check_var(char *var);
 void	print_env(char **env);
 
-/*Message part: return  the error message system or command*/
+/*Messages*/
 
 void	error_system(char *msg, int errno);
 void	error_cmd(char *cmd, char *msg);

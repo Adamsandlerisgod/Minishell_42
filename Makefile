@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 02:03:42 by jhurpy            #+#    #+#              #
-#    Updated: 2023/09/25 15:32:37 by jhurpy           ###   ########.fr        #
+#    Updated: 2023/10/09 16:06:19 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,17 @@ SRC_FILES =	environment/free_env.c \
 			builtins/ft_export.c \
 			builtins/ft_pwd.c \
 			builtins/ft_unset.c \
-			execution/separate_op.c \
-			execution/fork_process.c \
-			execution/child_process.c \
+			builtins/utils_builtins.c \
+			execution/exec_builtins.c \
 			execution/execute_cmd.c \
-			execution/parent_process.c \
-			execution/check_builtins.c \
-			utils/utils_builtins.c \
+			execution/fork_process.c \
+			execution/separate_op.c \
+			message/error_system.c \
+			redirection/dup_files.c \
+			redirection/here_doc.c \
+			redirection/open_infiles.c \
+			redirection/open_outfiles.c \
+			redirection/redirection.c \
 
 OBJ_DIR = obj
 INC_DIR = include

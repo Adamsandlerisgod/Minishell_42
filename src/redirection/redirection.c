@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 02:12:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:00:59 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,3 @@ int	check_access_files(t_data *data, int index)
 	}
 	return (CMD_OK);
 }
-
-	//int	status;
-
-	//status = CMD_OK;
-	//if (data->cmd[index].in_redir == true || data->cmd[index].out_redir == true)
-	//{
-	//	if (open_files(data, index) != CMD_OK)
-	//		status = CMD_ERROR;
-	//}
-	//if (data->cmd[index].pipe_in == true && data->cmd[index].in_redir == false)
-	//{
-	//	if (dup_files(data->pipefd[0], STDIN_FILENO) != CMD_OK)
-	//		status = CMD_ERROR;
-	//}
-	//if (data->cmd[index].pipe_out == true
-	//	&& data->cmd[index].out_redir == false)
-	//{
-	//	if (dup_files(data->pipefd[1], STDOUT_FILENO) != CMD_OK)
-	//		status = CMD_ERROR;
-	//}
-	//return (status);
