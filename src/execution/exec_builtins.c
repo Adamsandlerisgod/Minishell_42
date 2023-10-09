@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 16:19:59 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/04 23:10:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ The function is_builtins is used to check if the command is a builtin.
 
 bool	is_builtins(t_data *data, int index)
 {
-	if (ft_strncmp(data->cmd[index], "echo", 6) == 0 || \
-		ft_strncmp(data->cmd[index], "cd", 3) == 0 || \
-		ft_strncmp(data->cmd[index], "pwd", 4) == 0 || \
-		ft_strncmp(data->cmd[index], "export", 7) == 0 || \
-		ft_strncmp(data->cmd[index], "unset", 6) == 0 || \
-		ft_strncmp(data->cmd[index], "env", 4) == 0 || \
-		ft_strncmp(data->cmd[index], "exit", 5) == 0)
+	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 6) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "pwd", 4) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "unset", 6) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "env", 4) == 0 || \
+		ft_strncmp(data->cmd[index].cmd[0], "exit", 5) == 0)
 		return (true);
 	return (false);
 }
@@ -52,11 +52,21 @@ int	execute_builtins(t_data *data, char **env, int index)
 	return (CMD_NOT_FOUND);
 }
 
-int	prepare_builtins_exec(t_data *data, char **env, int index)
+bool	builtin_in_parent(t_data *data, char **env, int index)
 {
-	if (redirection(data, index) != CMD_OK)
-		return (CMD_ERROR);
-	if (execute_builtins(data, env, index) != CMD_OK)
-		return (CMD_ERROR);
-	return (CMD_OK);
+	if (data->cmd[index].pipe_in == false && \
+		data->cmd[index].pipe_out == false)
+	{
+		if (ft_strncmp(data->cmd[index].cmd[0], "exit", 5) == 0
+			|| ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0
+			|| (ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0
+				&& data->cmd[index].cmd[1] != NULL)
+			|| ft_strncmp(data->cmd[index].cmd[0], "unset", 6) == 0)
+		{
+			data->status = execute_builtins(data, env, index);
+			return (true);
+		}
+		else
+			return (false);
+	}
 }

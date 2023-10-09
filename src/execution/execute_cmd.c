@@ -6,50 +6,45 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 17:20:12 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/09 12:54:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execute.h"
 
-static char	**get_cmd(char *av)
+static bool	check_cmd_accessible(char **cmd)
 {
-	char	**cmd;
-
-	if (av == NULL || ft_strlen(av) == 0)
+	if (ft_strncmp(cmd[0], "../", 3) == 0 || ft_strncmp(cmd[0], "./", 3) == 0)
 	{
-		error_cmd(av, "command not found");
-		exit(CMD_NOT_FOUND);
+		if (access(cmd[0], F_OK) == -1)
+		{
+			error_cmd(cmd[0], "No such file or directory");
+			exit(CMD_NOT_FOUND);
+		}
+		if (access(cmd[0], X_OK) == -1)
+		{
+			error_cmd(cmd[0], "Permission denied");
+			exit(CMD_NOT_EXEC);
+		}
 	}
-	cmd = ft_split(av, ' ');
-	if (cmd == NULL)
-	{
-		error_system("malloc failed", errno);
-		exit(CMD_NOT_EXEC);
-	}
-	if (cmd[0] == NULL)
-	{
-		error_cmd(av, "command not found");
-		exit(CMD_NOT_FOUND);
-	}
-	return (cmd);
+	return (true)
 }
 
-static char	**get_env(char **ev)
+static char	**get_env(char **env)
 {
 	char	**array;
 
 	array = NULL;
-	while (*ev != NULL && ft_strncmp(*ev, "PATH=", 5) != 0)
-		ev++;
-	if (*ev == NULL)
+	while (*env != NULL && ft_strncmp(*env, "PATH=", 5) != 0)
+		env++;
+	if (*env == NULL)
 	{
 		error_cmd("PATH", "No such file or directory");
 		exit(CMD_NOT_FOUND);
 	}
-	if (ft_strncmp(*ev, "PATH=", 5) == 0)
+	if (ft_strncmp(*env, "PATH=", 5) == 0)
 	{
-		array = ft_split(*ev + 5, ':');
+		array = ft_split(*env + 5, ':');
 		if (array == NULL)
 		{
 			error_system("malloc failed", errno);
@@ -59,14 +54,14 @@ static char	**get_env(char **ev)
 	return (array);
 }
 
-static char	*check_path(char *av, char **ev)
+static char	*check_path(char *av, char **env)
 {
 	char	**path_array;
 	char	*tmp_path;
 	char	*path;
 	int		i;
 
-	path_array = get_env(ev);
+	path_array = get_env(env);
 	i = -1;
 	while (path_array[++i] != NULL)
 	{
@@ -87,7 +82,7 @@ static char	*check_path(char *av, char **ev)
 	return (path);
 }
 
-static char	*get_path(char **cmd, char **ev)
+static char	*get_path(char **cmd, char **env)
 {
 	char	*path;
 
@@ -97,7 +92,7 @@ static char	*get_path(char **cmd, char **ev)
 		path = ft_strdup(cmd[0]);
 	}
 	else
-		path = check_path(cmd[0], ev);
+		path = check_path(cmd[0], env);
 	if (path == NULL)
 	{
 		error_cmd(cmd[0], "command not found");
@@ -116,22 +111,19 @@ static char	*get_path(char **cmd, char **ev)
 	return (path);
 }
 
-/*
-The function execute_cmd is used to execute a command in a child process.
-It takes as parameters the command to be executed and the environment.
-It returns nothing.
-*/
-
-void	execute_cmd(char *av, char **env)
+void	execute_cmd(char **cmd, char **env)
 {
-	char	**cmd;
 	char	*path;
 
-	cmd = get_cmd(av);
-	path = get_path(cmd, env);
+	if (cmd == NULL || cmd[0] == NULL)
+		exit(CMD_NOT_FOUND);
+	if (check_cmd_accessible(cmd) == true)
+		path = cmd[0];
+	else
+		path = get_path(cmd, env);
 	if (execve(path, cmd, env) == -1)
 	{
 		error_system("execve failed\n", errno);
-		exit (CMD_NOT_EXEC);
+		exit (CMD_ERROR);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 15:29:52 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/05 21:01:11 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static int	pipe_op(t_data *data, char **env, int *index)
 	pid_t	*pid;
 
 	data->pipe_len = size_array_pipe(data->cmd, index);
-	if (data->pipe_len == 1 && (is_builtins(data, index) == true))
-		data->status = execute_builtins(data, env, index);
+	if (builtin_in_parent(data, env, index) == true)
+		return (CMD_OK);
 	else
 	{
 		pid = fork_process(data, env, index);
@@ -58,7 +58,6 @@ static int	pipe_op(t_data *data, char **env, int *index)
 			return (CMD_ERROR);
 		data->status = waiting_pid(data->pipe_len, pid);
 	}
-	*index += data->pipe_len;
 	return (CMD_OK);
 }
 

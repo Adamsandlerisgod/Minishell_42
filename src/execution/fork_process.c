@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:35:02 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:12:34 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 static int	child_process(t_data *data, char **env, int index)
 {
+	if (execute_heredoc(data, index) != CMD_OK)
+		exit(CMD_ERROR);
+	if (check_access_files(data, index) != CMD_OK)
+		exit(CMD_ERROR);
+	if (redirection_files(data, index) != CMD_OK)
+		exit(CMD_ERROR);
+	if (redirection_pipes(data, index) != CMD_OK)
+		exit(CMD_ERROR);
 	if (check_builtins(data->cmd[index].cmd[0]) == true)
-		execute_builtins(data->cmd, env, index);
+		exit(execute_builtins(data->cmd, env, index));
 	else
 		execute_cmd(data->cmd[index].cmd, env);
 }
 
-/*
-The function fork_process is used to create a list of child process.
-It returns a list of pid.
-*/
-
-pid_t	*fork_process(t_data *data, char **env, int index)
+pid_t	fork_process(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
 	size_t	i;
@@ -36,8 +39,8 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 	i = 0;
 	while (i < data->pipe_len)
 	{
-		if (redirection(data, index + i) == CMD_ERROR)
-			return (CMD_ERROR);
+		if (pipe(data->pipefd) == -1)
+			return (error_system("pipe failed\n", errno), CMD_ERROR);
 		pid[i] = fork();
 		if (pid[i] == -1)
 			return (error_system("fork failed\n", errno), CMD_ERROR);
