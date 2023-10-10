@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 16:00:59 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/11 02:14:38 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	redirection_pipes(t_data *data, int index)
 {
-	if (data->cmd[index].pipe_in == true && data->cmd[index].file_in == false)
+	if (data->cmd[index].pipe_in == true && data->cmd[index].file_in == false
+		&& data->cmd[index].here_doc_in == false)
 	{
 		if (dup_files(data->pipefd[0], STDIN_FILENO) != CMD_OK)
 			return (CMD_ERROR);
