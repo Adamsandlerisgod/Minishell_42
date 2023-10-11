@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2023/09/12 20:22:23 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:09:19 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int	lenquote(char *line)
 			return (i + 1);
 		i++;
 	}
-	// if (c == "\"")
-	// 	quote_error(2);
-	// if (c == "\'")
-	// 	quote_error(1);
+	if (c == "\"")
+		quote_error(2);
+	if (c == "\'")
+		quote_error(1);
 	return (0);
 }
 
@@ -82,7 +82,7 @@ int	lenquote(char *line)
 
 int	lenoptr(char *line)
 {
-	if (*line && (line[1] == '&' || line[1] == '|' || line[1] == '<' || line[1] == '>'))
+	if (*line + 1 && (line[1] == '&' || line[1] == '|' || line[1] == '<' || line[1] == '>'))
 		return (2);
 	return (1);
 }
