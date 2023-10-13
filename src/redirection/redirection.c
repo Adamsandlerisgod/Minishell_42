@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/11 02:14:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:37:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ int	redirection_files(t_data *data, int index)
 	return (CMD_OK);
 }
 
+static int	creat_outfile(char *outfile)
+{
+	int	fd;
+
+	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		return (error_system("open error\n", errno), CMD_ERROR);
+	close(fd);
+	return (CMD_OK);
+}
+
+
 int	check_access_files(t_data *data, int index)
 {
 	int	i;
@@ -60,6 +72,11 @@ int	check_access_files(t_data *data, int index)
 	i = 0;
 	while (data->cmd[index].outfiles[i])
 	{
+		if (access(data->cmd[index].outfiles[i], F_OK) == -1)
+		{
+			if (creat_outfile(data->cmd[index].outfiles[i]) != CMD_OK)
+				return (CMD_ERROR);
+		}
 		if (access(data->cmd[index].outfiles[i], W_OK) == -1)
 			return (error_system("permission denied\n", errno), CMD_EXIT);
 	}
