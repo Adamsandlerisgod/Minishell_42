@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 16:03:24 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/13 16:21:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_cmd
 	char			**infiles;
 	bool			file_out;
 	char			**outfiles;
-	bool			*append;
+	bool			append;
 }			t_cmd;
 
 /*Environment*/
