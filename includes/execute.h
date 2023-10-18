@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:01:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/13 16:21:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/17 16:22:43 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #  define PATH_MAX 4096
 # endif
 
-# define HEREDOC_NAME "/tmp/.here_doc"
+# define HEREDOC_FILE "/.tmp_heredoc/"
 # define CMD_OK 0
 # define CMD_ERROR 1
 # define CMD_EXIT 2
@@ -62,6 +62,8 @@ typedef struct s_cmd
 	bool			pipe_in;
 	bool			pipe_out;
 	bool			here_doc_in;
+	int				here_doc_fd;
+	//char			*here_doc;
 	int				nb_heredocs;
 	char			**limiters;
 	bool			file_in;

@@ -6,11 +6,23 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/13 15:37:04 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/18 16:47:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execute.h"
+
+int	redirection_heredoc(t_data *data, int index)
+{
+	if (data->cmd[index].here_doc_in == true)
+	{
+		if (dup_files(data->cmd[index].here_doc_fd, STDIN_FILENO) != CMD_OK)
+			return (CMD_ERROR);
+		else
+			close (data->cmd[index].here_doc_fd)
+	}
+	return (CMD_OK);
+}
 
 int	redirection_pipes(t_data *data, int index)
 {

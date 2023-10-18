@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/05 21:01:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/16 10:13:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	pipe_op(t_data *data, char **env, int *index)
 	pid_t	*pid;
 
 	data->pipe_len = size_array_pipe(data->cmd, index);
+	open_heredoc(data);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else

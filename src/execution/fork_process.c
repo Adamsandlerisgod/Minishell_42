@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 02:12:34 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/10/18 16:38:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	child_process(t_data *data, char **env, int index)
 {
-	if (execute_heredoc(data, index) != CMD_OK)
+	if (redirection_heredoc(data, index) != CMD_OK)
 		exit(CMD_ERROR);
 	if (check_access_files(data, index) != CMD_OK)
 		exit(CMD_ERROR);
