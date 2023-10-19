@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/11 20:09:19 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:56:26 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,57 +27,25 @@ bool	isspecial(int c)
 	return (false);
 }
 
-int	lenvar(char *line)
-{
-	int i;
 
-	i = 0;
-	if (!ft_isalpha(line[i]) && !(line[i] == '_'))
-		return (0);
-	i++;
-	while (line[i] && (ft_isalnum(line[i]) || line[i] == '_'))
-		i++;
-	return (i);
-}
 
-int	lendollar(char *line)
-{
-	int i;
+// int	lendollar(char *line)
+// {
+// 	int i;
 
-	i = 1;
-	if (!(line[i]))
-		return (1);
-	else if (line[i] == '?')
-		i++;
-	else if (ft_isdigit(line[i]))
-		i++;
-	else if (isspecial(line[i]))
-	 	i++;
-	else if (ft_isalpha(line[i] || line[i] == '_'))
-		i += lenvar(&line[i]);
-	return (i);
-}
-
-int	lenquote(char *line)
-{
-	int i;
-	char c;
-
-	c = line[0];
-	i = 1;
-	while (line[i] != '\0')
-	{
-		if (line[i] == c)
-			return (i + 1);
-		i++;
-	}
-	if (c == "\"")
-		quote_error(2);
-	if (c == "\'")
-		quote_error(1);
-	return (0);
-}
-
+// 	i = 1;
+// 	if (!(line[i]))
+// 		return (1);
+// 	else if (line[i] == '?')
+// 		i++;
+// 	else if (ft_isdigit(line[i]))
+// 		i++;
+// 	else if (isspecial(line[i]))
+// 	 	i++;
+// 	else if (ft_isalpha(line[i] || line[i] == '_'))
+// 		i += lenvar(&line[i]);
+// 	return (i);
+// }
 
 
 int	lenoptr(char *line)
@@ -98,7 +66,7 @@ int	lencmd(char *line)
 }
 
 /*Check for unclosed quotes & Variables e.g. $$ -$ */
-bool	lexer(char *line)
+bool	checker(char *line)
 {
 	int i;
 

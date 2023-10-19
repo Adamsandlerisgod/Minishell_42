@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/11 20:10:34 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:06:21 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	return (0);
 }
 
-bool	expandinator(t_tokens *tokens, t_list *env)
+bool	expandinator(t_tokens *tokens, t_env *env)
 {
 	int	i;
 	int single_qt;
@@ -84,7 +84,7 @@ bool	expandinator(t_tokens *tokens, t_list *env)
 			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
 			while (pos != NULL)
 			{
-				if(!(expand_var(env, &(tokens->tokens[i]), &pos, &next_pos)))
+				if(!(expand_var(&env, &(tokens->tokens[i]), &pos, &next_pos)))
 					return (false);
 				pos = var_position(next_pos, &single_qt, &double_qt);
 			}

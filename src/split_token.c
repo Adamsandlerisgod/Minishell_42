@@ -6,25 +6,12 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2023/09/16 16:06:09 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:58:24 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	ft_istoken(int c)
-{
-	if (!(ft_isoprt(c)) && !(ft_isspace(c)))
-		return (true);
-	return (false);
-}
-
-bool	ft_isoptr(int c)
-{
-	if (c == '<' || c == '>' || c == '|')
-		return (true);
-	return (false);
-}
 /*&& included for bonus
 int	len_token(char *line)
 {

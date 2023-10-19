@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/11 19:07:14 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:05:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char *get_env_value(char *var, t_env **env, int var_len)
 	env_list = *env;
 	while (env_list->next != NULL)
 	{
-		if (ft_strncmp(var), "$?")
+		if (ft_strncmp(var, "$?", 2))
 		{	
 			name_value = ft_strdup(get_status());
 			return (name_value);
@@ -37,7 +37,7 @@ char *get_env_value(char *var, t_env **env, int var_len)
 	return (name_value);
 }
 
-bool	expand_var(t_list *env, char **token, char *pos, char **next_pos)
+bool	expand_var(t_env *env, char **token, char *pos, char **next_pos)
 {
 	char *env_value;
 	char *var;
