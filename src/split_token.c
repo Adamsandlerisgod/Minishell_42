@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/12 17:58:24 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:25:33 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	token_count(char *line)
 			return (tc);
 		if(ft_istoken(line[i]))
 			i += len_token(&line[i]);
-		else if(ft_isoprt(line[i]))
+		else if(ft_isoptr(line[i]))
 			i += lenoptr(&line[i]);
 		tc++;
 	}
@@ -103,49 +103,19 @@ char **token_split(char *line, int tc)
 		ft_memcpy(tokens[j], &line[i], k);
 		tokens[j][k] = '\0';
 		i += k;
+		j++;
 	}
 	tokens[tc] = NULL;
 	return (tokens);
 }
-
-// char **split_line(char *line, int tc)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	k;
-// 	char **line_s;
-
-// 	i = 0;
-// 	j = 1;
-// 	k = 0;
-// 	while(line[i++])
-// 	{
-// 		if (line[i] == '|')
-// 			j++;
-// 	}	
-// 	i = 0;
-// 	line_s = (char **)malloc(sizeof(char *) * (j + 1));
-// 	while (k++ < j)
-// 	{
-// 		while(line[tc] != '|' && line[tc])
-// 			tc++;	
-// 		line_s[k] = (char *)malloc(sizeof(char) * (tc - i + 1));
-// 		memcpy(line_s[k], &(line[i]), tc - i + 1);
-// 		line_s[k++][tc + 1] = '\0';
-// 		tc++;
-// 		i = tc; 
-// 	}
-// 	line_s[k] = NULL;
-// 	return(line_s);
-// }
 
 int split_token(char *line, t_tokens *stuff)
 {
 	int tc;
 	char **tokens;
 	// char **line_s;
-
 	tc = token_count(line);
+	printf("tc = %d \n", tc);
 	// line_s = split_line(line, tc);
 	tokens = (char **)malloc(sizeof(char *) * (tc + 1));
 	if (tc == 0)
@@ -156,3 +126,10 @@ int split_token(char *line, t_tokens *stuff)
 	return (true);
 }
 
+/*Test works great*/
+	// int i = 0;
+	// while(i < tc)
+	// {
+	// 		printf("tokens[%d] = %s \n", i, tokens[i]);
+	// 		i++;
+	// }

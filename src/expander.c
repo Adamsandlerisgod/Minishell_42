@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/12 18:06:21 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:00:38 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*var_position(char *token, int *s_open, int *d_open)
 			open_single_qt = !open_single_qt;	
 		if (token[i] == '\"' && !open_single_qt)
 			open_double_qt = !open_double_qt;
-		if (token[i] == '$' && (token[i + 1] == '?' | ft_isalpha(token[i + 1])) && !open_single_qt)
+		if (token[i] == '$' && (token[i + 1] == '?' || ft_isalpha(token[i + 1])) && !open_single_qt)
 		{
 			*s_open = open_single_qt;
 			*d_open = open_double_qt;
@@ -51,6 +51,8 @@ bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	i = 0;
 	open_single_qt = 0;
 	open_double_qt = 0;
+	if (single_qt == 1 || double_qt == 1)
+		return (0);
 	while (token[i] != '\0')
 	{
 		if (token[i] == '\'' && !open_double_qt)
@@ -84,7 +86,7 @@ bool	expandinator(t_tokens *tokens, t_env *env)
 			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
 			while (pos != NULL)
 			{
-				if(!(expand_var(&env, &(tokens->tokens[i]), &pos, &next_pos)))
+				if(!(expand_var(env, &(tokens->tokens[i]), pos, &next_pos)))
 					return (false);
 				pos = var_position(next_pos, &single_qt, &double_qt);
 			}

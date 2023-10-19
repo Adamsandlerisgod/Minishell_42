@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/09 18:24:25 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:07:30 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool quote_trim(t_tokens *tokens)
 		j = 0;
 		if (quote_count > 0)
 		{
-			tmp_token = qt_fixed_string(tokens->tokens[i], &count_quote, &j);
+			tmp_token = qt_fixed_string(tokens->tokens[i], &quote_count, &j);
 			if (!(tokens->tokens[i]))
 				/*error and free function*/
 			free(tokens->tokens[i]);

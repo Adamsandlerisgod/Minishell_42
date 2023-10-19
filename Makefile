@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/10/12 17:51:13 by whendrik         ###   ########.fr        #
+#    Updated: 2023/10/19 16:09:28 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ AR = ar rc
 NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
-SRC_FILES = main.c lexer.c split_token.c token_classification.c token_identify.c \
-			expander.c expand_var.c token_syntax.c quote_trim.c set_env.c utils_1.c
+SRC_FILES = main.c lexer.c split_token.c  token_identify.c \
+			expander.c expand_var.c token_syntax.c quote_trim.c utils_1.c \
+			struct_filler/struct_fill.c \
+			environment/set_env.c
 
 OBJ_DIR = obj
 INC_DIR = include

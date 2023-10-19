@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/12 17:56:26 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:47:36 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_iscmd(int c)
 {
-	if (!(ft_isquote(c)) && !(ft_isoprt(c)))
+	if (!(ft_isquote(c)) && !(ft_isoptr(c)))
 		return (true);
 	return (false);
 }
@@ -81,13 +81,13 @@ bool	checker(char *line)
 			break ;
 		else if(ft_isquote(*line))
 			i = lenquote(line);
-		else if(ft_isoprt(*line))
+		else if(ft_isoptr(*line))
 			i = lenoptr(line);
 		else if ((*line) == '$')
 			i = lenvar(line);
 		else if (ft_iscmd(*line))
 			i = lencmd(line);
-		if (i = 0)
+		if (i == 0)
 			return (false);
 		else
 			line += i;

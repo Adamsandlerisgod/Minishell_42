@@ -6,20 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/19 14:38:59 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:51:49 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	find_last_rdrt (t_tokens *tokens, int i, int j)
-{
-	j -= 1;
-	while(tokens->token_type[j] != e_pipe && j != 0)
-	{
-		if (tokens->token_type[j] == e_rdrt)
-	}
-}
 
 void	token_type_counter(t_tokens *tokens)
 {
@@ -45,14 +36,13 @@ void	token_type_counter(t_tokens *tokens)
 			j++;
 		}
 		j++;
-		find_last_rdrt(tokens, i, j);
 		i++;
 	}
 }
 
-t_tk_type token_class(char *token, t_tk_type pre, t_tokens *tokens)
+t_tk_type token_class(char *token, t_tk_type pre)
 {
-	if (!(ft_strncmp(token, "<>")) || !(ft_strncmp(token, "><")) 
+	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2)) 
 		|| (lenoptr(token) > 2))
 		return(e_void);
 	if (*token == '<' || *token == '>')
@@ -69,7 +59,6 @@ bool	token_identify(t_tokens *tokens)
 {
 	t_tk_type	*type;
 	int			i;
-	int			j;
 
 	i = 0;
 	type = (t_tk_type *)malloc(sizeof(t_tk_type) * (tokens->token_count + 1));
@@ -78,9 +67,9 @@ bool	token_identify(t_tokens *tokens)
 	while (i < tokens->token_count)
 	{
 		if (i == 0)
-			type[i] = token_class(tokens->tokens[i], e_void, tokens);
+			type[i] = token_class(tokens->tokens[i], e_void);
 		else
-			type[i] = token_class(tokens->tokens[i], type[i - 1], tokens);
+			type[i] = token_class(tokens->tokens[i], type[i - 1]);
 		if (type[i] == e_pipe)
 			tokens->pipe_count += 1;
 		if (type[i] == e_void)

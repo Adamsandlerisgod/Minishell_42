@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:30 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/12 17:55:47 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:08:29 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_istoken(int c)
 {
-	if (!(ft_isoprt(c)) && !(ft_isspace(c)))
+	if (!(ft_isoptr(c)) && !(ft_isspace(c)))
 		return (true);
 	return (false);
 }
@@ -39,10 +39,12 @@ int	lenquote(char *line)
 			return (i + 1);
 		i++;
 	}
-	if (c == "\"")
-		quote_error(2);
-	if (c == "\'")
-		quote_error(1);
+	if (c == '\"')
+		printf("quote error");
+		// quote_error(2);
+	if (c == '\'')
+		printf("quote error");
+		// quote_error(1);
 	return (0);
 }
 

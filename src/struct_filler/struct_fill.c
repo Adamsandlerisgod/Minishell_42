@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/19 14:38:35 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:45:56 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 	if (tokens->heredoc_count[j])
 	{
 		cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
-		cmd->nb_heredocs = tokens->heredoc_count;
+		cmd->nb_heredocs = tokens->heredoc_count[j];
 	}	
 	if (tokens->infile_count[j])
 		cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
@@ -116,7 +116,7 @@ void	find_last_rdrt(t_cmd *cmd, t_tokens *tokens, int i)
 	{
 		if (!(ft_strncmp(tokens->tokens[i], "<<", 2)))
 		{
-			cmd->here_doc_in == TRUE;
+			cmd->here_doc_in = TRUE;
 			break;
 		}
 		else if (!(ft_strncmp(tokens->tokens[i], "<", 1)))
@@ -128,24 +128,26 @@ void	find_last_rdrt(t_cmd *cmd, t_tokens *tokens, int i)
 	}
 }
 
-t_cmd	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
+void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 {
+	int x;
 
+	x = 0;
 	init_cmd(cmd, j, tokens);
-
 	mallocer(cmd, tokens, j);
 	while (tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)
 		{	
-			sort_rdrt(&cmd, tokens->tokens[*i], tokens->tokens[*i + 1]); 
+			sort_rdrt(cmd, tokens->tokens[*i], tokens->tokens[*i + 1]); 
 			*i += 2;
 			/*Only works bc token_syntax makes sure no pipe or rdrt comes after*/
 		}
 		else if (tokens->token_type[*i] == e_argument)
 		{
-			cmd->cmd = ft_strdup(tokens->tokens[*i]);
+			cmd->cmd[x] = ft_strdup(tokens->tokens[*i]);
 			*i += 1;
+			x++;
 		}
 	}
 	find_last_rdrt(cmd, tokens, *i - 1);
@@ -157,13 +159,15 @@ bool	struct_fill(t_tokens *tokens, t_data *data)
 	int j;
 	t_cmd	*cmd_struct;
 
-	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2);
+	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
 	i = 0;
 	j = 0;
 	while (j < tokens->pipe_count + 1)
 	{
-		cmd_struct[j] = identify_2(&cmd_struct[j], &tokens, j, &i);
+		identify_2(&cmd_struct[j], tokens, j, &i);
 		j++;
 	}
-	cmd_struct[j] = NULL;
+	// cmd_struct[j] = NULL;
+	data->cmd = cmd_struct;
+	return (1);
 }

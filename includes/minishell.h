@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/19 14:35:39 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:43:52 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,10 @@
 
 // }				t_token;
 
-typedef struct s_data
-{
-	t_cmd	*cmd;
-	t_env	*env;
-	int		status;
-	int		pipe_len;
-	int		pipefd[2];
-}		t_data;
-
 typedef struct s_env
 {
 	char	*name;
-	t_env	*next;
+	struct s_env	*next;
 }		t_env;
 
 typedef struct s_cmd
@@ -76,13 +67,14 @@ typedef struct s_cmd
 	bool			append;
 }			t_cmd;
 
-typedef enum e_type_rdrt
+typedef struct s_data
 {
-	e_input,
-	e_output,
-	e_heredoc,
-	e_append,
-}	t_type_rdrt;
+	t_cmd	*cmd;
+	t_env	*env;
+	int		status;
+	int		pipe_len;
+	int		pipefd[2];
+}		t_data;
 
 typedef enum e_type_token
 {
@@ -124,7 +116,7 @@ int 	split_token(char *line, t_tokens *stuff);
 
 /*token_identify & syntax*/
 bool	token_identify(t_tokens *tokens);
-bool 	token_syntax(t_tokens *tokens)
+bool 	token_syntax(t_tokens *tokens);
 
 /*Expand_var*/
 bool	expandinator(t_tokens *tokens, t_env *env);
@@ -132,5 +124,8 @@ bool	expand_var(t_env *env, char **token, char *pos, char **next_pos);
 
 /*Quote_trim*/
 bool quote_trim(t_tokens *tokens);
+
+/*Struct_fill*/
+bool	struct_fill(t_tokens *tokens, t_data *data);
 
 #endif
