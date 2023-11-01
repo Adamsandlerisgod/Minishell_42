@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/31 15:26:27 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:14:58 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 char *get_env_value(char *var, t_env **env, int var_len)
 {

@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/30 17:47:47 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:14:55 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 
 /*See where you can simplify*/

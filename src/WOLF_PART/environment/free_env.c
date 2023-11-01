@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/12 18:13:43 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:12:55 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 /*
 The function free_env() is used to free the environment variable.

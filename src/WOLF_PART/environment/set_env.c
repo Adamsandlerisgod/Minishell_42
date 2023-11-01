@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/30 18:42:50 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:12:52 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 
 void print_environment(t_env *env) {

@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/31 21:27:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:14:15 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void print_tokens(t_tokens *tokens) {
     for (int i = 0; i < tokens->token_count; i++) {

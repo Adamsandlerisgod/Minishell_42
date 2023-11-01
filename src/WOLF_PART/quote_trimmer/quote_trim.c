@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/10/31 15:27:05 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:15:01 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	count_quote(char *token)
 {

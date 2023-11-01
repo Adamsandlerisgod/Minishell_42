@@ -6,11 +6,11 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:46 by whendrik          #+#    #+#             */
-/*   Updated: 2023/09/14 19:25:56 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:12:45 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	count_blocks(char **array, int tc)
 {

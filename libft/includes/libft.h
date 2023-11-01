@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 17:43:21 by jeremy            #+#    #+#             */
-/*   Updated: 2023/11/01 19:26:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:49:23 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
-
+# include <stdbool.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif

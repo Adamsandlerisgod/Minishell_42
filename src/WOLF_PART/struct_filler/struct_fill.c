@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 18:40:09 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:12:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 // 	int	token_count;
 // 	int cmd_count;
 // }	t_tokens;
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {
