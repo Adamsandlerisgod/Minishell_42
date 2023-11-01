@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include "your_header.h" // Include your header file that contains struct definitions and function prototypes
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +9,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 18:40:09 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:38:27 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +58,22 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 		cmd->pipe_out = FALSE;
 	cmd->here_doc_in = FALSE;
 	cmd->file_in = FALSE;
-	if (tokens->outfile_count[j] > 0)
-		cmd->file_out = TRUE;
-	else
-		cmd->file_out = FALSE;
-	if (tokens->append_count[j] > 0) /*Check if its only if it appears last*/
-		cmd->append = TRUE;
-	else
-		cmd->append = FALSE;
-	cmd->here_doc_fd = -1;
-	cmd->cmd = NULL;
-	cmd->limiters = NULL;
-	cmd->infiles = NULL;
-	cmd->outfiles = NULL;
+	cmd->file_out = FALSE;
+	cmd->append = FALSE;
+	cmd->here_doc = NULL;
 }
 
 void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 {
-	printf("arg_count = %d \n", tokens->arg_count[j]);
-	if (tokens->arg_count[j])
-		cmd->cmd = (char **)calloc(sizeof(char *), (tokens->arg_count[j] + 1));
-	printf("heredoc_count = %d \n", tokens->heredoc_count[j]);
+	if (tokens->cmd_count)
+		cmd->cmd = (char **)calloc(sizeof(char *), (tokens->cmd_count + 1));
 	if (tokens->heredoc_count[j])
 	{
 		cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
-		cmd->nb_heredocs = tokens->heredoc_count[j];
+		cmd->nb_heredocs = tokens->heredoc_count;
 	}	
-	printf("infile_count = %d \n", tokens->infile_count[j]);
 	if (tokens->infile_count[j])
 		cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
-	printf("outfile_count = %d \n", tokens->outfile_count[j]);
 	if (tokens->outfile_count[j] || tokens->append_count[j])
 	{
 		cmd->outfiles = (char **)calloc(sizeof(char *), 
@@ -118,48 +107,25 @@ void	sort_rdrt(t_cmd *cmd, char *token, char *next_token)
 	
 }
 
-void	find_last_rdrt(t_cmd *cmd, t_tokens *tokens, int i)
+t_cmd	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 {
-	while (tokens->token_type[i] != e_pipe && i != 0)
-	{
-		if (!(ft_strncmp(tokens->tokens[i], "<<", 2)))
-		{
-			cmd->here_doc_in = TRUE;
-			break;
-		}
-		else if (!(ft_strncmp(tokens->tokens[i], "<", 1)))
-		{
-			cmd->file_in = TRUE;
-			break;
-		}
-		i--;
-	}
-}
 
-void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
-{
-	int x;
-
-	x = 0;
 	init_cmd(cmd, j, tokens);
 	mallocer(cmd, tokens, j);
-	while (tokens->token_type[*i] != e_pipe && tokens->token_type[*i])
+	while (tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)
 		{	
-			sort_rdrt(cmd, tokens->tokens[*i], tokens->tokens[*i + 1]); 
+			sort_rdrt(&cmd, tokens->tokens[*i], tokens->tokens[*i + 1]); 
 			*i += 2;
 			/*Only works bc token_syntax makes sure no pipe or rdrt comes after*/
 		}
 		else if (tokens->token_type[*i] == e_argument)
 		{
-			cmd->cmd[x] = ft_strdup(tokens->tokens[*i]);
-			printf("cmd[%d] print in structfill = %s \n", x, cmd->cmd[x]);
+			cmd->cmd = ft_strdup(tokens->tokens[*i]);
 			*i += 1;
-			x++;
 		}
 	}
-	find_last_rdrt(cmd, tokens, *i - 1);
 }
 
 bool	struct_fill(t_tokens *tokens, t_data *data)
@@ -168,15 +134,55 @@ bool	struct_fill(t_tokens *tokens, t_data *data)
 	int j;
 	t_cmd	*cmd_struct;
 
-	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
+	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2);
 	i = 0;
 	j = 0;
 	while (j < tokens->pipe_count + 1)
 	{
-		identify_2(&cmd_struct[j], tokens, j, &i);
-		i += 1; /*So its not stuck on pipe*/
+		cmd_struct[j] = identify_2(&cmd_struct[j], &tokens, j, &i);
 		j++;
 	}
-	data->cmd = cmd_struct;
-	return (1);
+	cmd_struct[j] = NULL;
+}
+
+int main() {
+    // Create a t_tokens structure and initialize it with some sample data
+    t_tokens tokens;
+    tokens.tokens = (char *[]){"ls", ">", "output.txt", NULL}; // Replace with your token data
+    tokens.token_type = NULL; // Replace with your token type data
+    tokens.pipe_count = 0; // Replace with the number of pipes
+    tokens.token_count = 3; // Replace with the total number of tokens
+    tokens.cmd_count = 1; // Replace with the total number of commands
+
+    // Create a t_data structure to hold the result
+    t_data data;
+
+    // Call the struct_fill function with the t_tokens and t_data structures
+    bool success = struct_fill(&tokens, &data);
+
+    // Check if the function executed successfully
+    if (success) {
+        // Print the results or perform other tests
+        printf("Function executed successfully.\n");
+
+        // Access data in the data structure and print it
+        if (data.cmd) {
+            printf("Command: %s\n", data.cmd[0]);
+        }
+
+        if (data.env) {
+            // Print env data if needed
+        }
+
+        if (data.status) {
+            // Print status data if needed
+        }
+
+        // Clean up allocated memory if needed
+    } else {
+        // Handle the case when the function didn't execute successfully
+        printf("Function failed.\n");
+    }
+
+    return 0;
 }

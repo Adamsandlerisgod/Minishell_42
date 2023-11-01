@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 17:43:21 by jeremy            #+#    #+#             */
-/*   Updated: 2023/06/22 02:04:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/01 19:26:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,8 @@ size_t	ft_strlen_gnl(const char *s, char c);
 int		find_n(char *s);
 void	ft_strlcat_gnl(char *dst, const char *src, size_t dstsize);
 void	ft_strlcpy_gnl(char *dst, const char *src, size_t dstsize);
+
+/*what wolf needs for minishell*/
+bool	ft_isquote(int c);
 
 #endif

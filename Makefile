@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/22 02:03:42 by jhurpy            #+#    #+#              #
-#    Updated: 2023/10/09 16:06:19 by jhurpy           ###   ########.fr        #
+#    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
+#    Updated: 2023/11/01 19:07:32 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,21 @@ AR = ar rc
 # Target library name and directories
 NAME = minishell
 LIBFT = ./libft/libft.a
-SRC_DIR = src
-SRC_FILES =	environment/free_env.c \
-			environment/set_env.c \
+SRC_DIR = src_Wolf
+SRC_FILES = 
+			WOLF_PART/main.c \
+
+			WOLF_PART/checker_and_split/lexer.c \
+			WOLF_PART/checker_and_split/split_token.c \
+			WOLF_PART/identify_and_syntax/token_identify\
+			WOLF_PART/identify_and_syntax/token_syntax\
+			WOLF_PART/var_expander/expand_var.c \
+			WOLF_PART/var_expander/expander.c \
+			WOLF_PART/quote_trimmer/quote_trim.c \
+			WOLF_PART/struct_filler/struct_fill.c \
+			WOLF_PART/environment/set_env.c \
+			WOLF_PART/utils/utils_1.c \
+
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \

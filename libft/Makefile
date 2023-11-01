@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 01:19:33 by jhurpy            #+#    #+#              #
-#    Updated: 2023/06/07 17:36:32 by jhurpy           ###   ########.fr        #
+#    Updated: 2023/11/01 19:26:01 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,8 @@ SRC_FILES = ft_atoi.c \
 		ft_tolower.c \
 		ft_toupper.c \
 		get_next_line.c \
-		get_next_line_utils.c
+		get_next_line_utils.c\
+		ft_isquote.c
 
 OBJ_DIR = obj
 INC_DIR = includes
