@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_system.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:57:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:09:56 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:48:32 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 void	error_system(char *msg, int errno)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open_outfiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 02:08:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:43:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 static int	open_outfile(char *outfile, bool append)
 {

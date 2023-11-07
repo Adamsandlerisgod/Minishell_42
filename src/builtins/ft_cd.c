@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:34:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:48:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 static void	set_oldpwd(t_env *env, char *oldpwd)
 {
@@ -30,7 +30,7 @@ static void	set_oldpwd(t_env *env, char *oldpwd)
 	{
 		tmp_env = (t_env *)malloc(sizeof(t_env));
 		if (tmp_env == NULL)
-			error_system("malloc failed\n", errno);
+			error_system("malloc failed\n", &errno);
 		tmp_env->name = oldpwd;
 		tmp_env->next = NULL;
 	}

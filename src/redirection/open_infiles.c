@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open_infiles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/09 01:58:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:43:21 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 static int	open_infile(char *infile)
 {

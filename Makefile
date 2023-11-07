@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/11/01 20:52:27 by whendrik         ###   ########.fr        #
+#    Updated: 2023/11/07 17:45:43 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,26 +35,25 @@ SRC_FILES = WOLF_PART/main.c \
 			WOLF_PART/quote_trimmer/quote_trim.c \
 			WOLF_PART/struct_filler/struct_fill.c \
 			WOLF_PART/environment/set_env.c \
-			WOLF_PART/utils/utils_1.c 
-
-			# builtins/ft_cd.c \
-			# builtins/ft_echo.c \
-			# builtins/ft_env.c \
-			# builtins/ft_exit.c \
-			# builtins/ft_export.c \
-			# builtins/ft_pwd.c \
-			# builtins/ft_unset.c \
-			# builtins/utils_builtins.c \
-			# execution/exec_builtins.c \
-			# execution/execute_cmd.c \
-			# execution/fork_process.c \
-			# execution/separate_op.c \
-			# message/error_system.c \
-			# redirection/dup_files.c \
-			# redirection/here_doc.c \
-			# redirection/open_infiles.c \
-			# redirection/open_outfiles.c \
-			# redirection/redirection.c \
+			WOLF_PART/utils/utils_1.c \
+			builtins/ft_cd.c \
+			builtins/ft_echo.c \
+			builtins/ft_env.c \
+			builtins/ft_exit.c \
+			builtins/ft_export.c \
+			builtins/ft_pwd.c \
+			builtins/ft_unset.c \
+			builtins/utils_builtins.c \
+			execution/exec_builtins.c \
+			execution/execute_cmd.c \
+			execution/fork_process.c \
+			execution/separate_op.c \
+			message/error_system.c \
+			redirection/dup_files.c \
+			redirection/here_doc.c \
+			redirection/open_infiles.c \
+			redirection/open_outfiles.c \
+			redirection/redirection.c 
 
 OBJ_DIR = obj
 INC_DIR = includes
