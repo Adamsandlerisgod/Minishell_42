@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:51 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/09/29 01:16:47 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:43:08 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 /*
 The function env_builtins is used to print the environment variables.

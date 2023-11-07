@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dup_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:10:30 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/10/07 16:41:15 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:43:20 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execute.h"
+#include "../../includes/minishell.h"
 
 int	dup_files(int fd_target, int fd_origin)
 {

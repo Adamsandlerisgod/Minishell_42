@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:15:37 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:42:08 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(struct_fill(tokens, data)))
 		return (false);
 	printf("Struct Filler\n");
-	print_test_struct(data, tokens);
+	// print_test_struct(data, tokens);
+	if (!(separator_op(data)))
+		return (printf("ITS JEREMY'S FAULT"), false);
 	return (true);
 }
 
@@ -110,27 +112,27 @@ int main(int ac, char **env)
 	char		*line;
 	t_tokens	tokens;
 	// char **fake_env = create_fake_environment(); 
-	int i = 0;
+	// int i = 0;
 
 
 	if (ac > 1)
 		exit(1);
-	env	= create_fake_environment();
-	while(env[i])
-		printf("%s \n", env[i++]);
-	printf("before init_data\n");
+	// env	= create_fake_environment();
+	// while(env[i])
+	// 	printf("%s \n", env[i++]);
+	// printf("before init_data\n");
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
-	// while (true)
-	// {
+	while (true)
+	{
 		// line = readline("minishell : ");
 		line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
 		if (*line && !(processor(line, &data, &tokens)))
 			printf("You have failed you sonofabitch\n");
 			// free_data(&data);
 		free(line);
-	// }
+	}
 	
 	return (0);
 }

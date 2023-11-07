@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 19:11:30 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:45:13 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,23 @@
 #include <sys/ioctl.h>
 #include <curses.h>
 #include <term.h>
+#include <errno.h>
+
+
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif
 
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define CMD_OK 0
+# define CMD_ERROR 1
+# define CMD_EXIT 2
+# define CMD_NOT_EXEC 126
+# define CMD_NOT_FOUND 127
+
 
 // typedef	struct s_token
 // {
