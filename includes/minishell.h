@@ -85,7 +85,7 @@ typedef struct s_data
 	t_cmd	*cmd;
 	t_env	*env;
 	int		status;
-	int		pipe_len;
+	size_t	pipe_len;
 	int		pipefd[2];
 }		t_data;
 
@@ -148,18 +148,19 @@ bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
 void	execute_cmd(char **cmd, char **env);
-pid_t	fork_process(t_data *data, char **env, int index);
+pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
 /*Redirection*/
 
 int		dup_files(int fd_target, int fd_origin);
-int		execute_heredoc(t_data *data, int index);
+int		redirection_heredoc(t_data *data, int index);
 int		redir_infiles(t_data *data, int index);
 int		redir_outfiles(t_data *data, int index);
 int		redirection_pipes(t_data *data, int index);
 int		redirection_files(t_data *data, int index);
 int		check_access_files(t_data *data, int index);
+void	open_heredoc(t_data *data);
 
 /*Builtins*/
 
@@ -171,12 +172,12 @@ int		ft_unset(t_data *data, int index);
 int		ft_env(t_data *data, char **env, int index);
 int		ft_exit(t_data *data, int index);
 int		len_variable(char *var);
-bool	check_var(char *var);
+bool	check_variable(char *var);
 void	print_env(char **env);
 
 /*Messages*/
 
-void	error_system(char *msg, int errno);
+void	error_system(char *msg);
 void	error_cmd(char *cmd, char *msg);
 
 #endif

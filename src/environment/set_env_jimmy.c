@@ -29,7 +29,7 @@ char	**env_array(t_env *env)
 	env = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (env == NULL)
 	{
-		error_system("malloc failed\n", errno);
+		error_system("malloc failed\n");
 		return (NULL);
 	}
 	ev[len_env] = NULL;
@@ -67,7 +67,7 @@ static void	creat_new_env(t_env *my_env, char **env)
 	{
 		tmp = (t_env *)malloc(sizeof(t_env));
 		if (tmp == NULL)
-			error_system("malloc failed\n", errno);
+			error_system("malloc failed\n");
 		init_varaible(tmp, env);
 		tmp->next = NULL;
 		tmp = tmp->next;

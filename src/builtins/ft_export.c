@@ -18,7 +18,7 @@ static void	add_variable(t_env *tmp_env, char *var)
 
 	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
-		error_system("malloc failed\n", errno);
+		error_system("malloc failed\n");
 	new->name = ft_strdup(var);
 	new->next = NULL;
 	tmp_env->next = new;

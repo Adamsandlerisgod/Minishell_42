@@ -36,7 +36,7 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 
 void	open_heredoc(t_data *data)
 {
-	int		i;
+	size_t	i;
 	int		j;
 	int		fd;
 

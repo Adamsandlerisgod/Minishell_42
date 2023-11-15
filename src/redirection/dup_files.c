@@ -16,15 +16,13 @@ int	dup_files(int fd_target, int fd_origin)
 {
 	if (dup2(fd_target, fd_origin) == -1)
 	{
-		error_system("dup2 failed\n", errno);
+		error_system("dup2 failed");
 		if (fd_origin != STDIN_FILENO && fd_origin != STDOUT_FILENO
 			&& fd_origin != STDERR_FILENO)
 			close(fd_origin);
 		if (fd_target != STDIN_FILENO && fd_target != STDOUT_FILENO
 			&& fd_target != STDERR_FILENO)
 			close(fd_target);
-		if (access(HEREDOC_NAME, F_OK) == 0)
-			unlink(HEREDOC_NAME);
 		return (CMD_ERROR);
 	}
 	return (CMD_OK);

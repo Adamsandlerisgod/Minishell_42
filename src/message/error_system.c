@@ -12,10 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-void	error_system(char *msg, int errno)
+void	error_system(char *msg)
 {
-	ft_putstr_fd(msg, STDERR_FILENO);
-	strerror(errno);
+	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
 void	error_cmd(char *cmd, char *msg)

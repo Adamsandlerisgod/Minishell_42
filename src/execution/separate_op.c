@@ -48,13 +48,13 @@ static int	pipe_op(t_data *data, char **env, int *index)
 {
 	pid_t	*pid;
 
-	data->pipe_len = size_array_pipe(data->cmd, index);
+	data->pipe_len = size_array_pipe(data->cmd, *index);
 	open_heredoc(data);
-	if (builtin_in_parent(data, env, index) == true)
+	if (builtin_in_parent(data, env, *index) == true)
 		return (CMD_OK);
 	else
 	{
-		pid = fork_process(data, env, index);
+		pid = fork_process(data, env, *index);
 		if (pid == NULL)
 			return (CMD_ERROR);
 		data->status = waiting_pid(data->pipe_len, pid);

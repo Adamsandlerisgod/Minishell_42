@@ -24,7 +24,7 @@ static int	open_infile(char *infile)
 	if (fd_in == -1)
 	{
 		if (pipe(tmpfd) == -1)
-			error_system("pipe failed\n", errno);
+			error_system("pipe failed");
 		dup_files(STDIN_FILENO, tmpfd[0]);
 		status = CMD_ERROR;
 	}

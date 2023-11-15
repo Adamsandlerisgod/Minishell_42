@@ -12,6 +12,36 @@
 
 #include "../../../includes/minishell.h"
 
+// Testing Remove later V
+char	**env_array(t_env *env)
+{
+	t_env	*tmp;
+	char	**ev;
+	int		len_env;
+
+	tmp = env;
+	len_env = 0;
+	while (tmp)
+	{
+		len_env++;
+		tmp = tmp->next;
+	}
+	tmp = env;
+	ev = (char **)malloc(sizeof(char *) * (len_env + 1));
+	if (ev == NULL)
+	{
+		error_system("malloc failed\n");
+		return (NULL);
+	}
+	ev[len_env] = NULL;
+	while (len_env--)
+	{
+		ev[len_env] = ft_strdup(tmp->name);
+		tmp = tmp->next;
+	}
+	return (ev);
+}
+// Testing Remove later ^
 
 void print_environment(t_env *env) {
     t_env *tmp = env;

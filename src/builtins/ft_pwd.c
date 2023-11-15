@@ -14,7 +14,7 @@
 
 int	ft_pwd(t_data *data, int index)
 {
-	char	*pwd[PATH_MAX];
+	char	pwd[PATH_MAX];
 
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
@@ -22,11 +22,11 @@ int	ft_pwd(t_data *data, int index)
 		return (CMD_EXIT);
 	}
 	getcwd(pwd, PATH_MAX);
-	if (pwd == NULL)
-	{
-		error_system("pwd failed\n", errno);
-		return (CMD_ERROR);
-	}
+	// if (pwd == NULL)
+	// {
+	// 	error_system("pwd failed");
+	// 	return (CMD_ERROR);
+	// }
 	ft_putendl_fd(pwd, STDOUT_FILENO);
 	free(pwd);
 	return (CMD_OK);

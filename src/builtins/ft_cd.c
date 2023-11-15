@@ -30,13 +30,13 @@ static void	set_oldpwd(t_env *env, char *oldpwd)
 	{
 		tmp_env = (t_env *)malloc(sizeof(t_env));
 		if (tmp_env == NULL)
-			error_system("malloc failed\n", &errno);
+			error_system("malloc failed\n");
 		tmp_env->name = oldpwd;
 		tmp_env->next = NULL;
 	}
 }
 
-static void	set_env(t_env *env)
+static void	set_variable_pwd(t_env *env)
 {
 	t_env	*tmp_env;
 	char	*tmp_pwd;
@@ -101,9 +101,9 @@ int	ft_cd(t_data *data, int index)
 		return (CMD_EXIT);
 	if (chdir(data->cmd[index].cmd[1]) == -1)
 	{
-		error_system("chdir failed\n", errno);
+		error_system("chdir failed");
 		return (CMD_ERROR);
 	}
-	set_env(data->env);
+	set_variable_pwd(data->env);
 	return (CMD_OK);
 }

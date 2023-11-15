@@ -19,7 +19,7 @@ int	redirection_heredoc(t_data *data, int index)
 		if (dup_files(data->cmd[index].here_doc_fd, STDIN_FILENO) != CMD_OK)
 			return (CMD_ERROR);
 		else
-			close (data->cmd[index].here_doc_fd)
+			return (close (data->cmd[index].here_doc_fd), CMD_OK);
 	}
 	return (CMD_OK);
 }
@@ -61,7 +61,7 @@ static int	creat_outfile(char *outfile)
 
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		return (error_system("open error\n", errno), CMD_ERROR);
+		return (error_system("open error"), CMD_ERROR);
 	close(fd);
 	return (CMD_OK);
 }
@@ -76,10 +76,10 @@ int	check_access_files(t_data *data, int index)
 	{
 		if (access(data->cmd[index].infiles[i], F_OK) == -1
 			&& data->cmd[index].infiles[i] != NULL)
-			return (error_system("file not found\n", errno), CMD_EXIT);
+			return (error_system("file not found"), CMD_EXIT);
 		else if (access(data->cmd[index].infiles[i], R_OK) == -1
 			&& data->cmd[index].infiles[i] != NULL)
-			return (error_system("permission denied\n", errno), CMD_EXIT);
+			return (error_system("permission denied"), CMD_EXIT);
 	}
 	i = 0;
 	while (data->cmd[index].outfiles[i])
@@ -90,7 +90,7 @@ int	check_access_files(t_data *data, int index)
 				return (CMD_ERROR);
 		}
 		if (access(data->cmd[index].outfiles[i], W_OK) == -1)
-			return (error_system("permission denied\n", errno), CMD_EXIT);
+			return (error_system("permission denied"), CMD_EXIT);
 	}
 	return (CMD_OK);
 }

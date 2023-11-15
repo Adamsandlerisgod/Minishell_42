@@ -32,6 +32,7 @@ static int	get_exit_status(t_data *data, char *arg)
 {
 	int	status;
 
+	(void) data;
 	status = 0;
 	if (arg)
 	{

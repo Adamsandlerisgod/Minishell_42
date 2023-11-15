@@ -26,7 +26,7 @@ static int	open_outfile(char *outfile, bool append)
 	fd_out = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
 	if (fd_out == -1)
 	{
-		error_system("open failed\n", errno);
+		error_system("open failed");
 		status = CMD_ERROR;
 	}
 	else

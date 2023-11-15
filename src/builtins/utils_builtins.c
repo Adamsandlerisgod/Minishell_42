@@ -22,7 +22,7 @@ int	len_variable(char *var)
 	return (i + 1);
 }
 
-bool	check_var(char *var)
+bool	check_variable(char *var)
 {
 	int	i;
 

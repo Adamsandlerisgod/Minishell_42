@@ -27,7 +27,7 @@ static bool	check_cmd_accessible(char **cmd)
 			exit(CMD_NOT_EXEC);
 		}
 	}
-	return (true)
+	return (true);
 }
 
 static char	**get_env(char **env)
@@ -47,7 +47,7 @@ static char	**get_env(char **env)
 		array = ft_split(*env + 5, ':');
 		if (array == NULL)
 		{
-			error_system("malloc failed", errno);
+			error_system("malloc failed");
 			exit(CMD_NOT_EXEC);
 		}
 	}
@@ -123,7 +123,7 @@ void	execute_cmd(char **cmd, char **env)
 		path = get_path(cmd, env);
 	if (execve(path, cmd, env) == -1)
 	{
-		error_system("execve failed\n", errno);
+		error_system("execve failed");
 		exit (CMD_ERROR);
 	}
 }

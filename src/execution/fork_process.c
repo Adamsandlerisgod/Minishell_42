@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	child_process(t_data *data, char **env, int index)
+static void	child_process(t_data *data, char **env, int index)
 {
 	if (redirection_heredoc(data, index) != CMD_OK)
 		exit(CMD_ERROR);
@@ -22,28 +22,28 @@ static int	child_process(t_data *data, char **env, int index)
 		exit(CMD_ERROR);
 	if (redirection_pipes(data, index) != CMD_OK)
 		exit(CMD_ERROR);
-	if (check_builtins(data->cmd[index].cmd[0]) == true)
-		exit(execute_builtins(data->cmd, env, index));
+	if (is_builtins(data, index) == true)
+		exit(execute_builtins(data, env, index));
 	else
 		execute_cmd(data->cmd[index].cmd, env);
 }
 
-pid_t	fork_process(t_data *data, char **env, int index)
+pid_t	*fork_process(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
 	size_t	i;
 
 	pid = (pid_t *)malloc(sizeof(pid_t) * data->pipe_len);
 	if (!pid)
-		return (error_system("malloc failed\n", errno), CMD_ERROR);
+		return (error_system("malloc failed"), NULL);
 	i = 0;
 	while (i < data->pipe_len)
 	{
 		if (pipe(data->pipefd) == -1)
-			return (error_system("pipe failed\n", errno), CMD_ERROR);
+			return (error_system("pipe failed"), NULL);
 		pid[i] = fork();
 		if (pid[i] == -1)
-			return (error_system("fork failed\n", errno), CMD_ERROR);
+			return (error_system("fork failed"), NULL);
 		else if (pid[i] == 0)
 			child_process(data, env, index + i);
 		else if (pid[i] > 0)

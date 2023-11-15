@@ -35,19 +35,19 @@ The function execute_builtins is used to execute the builtin commands.
 
 int	execute_builtins(t_data *data, char **env, int index)
 {
-	if (ft_strncmp(data->cmd[index], "echo", 6) == 0)
+	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 6) == 0)
 		return (ft_echo(data, index));
-	else if (ft_strncmp(data->cmd[index], "cd", 3) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
 		return (ft_cd(data, index));
-	else if (ft_strncmp(data->cmd[index], "pwd", 4) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "pwd", 4) == 0)
 		return (ft_pwd(data, index));
-	else if (ft_strncmp(data->cmd[index], "export", 7) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0)
 		return (ft_export(data, env, index));
-	else if (ft_strncmp(data->cmd[index], "unset", 6) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "unset", 6) == 0)
 		return (ft_unset(data, index));
-	else if (ft_strncmp(data->cmd[index], "env", 4) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "env", 4) == 0)
 		return (ft_env(data, env, index));
-	else if (ft_strncmp(data->cmd[index], "exit", 5) == 0)
+	else if (ft_strncmp(data->cmd[index].cmd[0], "exit", 5) == 0)
 		return (ft_exit(data, index));
 	return (CMD_NOT_FOUND);
 }
@@ -66,7 +66,6 @@ bool	builtin_in_parent(t_data *data, char **env, int index)
 			data->status = execute_builtins(data, env, index);
 			return (true);
 		}
-		else
-			return (false);
 	}
+	return (false);
 }
