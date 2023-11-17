@@ -14,27 +14,21 @@
 
 static void	child_process(t_data *data, char **env, int index)
 {
-	printf("Child process 1?\n");
 	if (data->cmd[index].here_doc_in == true)
 	{
 		if (redirection_heredoc(data, index) != CMD_OK)
 			exit(CMD_ERROR);
 	}
-	printf("Child process 2?\n");
 	if (check_access_files(data, index) != CMD_OK)
 		exit(CMD_ERROR);
-	printf("Child process 3?\n");
 	if (redirection_files(data, index) != CMD_OK)
 		exit(CMD_ERROR);
-	printf("Child process 4?\n");
 	if (redirection_pipes(data, index) != CMD_OK)
 		exit(CMD_ERROR);
-	printf("Child process 5 ?\n");
 	if (is_builtins(data, index) == true)
 		exit(execute_builtins(data, env, index));
 	else
 		execute_cmd(data->cmd[index].cmd, env);
-	printf("Child process 6?\n");
 }
 
 pid_t	*fork_process(t_data *data, char **env, int index)

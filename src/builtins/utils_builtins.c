@@ -44,10 +44,10 @@ void	print_env(char **env)
 	int	i;
 
 	i = 0;
-	printf("env[%d] = %s \n", i, env[i]);
+	// printf("env[%d] = %s \n", i, env[i]);
 	while (env[i])
 	{
-		printf("env[%d] = %s \n", i, env[i]);
+		// printf("env[%d] = %s \n", i, env[i]);
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}

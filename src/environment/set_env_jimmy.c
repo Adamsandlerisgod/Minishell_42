@@ -19,7 +19,6 @@ char	**env_array(t_env *env)
 	int		len_env;
 	int		i;
 
-	printf("node 1 env %s \n", env->name);
 	tmp = env;
 	len_env = 0;
 	i = 0;
@@ -28,7 +27,6 @@ char	**env_array(t_env *env)
 		len_env++;
 		tmp = tmp->next;
 	}
-	printf("len env = %d \n", len_env);
 	tmp = env;
 	ev = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (ev == NULL)
@@ -37,11 +35,10 @@ char	**env_array(t_env *env)
 		return (NULL);
 	}
 	ev[len_env] = NULL;
-	while (i < len_env)
+	while (len_env--)
 	{
-		ev[i] = ft_strdup(tmp->name);
+		ev[len_env] = ft_strdup(tmp->name);
 		tmp = tmp->next;
-		i++;
 	}
 	return (ev);
 }
@@ -63,34 +60,31 @@ static void	init_variable(t_env *tmp, char *env)
 		tmp->name = ft_strdup(env);
 }
 
-static void	creat_new_env(t_env *my_env, char **env)
+static t_env	*creat_new_env(char **env)
 {
 	t_env	*tmp;
+	t_env	*tmp_return;
 	int		i;
 
-	tmp = my_env;
-	printf("4\n");
+	tmp = NULL;
+	tmp_return = tmp;
 	i = 0;
 	while (env[i])
 	{
-		printf("5\n");
 		tmp = (t_env *)malloc(sizeof(t_env));
 		if (tmp == NULL)
 			error_system("malloc failed\n");
 		init_variable(tmp, env[i]);
-		printf("5.6 \n");
-		tmp->next = NULL;
-		tmp = tmp->next;
+		tmp->next = tmp_return;
+		tmp_return = tmp;
 		i++;
-		printf("env[%d] = %s \n", i, env[i]);
 		if (env[i] != NULL)
 		{
 			if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
 				i++;
 		}
-		printf("5.7 \n");
 	}
-		printf("6\n");
+	return (tmp);
 }
 
 /*
@@ -108,7 +102,6 @@ t_env	*set_env(char **env)
 		ft_putstr_fd("Error: env is NULL\n", STDERR_FILENO);
 		exit (CMD_ERROR);
 	}
-	creat_new_env(my_env, env);
-	printf("3\n");
+	my_env = creat_new_env(env);
 	return (my_env);
 }

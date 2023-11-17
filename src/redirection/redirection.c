@@ -14,7 +14,6 @@
 
 int	redirection_heredoc(t_data *data, int index)
 {
-	printf("Inshallah we in herdoc redirection \n");
 	if (data->cmd[index].here_doc_in == true)
 	{
 		printf("heredoc fd [%d] = [%d] \n", index, data->cmd[index].here_doc_fd);
@@ -23,7 +22,6 @@ int	redirection_heredoc(t_data *data, int index)
 		else
 			return (close (data->cmd[index].here_doc_fd), CMD_OK);
 	}
-	printf("Inshallah we still in herdoc redirection \n");
 	return (CMD_OK);
 }
 
@@ -75,20 +73,16 @@ int	check_access_files(t_data *data, int index)
 	int	i;
 
 	i = 0;
-	printf("check access files i++? 1 | index = %d | infile = %s\n", index, "africa");
 	while (data->cmd[index].infiles[i] != NULL)
 	{
-		printf("yallah \n");
 		if (access(data->cmd[index].infiles[i], F_OK) == -1
 			&& data->cmd[index].infiles[i] != NULL)
 			return (error_system("file not found"), CMD_EXIT);
 		else if (access(data->cmd[index].infiles[i], R_OK) == -1
 			&& data->cmd[index].infiles[i] != NULL)
 			return (error_system("permission denied"), CMD_EXIT);
-		printf("yallah 2 \n");
 		i++;
 	}
-	printf("check access files i++? 2\n");
 	i = 0;
 	while (data->cmd[index].outfiles[i])
 	{
@@ -101,6 +95,5 @@ int	check_access_files(t_data *data, int index)
 			return (error_system("permission denied"), CMD_EXIT);
 		i++;
 	}
-	printf("check access files i++? 3\n");
 	return (CMD_OK);
 }

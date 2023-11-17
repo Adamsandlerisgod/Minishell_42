@@ -57,13 +57,11 @@ char **create_fake_environment() {
     return env;
 }
 
-void init_data(t_data *data, char **env)
+void init_data(t_data *data, t_env *env)
 {
 	data->cmd = NULL;
 	
-	printf("before set_env\n");
-	data->env = set_env(env);
-	printf("post set_env\n");
+	data->env = env;
 	data->status = 1;	/*Uncertain can come back to this later*/
 	data->pipe_len = 0;
 	data->pipefd[1] = -1; /*Uncertain as well*/
@@ -117,23 +115,25 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	return (true);
 }
 
-int main(int ac, char** argv, char **env)
+int main(int ac, char** argv, char **ev)
 {
 	t_data		data;
 	char		*line;
 	t_tokens	tokens;
+	t_env		*env;
 	// char **fake_env = create_fake_environment(); 
 	// int i = 0;
 
-
-	if (ac > 1)
+	(void)argv;
+	if (ac != 1)
 		exit(1);
+	env = set_env(ev);
 	// env	= create_fake_environment();
 	// while(env[i])
 	// 	printf("%s \n", env[i++]);
 	// printf("before init_data\n");
-	print_env(argv);
-	print_env(env);
+	// print_env(argv);
+	// print_env(env);
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
@@ -148,6 +148,7 @@ int main(int ac, char** argv, char **env)
 			// break;
 			// free_data_struct(&data);
 		}
+	// separator_op(&data);
 		free(line);
 	// }
 	

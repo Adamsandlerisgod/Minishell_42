@@ -18,7 +18,6 @@ The function is_builtins is used to check if the command is a builtin.
 
 bool	is_builtins(t_data *data, int index)
 {
-	printf("is_builtins \n");
 	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 5) == 0 || \
 		ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0 || \
 		ft_strncmp(data->cmd[index].cmd[0], "pwd", 4) == 0 || \
@@ -36,7 +35,6 @@ The function execute_builtins is used to execute the builtin commands.
 
 int	execute_builtins(t_data *data, char **env, int index)
 {
-	printf("exec built in 1\n");
 	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 5) == 0)
 		return (ft_echo(data, index));
 	else if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)

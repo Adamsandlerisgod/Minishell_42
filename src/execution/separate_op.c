@@ -52,22 +52,18 @@ static int	pipe_op(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
 
-	printf("I am dead in pipeop 1\n");
 	data->pipe_len = 1;
 	// data->pipe_len = size_array_pipe(data->cmd, index);
-	printf("I am dead in pipeop 2 | pipelen = %zu \n", data->pipe_len);
 	open_heredoc(data);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else
 	{
-		printf("I am dead in pipeop 3\n");
 		pid = fork_process(data, env, index);
 		if (pid == NULL)
 			return (CMD_ERROR);
 		data->status = waiting_pid(data->pipe_len, pid);
 	}
-	printf("I am dead in pipeop 4\n");
 	return (CMD_OK);
 }
 
@@ -78,19 +74,14 @@ It returns the status of the last command executed.
 
 int	separator_op(t_data *data)
 {
-	char	**env;
+	char	**ev;
 
 	data->status = CMD_OK;
-	printf("I am dead 1\n");
-	// print(data->env);
-	env = env_array(data->env);
-	print_env(env);
-	if (env == NULL)
+	ev = env_array(data->env);
+	if (ev == NULL)
 		return (CMD_ERROR);
-	printf("I am dead 2\n");
-	if (pipe_op(data, env, 0) != CMD_OK)
+	if (pipe_op(data, ev, 0) != CMD_OK)
 		return (CMD_ERROR);
-	printf("I am dead 3\n");
-	free_array(env);
+	free_array(ev);
 	return (WEXITSTATUS(data->status));
 }
