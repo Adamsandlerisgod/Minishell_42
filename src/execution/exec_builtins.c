@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:16 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:10:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ The function is_builtins is used to check if the command is a builtin.
 
 bool	is_builtins(t_data *data, int index)
 {
-	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 6) == 0 || \
+	printf("is_builtins \n");
+	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 5) == 0 || \
 		ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0 || \
 		ft_strncmp(data->cmd[index].cmd[0], "pwd", 4) == 0 || \
 		ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0 || \
@@ -35,7 +36,8 @@ The function execute_builtins is used to execute the builtin commands.
 
 int	execute_builtins(t_data *data, char **env, int index)
 {
-	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 6) == 0)
+	printf("exec built in 1\n");
+	if (ft_strncmp(data->cmd[index].cmd[0], "echo", 5) == 0)
 		return (ft_echo(data, index));
 	else if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
 		return (ft_cd(data, index));

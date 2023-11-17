@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/11/07 17:45:43 by whendrik         ###   ########.fr        #
+#    Updated: 2023/11/16 16:50:18 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ SRC_FILES = WOLF_PART/main.c \
 			WOLF_PART/var_expander/expander.c \
 			WOLF_PART/quote_trimmer/quote_trim.c \
 			WOLF_PART/struct_filler/struct_fill.c \
-			WOLF_PART/environment/set_env.c \
 			WOLF_PART/utils/utils_1.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
@@ -53,12 +52,21 @@ SRC_FILES = WOLF_PART/main.c \
 			redirection/here_doc.c \
 			redirection/open_infiles.c \
 			redirection/open_outfiles.c \
-			redirection/redirection.c 
+			redirection/redirection.c \
+			environment/set_env_jimmy.c \
+			environment/free_env.c \
+			free_functions.c
+			# WOLF_PART/environment/set_env.c 
 
 OBJ_DIR = obj
 INC_DIR = includes
 LIBFT_DIR = ./libft
 INCS = -I$(INC_DIR) -I$(LIBFT_DIR)
+
+# HEAD = -I./includes -I$(READLINE_DIR)include/
+# ### INCLUDE ###
+# LIB 	= -lreadline -L$(READLINE_DIR)lib/
+# READLINE_DIR = /usr/local/opt/readline/
 
 # Sources, objects and dependencies
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

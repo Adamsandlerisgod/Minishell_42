@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/07 17:42:08 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:01:00 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ void print_test_struct(t_data *data, t_tokens *tokens)
 		print_test(data->cmd[i].limiters, tokens->heredoc_count[i]);
 		print_test(data->cmd[i].infiles, tokens->infile_count[i]);
 		print_test(data->cmd[i].outfiles, tokens->outfile_count[i] + tokens->append_count[i]);
+		printf("pipe_out = %d\n", data->cmd[i].pipe_out);
+		printf("pipe_in = %d\n", data->cmd[i].pipe_in);
+		printf("heredoc in = %d\n", data->cmd[i].here_doc_in);
+		printf("heredoc fd = %d\n", data->cmd[i].here_doc_fd);
+		printf("heredoc nb = %d\n", data->cmd[i].nb_heredocs);
+		printf("file_in = %d\n", data->cmd[i].file_in);
+		printf("file_out = %d\n", data->cmd[i].file_out);
+		printf("append = %d\n", data->cmd[i].append);
 		i++;
 	}
 }
@@ -75,6 +83,8 @@ void init_tokens(t_tokens *tokens)
 	tokens->append_count = NULL;
 }
 
+
+
 bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	// add_history(line);
@@ -100,13 +110,14 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(struct_fill(tokens, data)))
 		return (false);
 	printf("Struct Filler\n");
-	// print_test_struct(data, tokens);
-	if (!(separator_op(data)))
+	print_test_struct(data, tokens);
+	if ((separator_op(data) == CMD_ERROR))
 		return (printf("ITS JEREMY'S FAULT"), false);
+	printf("ITS JEREMY'S FAULT correct");
 	return (true);
 }
 
-int main(int ac, char **env)
+int main(int ac, char** argv, char **env)
 {
 	t_data		data;
 	char		*line;
@@ -121,18 +132,24 @@ int main(int ac, char **env)
 	// while(env[i])
 	// 	printf("%s \n", env[i++]);
 	// printf("before init_data\n");
+	print_env(argv);
+	print_env(env);
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
-	while (true)
-	{
+	// while (true)
+	// {
 		// line = readline("minishell : ");
-		line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
+		// line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
+		line = strdup("env");
 		if (*line && !(processor(line, &data, &tokens)))
+		{
 			printf("You have failed you sonofabitch\n");
-			// free_data(&data);
+			// break;
+			// free_data_struct(&data);
+		}
 		free(line);
-	}
+	// }
 	
 	return (0);
 }

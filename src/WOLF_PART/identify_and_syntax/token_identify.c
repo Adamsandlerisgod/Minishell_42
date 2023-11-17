@@ -6,18 +6,12 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:14:15 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:01:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void print_tokens(t_tokens *tokens) {
-    for (int i = 0; i < tokens->token_count; i++) {
-        printf("Token Type: %d\n", tokens->token_type[i]);
-        printf("Token: %s\n", tokens->tokens[i]);
-    }
-}
 bool type_count_malloc(t_tokens *tokens)
 {
 	int size;
@@ -105,14 +99,16 @@ bool	token_identify(t_tokens *tokens)
 		if (type[i] == e_pipe)
 			tokens->pipe_count += 1;
 		if (type[i] == e_void)
+		{
+			free_tokens(tokens);/*error message*/
 			return (false); /*syntax error near unexpected token `newline' */
+		}
 		i++;
 	}
 	tokens->token_type = type;
 	if (!(type_count_malloc(tokens)))
 		return (false, printf("type_count_malloc_failure"));
 	token_type_counter(tokens);
-	print_tokens(tokens);
 	return (true);
 }
 

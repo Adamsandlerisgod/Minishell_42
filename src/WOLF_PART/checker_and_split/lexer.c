@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:15:09 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:50:24 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_iscmd(int c)
 	return (false);
 }
 
-bool	isspecial(int c)
+bool	is_special(int c)
 {
 	if (c == '$' || c == '#' || c == '@' || c == '-'
 			|| c == '!' || c == '*')

@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 01:19:33 by jhurpy            #+#    #+#              #
-#    Updated: 2023/11/01 19:26:01 by whendrik         ###   ########.fr        #
+#    Updated: 2023/11/15 20:47:34 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC = gcc
 C_FLAGS = -Wall -Wextra -Werror -g3 # -fsanitize=address,undefined,leak
 D_FLAGS = -MMD -MP -MF $(OBJ_DIR)/$*.d
 
-# Commands
 RM = rm -rf
 AR = ar rc
 
@@ -94,7 +93,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 # Target library build rule
 $(NAME): $(OBJECTS)
 	@$(AR) $(NAME) $(OBJECTS)
-	@ranlib $(NAME)
+	@ranlib $(NAME) 
 
 # Clean object files
 clean:

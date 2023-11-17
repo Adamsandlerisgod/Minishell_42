@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:12:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:26:59 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {
-	if (j < (tokens->pipe_count + 1))
-		cmd->pipe_in = TRUE;
-	else
-		cmd->pipe_in = FALSE;
-	if (j > 0)
+	if (j < (tokens->pipe_count + 1) && tokens->pipe_count > 0)
 		cmd->pipe_out = TRUE;
 	else
 		cmd->pipe_out = FALSE;
+	if (j > 0)
+		cmd->pipe_in = TRUE;
+	else
+		cmd->pipe_in = FALSE;
 	cmd->here_doc_in = FALSE;
 	cmd->file_in = FALSE;
 	if (tokens->outfile_count[j] > 0)
@@ -73,23 +73,20 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 {
 	printf("arg_count = %d \n", tokens->arg_count[j]);
-	if (tokens->arg_count[j])
-		cmd->cmd = (char **)calloc(sizeof(char *), (tokens->arg_count[j] + 1));
+	// if (tokens->arg_count[j])
+	cmd->cmd = (char **)calloc(sizeof(char *), (tokens->arg_count[j] + 1));
 	printf("heredoc_count = %d \n", tokens->heredoc_count[j]);
-	if (tokens->heredoc_count[j])
-	{
-		cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
-		cmd->nb_heredocs = tokens->heredoc_count[j];
-	}	
+	// if (tokens->heredoc_count[j])
+	// {
+	cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
+	cmd->nb_heredocs = tokens->heredoc_count[j];
+	// }	
 	printf("infile_count = %d \n", tokens->infile_count[j]);
-	if (tokens->infile_count[j])
-		cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
+	// if (tokens->infile_count[j])
+	cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
 	printf("outfile_count = %d \n", tokens->outfile_count[j]);
-	if (tokens->outfile_count[j] || tokens->append_count[j])
-	{
-		cmd->outfiles = (char **)calloc(sizeof(char *), 
-			(tokens->outfile_count[j] + tokens->append_count[j] + 1));
-	}
+	cmd->outfiles = (char **)calloc(sizeof(char *), 
+		(tokens->outfile_count[j] + tokens->append_count[j] + 1));
 }
 
 void	sort_rdrt(t_cmd *cmd, char *token, char *next_token)

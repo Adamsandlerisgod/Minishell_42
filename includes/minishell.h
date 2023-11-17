@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/07 17:45:13 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:45:27 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,18 @@
 #include <term.h>
 #include <errno.h>
 
+# define RESET "\033[0m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define RED "\033[1;32m"
+# define GREEN "\033[1;32m"
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
+
+# define true 1
+# define false 0
 
 # define STDIN 0
 # define STDOUT 1
@@ -114,7 +122,8 @@ typedef	struct s_tokens
 
 /*Environment*/
 t_env	*set_env(char **env);
-void	free_env(t_env *my_env);
+// t_env	*set_env(char **env);
+// void	free_env(t_env *my_env);
 char	**env_array(t_env *env);
 
 /*checker*/
@@ -179,5 +188,12 @@ void	print_env(char **env);
 
 void	error_system(char *msg);
 void	error_cmd(char *cmd, char *msg);
+
+/*free_functions*/
+void	free_2d_array(char **array);
+void	free_cmd_struct(t_cmd *cmd);
+void	free_tokens(t_tokens *tokens);
+// void	free_data_struct(t_data *data);
+
 
 #endif

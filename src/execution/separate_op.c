@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:19 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:12:42 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ static void	free_array(char **array)
 	free(array);
 }
 
-static size_t	size_array_pipe(t_cmd *cmd, int index)
-{
-	size_t	i;
+// static size_t	size_array_pipe(t_cmd *cmd, int index)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (cmd[index + i].pipe_in == true && cmd[index + i].cmd != NULL)
-		i++;
-	return (i + 1);
-}
+// 	i = 0;
+// 	printf("I am dead in size array pipe[%d]\n", 69);
+// 	while (cmd[index].pipe_out == true && cmd[index].cmd != NULL)
+// 	{
+// 		index++;
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 static int	waiting_pid(size_t len, pid_t *pid)
 {
@@ -44,21 +48,26 @@ static int	waiting_pid(size_t len, pid_t *pid)
 	return (status);
 }
 
-static int	pipe_op(t_data *data, char **env, int *index)
+static int	pipe_op(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
 
-	data->pipe_len = size_array_pipe(data->cmd, *index);
+	printf("I am dead in pipeop 1\n");
+	data->pipe_len = 1;
+	// data->pipe_len = size_array_pipe(data->cmd, index);
+	printf("I am dead in pipeop 2 | pipelen = %zu \n", data->pipe_len);
 	open_heredoc(data);
-	if (builtin_in_parent(data, env, *index) == true)
+	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else
 	{
-		pid = fork_process(data, env, *index);
+		printf("I am dead in pipeop 3\n");
+		pid = fork_process(data, env, index);
 		if (pid == NULL)
 			return (CMD_ERROR);
 		data->status = waiting_pid(data->pipe_len, pid);
 	}
+	printf("I am dead in pipeop 4\n");
 	return (CMD_OK);
 }
 
@@ -72,11 +81,16 @@ int	separator_op(t_data *data)
 	char	**env;
 
 	data->status = CMD_OK;
+	printf("I am dead 1\n");
+	// print(data->env);
 	env = env_array(data->env);
+	print_env(env);
 	if (env == NULL)
 		return (CMD_ERROR);
+	printf("I am dead 2\n");
 	if (pipe_op(data, env, 0) != CMD_OK)
 		return (CMD_ERROR);
+	printf("I am dead 3\n");
 	free_array(env);
 	return (WEXITSTATUS(data->status));
 }

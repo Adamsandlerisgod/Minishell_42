@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:21 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:49:21 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ void	open_heredoc(t_data *data)
 	while (data->pipe_len > i)
 	{
 		j = 0;
-		while (data->cmd[i].nb_heredocs >= j)
+		while (data->cmd[i].nb_heredocs > j)
 		{
 			fd = creat_here_doc(data, i, j);
+			j++;
 			if (data->cmd[i].here_doc_in == true && data->cmd[i].nb_heredocs == j)
 				data->cmd[i].here_doc_fd = dup(fd);
 			close(fd);
-			j++;
 		}
+		i++;
 	}
 }
 
