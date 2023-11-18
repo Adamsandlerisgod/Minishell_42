@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/11/16 16:50:18 by whendrik         ###   ########.fr        #
+#    Updated: 2023/11/18 17:57:41 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,12 +61,12 @@ SRC_FILES = WOLF_PART/main.c \
 OBJ_DIR = obj
 INC_DIR = includes
 LIBFT_DIR = ./libft
+HEAD = -I./includes -I$(READLINE_DIR)include/
 INCS = -I$(INC_DIR) -I$(LIBFT_DIR)
 
-# HEAD = -I./includes -I$(READLINE_DIR)include/
 # ### INCLUDE ###
-# LIB 	= -lreadline -L$(READLINE_DIR)lib/
-# READLINE_DIR = /usr/local/opt/readline/
+LIB 	= -lreadline -L$(READLINE_DIR)lib/
+READLINE_DIR = /usr/local/opt/readline/
 
 # Sources, objects and dependencies
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -84,11 +84,11 @@ $(LIBFT):
 # Object file build rule
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(C_FLAGS) -c $< -o $@
+	$(CC) $(C_FLAGS) $(HEAD) -c $< -o $@
 
 # Target library build rule
 $(NAME): $(OBJECTS) $(LIBFT)
-	$(CC) $(C_FLAGS) $^ $(INCS) -o $(NAME)
+	$(CC) $(C_FLAGS) $(LIB) $^ $(INCS) -o $(NAME)
 
 # ---------------------------------------------------------------------------- #
 

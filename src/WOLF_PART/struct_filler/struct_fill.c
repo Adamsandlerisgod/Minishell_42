@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/16 16:26:59 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:19:55 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,14 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	int x;
 
 	x = 0;
+	printf("in identify_2\n");
+	print_env(tokens->tokens);
 	init_cmd(cmd, j, tokens);
+	printf("in identify_2 after initcmd \n");
+	print_env(tokens->tokens);
 	mallocer(cmd, tokens, j);
+	printf("in identify_2 after mallocer\n");
+	print_env(tokens->tokens);
 	while (tokens->token_type[*i] != e_pipe && tokens->token_type[*i])
 	{
 		if (tokens->token_type[*i] == e_rdrt)
@@ -152,6 +158,7 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 		{
 			cmd->cmd[x] = ft_strdup(tokens->tokens[*i]);
 			printf("cmd[%d] print in structfill = %s \n", x, cmd->cmd[x]);
+			printf("token[%d] in structfill = %s \n", x, tokens->tokens[*i]);
 			*i += 1;
 			x++;
 		}

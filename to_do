@@ -1,0 +1,9 @@
+Wolf =
+	- when using export funciton, and I call the variable with echo it wont print. 
+	- the error appears in my mallocer, function which has no problems so it means there's a memory problem that occurs before hand that needs fixing. (shit aint freed);
+	- solve issue of variable names that start with the same. (solved)
+	- quotetrimmer needs to be adjusted to new set_env.
+
+Jeremy = 
+	- ls is not working
+	- 

@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:14:58 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:55:07 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ char *get_env_value(char *var, t_env **env, int var_len)
 	{
 		if (ft_strncmp(var, "$?", 2) == 0)
 		{	
-			// name_value = ft_strdup(get_status());
+			name_value = ft_strdup("Were getting there");
 			// return (name_value);
 			printf("Not done with $? yet bitch");
-			return (" ");
+			return (name_value);
 		}
-		else if (ft_strncmp(var, env_list->name, var_len) == 0)
+		else if (ft_strncmp(var, env_list->name, var_len) == 0 
+			&& ft_strncmp("=", env_list->name + var_len, 1) == 0)
 		{
 			name_value = ft_strdup(env_list->name + var_len + 1);
 			return (name_value);

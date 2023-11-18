@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/16 17:01:00 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:42:53 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void init_tokens(t_tokens *tokens)
 
 bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
-	// add_history(line);
+	add_history(line);
 	if (!(checker(line)))
 		return (false);
 	printf("checker \n");
@@ -111,7 +111,7 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	print_test_struct(data, tokens);
 	if ((separator_op(data) == CMD_ERROR))
 		return (printf("ITS JEREMY'S FAULT"), false);
-	printf("ITS JEREMY'S FAULT correct");
+	// printf("ITS JEREMY'S FAULT correct \n");
 	return (true);
 }
 
@@ -123,7 +123,7 @@ int main(int ac, char** argv, char **ev)
 	t_env		*env;
 	// char **fake_env = create_fake_environment(); 
 	// int i = 0;
-
+	
 	(void)argv;
 	if (ac != 1)
 		exit(1);
@@ -137,20 +137,19 @@ int main(int ac, char** argv, char **ev)
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
-	// while (true)
-	// {
-		// line = readline("minishell : ");
+	while (true)
+	{
+		line = readline("minishell : ");
 		// line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
-		line = strdup("env");
+		// line = strdup("echo \"dog\"\'frog\'");
 		if (*line && !(processor(line, &data, &tokens)))
 		{
 			printf("You have failed you sonofabitch\n");
 			// break;
 			// free_data_struct(&data);
 		}
-	// separator_op(&data);
 		free(line);
-	// }
+	}
 	
 	return (0);
 }
