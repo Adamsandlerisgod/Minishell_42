@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/15 21:01:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:30:10 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	token_type_counter(t_tokens *tokens)
 
 	i = 0;
 	j = 0;
-	while(i < (tokens->pipe_count + 1))
+	while(i < (tokens->pipe_count + 1) && j < tokens->token_count)
 	{
-		while (tokens->token_type[j] != e_pipe && tokens->token_type[j] != e_void)
+		while (j < tokens->token_count && tokens->token_type[j] != e_pipe && tokens->token_type[j] != e_void)
 		{
 			if (!(ft_strncmp(tokens->tokens[j], "<<", 2)))
 				tokens->heredoc_count[i] += 1;
@@ -59,8 +59,6 @@ void	token_type_counter(t_tokens *tokens)
 			j++;
 		}
 		j++;
-		printf("num[%d] : heredoc count = %d : append count = %d : infile count = %d : outfile count = %d \n ", i, tokens->heredoc_count[i], 
-			tokens->append_count[i], tokens->infile_count[i], tokens->outfile_count[i]);
 		i++;
 	}
 }

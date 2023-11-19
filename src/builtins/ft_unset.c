@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:13 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:54:26 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_unset(t_data *data, int index)
 	}
 	if (data->cmd[index].cmd[1] == NULL)
 		return (status);
-		i = 1;
+	i = 1;
 	while (data->cmd[index].cmd[i])
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)

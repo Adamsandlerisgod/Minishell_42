@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/18 19:19:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:39:17 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	mallocer(cmd, tokens, j);
 	printf("in identify_2 after mallocer\n");
 	print_env(tokens->tokens);
-	while (tokens->token_type[*i] != e_pipe && tokens->token_type[*i])
+	while (*i < tokens->token_count && tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)
 		{	
@@ -162,6 +162,7 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 			*i += 1;
 			x++;
 		}
+		// *i += 1;
 	}
 	find_last_rdrt(cmd, tokens, *i - 1);
 }
