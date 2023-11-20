@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:17 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:25:50 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	execute_cmd(char **cmd, char **env)
 		path = cmd[0];
 	else
 		path = get_path(cmd, env);
+	printf("execute cmd/ path = %s / cmd = %s \n", path, *cmd);
 	if (execve(path, cmd, env) == -1)
 	{
 		error_system("execve failed");

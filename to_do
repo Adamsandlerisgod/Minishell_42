@@ -4,7 +4,9 @@ Wolf =
 	 -->not an error in expander(thats all gucci)
 	- solve issue of variable names that start with the same. (solved)
 	- quotetrimmer needs to be adjusted to new set_env.
-	quote trimmer is a biiiiiiitch.
+	quote trimmer is a biiiiiiitch(solved).
+
+	-with pipe, the structfill is messing up when it comes to the second cmd struct.
 
 Jeremy = 
 	- ls is not working

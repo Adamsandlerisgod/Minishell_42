@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:13:50 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:19:19 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int split_token(char *line, t_tokens *stuff)
 	tc = token_count(line);
 	printf("tc = %d \n", tc);
 	// line_s = split_line(line, tc);
-	tokens = (char **)malloc(sizeof(char *) * (tc + 1));
+	// tokens = (char **)malloc(sizeof(char *) * (tc + 1));
+	tokens = NULL;
 	if (tc == 0)
 		return (false);
 	tokens = token_split(line, tc);

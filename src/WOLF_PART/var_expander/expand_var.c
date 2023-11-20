@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/18 18:55:07 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:11:31 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ bool	expand_var(t_env *env, char **token, char *pos, char **next_pos)
 	new_token = (char *)ft_calloc(sizeof(char), (new_len + 1));
 	ft_memcpy(new_token, *token, ft_strlen(*token) - ft_strlen(pos));
 	ft_strlcat(new_token, env_value, strlen(new_token) + strlen(env_value) + 1);
-	memcpy(new_token + strlen(new_token), pos + var_len + 1, strlen(pos + var_len));
+	ft_memcpy(new_token + ft_strlen(new_token), pos + var_len + 1, ft_strlen(pos + var_len));
 	*next_pos = new_token + ft_strlen(env_value);
 	free(var);
 	free(env_value);
+	// free(*token);
 	*token = new_token;
-	free(new_token);
+	// free(new_token);
 	return (1);
 }

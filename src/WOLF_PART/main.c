@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/18 18:42:53 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:33:37 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return(false);
 	if (!(expandinator(tokens, data->env)))
 		return(false);
-	printf("Expandinator \n");
-	print_test(tokens->tokens, tokens->token_count);
+	// printf("Expandinator \n");
+	// print_test(tokens->tokens, tokens->token_count);
 	if (!(quote_trim(tokens)))
 		return (false);
 	printf("Quote trimmer \n");
