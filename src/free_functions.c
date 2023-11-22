@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/15 21:10:36 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:48:03 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,24 @@ void	free_cmd_struct(t_cmd *cmd)
 	int i;
 
 	i = 0;
-	free_2d_array(cmd->cmd);
+	printf("I am in free cmd struct \n");
+	if (cmd->cmd != NULL)
+		free_2d_array(cmd->cmd);
+	if (cmd->limiters != NULL)
 	free_2d_array(cmd->limiters);
+	if (cmd->infiles != NULL)
 	free_2d_array(cmd->infiles);
-	free_2d_array(cmd->outfiles);
-	while (cmd)
+	if (cmd->outfiles != NULL)
+		free_2d_array(cmd->outfiles);
+	if (cmd)
 		free(cmd);
-	free(cmd);
+	// free(cmd);
 }
 
 void	free_tokens(t_tokens *tokens)
 {
-	free_2d_array (tokens->tokens);
+	if (tokens->tokens != NULL)
+		free_2d_array (tokens->tokens);
 	if (tokens->token_type != NULL)
 		free(tokens->token_type);
 	tokens->pipe_count = 0;
@@ -54,7 +60,8 @@ void	free_tokens(t_tokens *tokens)
 		free(tokens->outfile_count);
 	if (tokens->append_count != NULL)
 		free(tokens->append_count);
-	free(tokens);
+	// if (tokens != NULL)
+	// 	free(tokens);
 }
 
 void	free_data_struct(t_data *data)

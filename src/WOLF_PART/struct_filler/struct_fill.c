@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/19 17:39:17 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:42:34 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {
-	if (j < (tokens->pipe_count + 1) && tokens->pipe_count > 0)
+	if (j < (tokens->pipe_count) && tokens->pipe_count > 0)
 		cmd->pipe_out = TRUE;
 	else
 		cmd->pipe_out = FALSE;
@@ -55,11 +55,11 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 		cmd->pipe_in = FALSE;
 	cmd->here_doc_in = FALSE;
 	cmd->file_in = FALSE;
-	if (tokens->outfile_count[j] > 0)
+	if (tokens->outfile_count != 0 && tokens->outfile_count[j] > 0)
 		cmd->file_out = TRUE;
 	else
 		cmd->file_out = FALSE;
-	if (tokens->append_count[j] > 0) /*Check if its only if it appears last*/
+	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0) /*Check if its only if it appears last*/
 		cmd->append = TRUE;
 	else
 		cmd->append = FALSE;
@@ -72,19 +72,20 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 
 void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 {
-	printf("arg_count = %d \n", tokens->arg_count[j]);
+	// printf("arg_count = %d \n", tokens->arg_count[j]);
 	// if (tokens->arg_count[j])
-	cmd->cmd = (char **)calloc(sizeof(char *), (tokens->arg_count[j] + 1));
-	printf("heredoc_count = %d \n", tokens->heredoc_count[j]);
+	if (cmd->cmd == NULL)
+		cmd->cmd = (char **)calloc(sizeof(char *), ((tokens->arg_count[j]) + 1));
+	// printf("heredoc_count = %d \n", tokens->heredoc_count[j]);
 	// if (tokens->heredoc_count[j])
 	// {
 	cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
 	cmd->nb_heredocs = tokens->heredoc_count[j];
 	// }	
-	printf("infile_count = %d \n", tokens->infile_count[j]);
+	// printf("infile_count = %d \n", tokens->infile_count[j]);
 	// if (tokens->infile_count[j])
 	cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
-	printf("outfile_count = %d \n", tokens->outfile_count[j]);
+	// printf("outfile_count = %d \n", tokens->outfile_count[j]);
 	cmd->outfiles = (char **)calloc(sizeof(char *), 
 		(tokens->outfile_count[j] + tokens->append_count[j] + 1));
 }
@@ -136,12 +137,12 @@ void	find_last_rdrt(t_cmd *cmd, t_tokens *tokens, int i)
 void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 {
 	int x;
-
+	
 	x = 0;
-	printf("in identify_2\n");
+	printf("in identify_2[%d]\n", j);
 	print_env(tokens->tokens);
 	init_cmd(cmd, j, tokens);
-	printf("in identify_2 after initcmd \n");
+	printf("in identify_2[%d] after initcmd \n", j);
 	print_env(tokens->tokens);
 	mallocer(cmd, tokens, j);
 	printf("in identify_2 after mallocer\n");
@@ -176,6 +177,7 @@ bool	struct_fill(t_tokens *tokens, t_data *data)
 	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
 	i = 0;
 	j = 0;
+	printf("in structfill pipecount + 1 = %d \n", tokens->pipe_count + 1);
 	while (j < tokens->pipe_count + 1)
 	{
 		identify_2(&cmd_struct[j], tokens, j, &i);

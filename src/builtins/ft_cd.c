@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:48:22 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:12:10 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,30 +97,28 @@ Creat function and implemetation
 
 int	ft_cd(t_data *data, int index)
 {
-	char	*path;
+	// char	*path;
 
-	if (!data->cmd[index].cmd || ft_isspace(data->cmd[index].cmd[1][0])
-		|| data->cmd[index].cmd[1][0] == '\0'
-		|| ft_strncmp(data->cmd[index].cmd[1], "--", 3))
-	{
-		path = 0;// function to get the variable "HOME"
-		if (!path || *path == '\0' || ft_isspace(*path))
-			return (error_cmd(data->cmd[index].cmd[0], "HOME not set"), CMD_EXIT);
-		return (!change_dir(data, path));
-	}
-	if (data->cmd[index].cmd[2])
-		return (error_cmd(data->cmd[index].cmd[0], "too many arguments"), CMD_EXIT);
-	if (ft_strncmp(data->cmd[index].cmd, "-", 2) == 0)
-	{
-		path = 0; // function to get the variable "OLDPATH"
-		if (!path)
-			return (error_cmd(data->cmd[index].cmd[0], "OLDPWD not set"), CMD_EXIT);
-		return (/*function to change the directory*/0);
-	}
-	return (/*function to change directory*/0);
-}
-
-
+	// if (!data->cmd[index].cmd || ft_isspace(data->cmd[index].cmd[1][0])
+	// 	|| data->cmd[index].cmd[1][0] == '\0'
+	// 	|| ft_strncmp(data->cmd[index].cmd[1], "--", 3))
+	// {
+	// 	path = 0;// function to get the variable "HOME"
+	// 	if (!path || *path == '\0' || ft_isspace(*path))
+	// 		return (error_cmd(data->cmd[index].cmd[0], "HOME not set"), CMD_EXIT);
+	// 	return (!change_dir(data, path));
+	// }
+	// if (data->cmd[index].cmd[2])
+	// 	return (error_cmd(data->cmd[index].cmd[0], "too many arguments"), CMD_EXIT);
+	// if (ft_strncmp(data->cmd[index].cmd, "-", 2) == 0)
+	// {
+	// 	path = 0; // function to get the variable "OLDPATH"
+	// 	if (!path)
+	// 		return (error_cmd(data->cmd[index].cmd[0], "OLDPWD not set"), CMD_EXIT);
+	// 	return (/*function to change the directory*/0);
+	// }
+	// return (/*function to change directory*/0);
+// }
 
 	int i = 0;
 	printf("IN BUITLINS\n");
@@ -144,4 +142,6 @@ int	ft_cd(t_data *data, int index)
 	printf("step : %d\n", i++);
 	set_variable_pwd(data->env);
 	return (CMD_OK);
+
+
 }

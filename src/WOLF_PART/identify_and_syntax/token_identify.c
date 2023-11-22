@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/20 15:21:38 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:45:04 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ bool type_count_malloc(t_tokens *tokens)
 	int size;
 
 	size = tokens->pipe_count + 1;
-	tokens->arg_count = (int *)malloc(sizeof(int) * size);
+	tokens->arg_count = (int *)ft_calloc(sizeof(int) , (size + 1));
 	if (tokens->arg_count == NULL)
 		return (false);
-	tokens->heredoc_count = (int *)malloc(sizeof(int) * size);
+	tokens->heredoc_count = (int *)ft_calloc(sizeof(int) , (size + 1));
 	if (tokens->heredoc_count == NULL)
 		return (false);
-	tokens->infile_count = (int *)malloc(sizeof(int) * size);
+	tokens->infile_count = (int *)ft_calloc(sizeof(int) , (size + 1));
 	if (tokens->infile_count == NULL)
 		return (false);
-	tokens->outfile_count = (int *)malloc(sizeof(int) * size);
+	tokens->outfile_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->outfile_count == NULL)
 		return (false);
-	tokens->append_count = (int *)malloc(sizeof(int) * size);	
+	tokens->append_count = (int *)ft_calloc(sizeof(int) , (size + 1));	
 	if (tokens->append_count == NULL)
 		return (false);
 	return (true);

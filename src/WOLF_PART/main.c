@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/20 17:33:37 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:40:18 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,18 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(quote_trim(tokens)))
 		return (false);
 	printf("Quote trimmer \n");
-	print_test(tokens->tokens, tokens->token_count);
+	// print_test(tokens->tokens, tokens->token_count);
 	if (!(struct_fill(tokens, data)))
 		return (false);
 	printf("Struct Filler\n");
-	print_test_struct(data, tokens);
+	// print_test_struct(data, tokens);
 	if ((separator_op(data) == CMD_ERROR))
 		return (printf("ITS JEREMY'S FAULT"), false);
 	// printf("ITS JEREMY'S FAULT correct \n");
+	if (tokens != NULL)
+		free_tokens(tokens);
+	if (data->cmd)
+		free_cmd_struct(data->cmd);
 	return (true);
 }
 
