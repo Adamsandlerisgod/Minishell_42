@@ -16,6 +16,7 @@ int	ft_pwd(t_data *data, int index)
 {
 	char	pwd[PATH_MAX];
 
+	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1] != NULL)
 	{
 		if (data->cmd[index].cmd[1][0] == '-')

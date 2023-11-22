@@ -56,12 +56,17 @@ If export is called with arguments, it adds or changes the value of
 environment variables.
 */
 
+/*
+Change the implementation for add variable and if variable are wrong.
+*/
+
 int	ft_export(t_data *data, char **env, int index)
 {
 	int	status;
 	int	i;
 
 	status = CMD_OK;
+	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1] == NULL)
 		return (print_env(env), status);
 	if (data->cmd[index].cmd[1][0] == '-')

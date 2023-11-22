@@ -16,25 +16,54 @@
 The function ft_echo is used to print the arguments.
 */
 
-int	ft_echo(t_data *data, int index)
+static bool	have_new_line(char *arg)
 {
-	int		args;
+	int	i;
 	bool	flag;
 
-	args = 1;
-	if (ft_strncmp(data->cmd[index].cmd[args], "-n", 3) == 0)
+	flag = false;
+	i = 0;
+	if (arg[i] != '-')
+		return (flag);
+	i++;
+	while (arg[i] && arg[i] == 'n')
+		i++;
+	if (arg[i] == '\0')
+		flag = true;
+	return (flag);
+}
+
+static void	print_echo(char **args, bool flag, int i)
+{
+	if (!args[i])
+	{
+		if (!flag)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		return ;
+	}
+	while (args[i])
+	{
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		else if (!args[i + 1] && !flag)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
+	}
+}
+
+int	ft_echo(t_data *data, int index)
+{
+	int		i;
+	bool	flag;
+
+	i = 1;
+	flag = false;
+	while (data->cmd[index].cmd[i] && have_new_line(data->cmd[index].cmd[i]))
 	{
 		flag = true;
-		args++;
+		i++;
 	}
-	while (data->cmd[index].cmd[args])
-	{
-		ft_putstr(data->cmd[index].cmd[args]);
-		if (data->cmd[index].cmd[args + 1])
-			ft_putchar(' ');
-		args++;
-	}
-	if (!flag)
-		ft_putchar('\n');
+	print_echo(data->cmd[index].cmd, flag, i);
 	return (CMD_OK);
 }

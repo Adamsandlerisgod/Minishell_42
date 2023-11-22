@@ -19,6 +19,7 @@ Check if the command has an option or an argument.
 
 int	ft_env(t_data *data, char **env, int index)
 {
+	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1])
 	{
 		error_cmd(data->cmd[index].cmd[0], "no option or argument accepted.");

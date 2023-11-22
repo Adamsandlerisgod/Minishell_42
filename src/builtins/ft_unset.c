@@ -52,12 +52,18 @@ static void	remove_variable(t_env *env, char **var)
 The function unset_builtins is used to remove environment variables.
 */
 
+/*
+Commande does not find the variable but the full data but export work
+Find solution in parcer of word
+*/
+
 int	ft_unset(t_data *data, int index)
 {
 	int	status;
 	int	i;
 
 	status = CMD_OK;
+	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], "no option accepted.");

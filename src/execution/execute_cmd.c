@@ -26,8 +26,9 @@ static bool	check_cmd_accessible(char **cmd)
 			error_cmd(cmd[0], "Permission denied");
 			exit(CMD_NOT_EXEC);
 		}
+		return (true);
 	}
-	return (true);
+	return (false);
 }
 
 static char	**get_env(char **env)
@@ -121,7 +122,6 @@ void	execute_cmd(char **cmd, char **env)
 		path = cmd[0];
 	else
 		path = get_path(cmd, env);
-	printf("execute cmd/ path = %s / cmd = %s \n", path, *cmd);
 	if (execve(path, cmd, env) == -1)
 	{
 		error_system("execve failed");

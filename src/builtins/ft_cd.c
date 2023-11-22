@@ -90,20 +90,58 @@ If the path is not valid, the function returns 1.
 If the path is valid, the function returns 0.
 */
 
+/*
+Find a way to manage "~", "/" and no argument as absolut or relative path.
+Creat function and implemetation
+*/
+
 int	ft_cd(t_data *data, int index)
 {
+	char	*path;
+
+	if (!data->cmd[index].cmd || ft_isspace(data->cmd[index].cmd[1][0])
+		|| data->cmd[index].cmd[1][0] == '\0'
+		|| ft_strncmp(data->cmd[index].cmd[1], "--", 3))
+	{
+		path = 0;// function to get the variable "HOME"
+		if (!path || *path == '\0' || ft_isspace(*path))
+			return (error_cmd(data->cmd[index].cmd[0], "HOME not set"), CMD_EXIT);
+		return (!change_dir(data, path));
+	}
+	if (data->cmd[index].cmd[2])
+		return (error_cmd(data->cmd[index].cmd[0], "too many arguments"), CMD_EXIT);
+	if (ft_strncmp(data->cmd[index].cmd, "-", 2) == 0)
+	{
+		path = 0; // function to get the variable "OLDPATH"
+		if (!path)
+			return (error_cmd(data->cmd[index].cmd[0], "OLDPWD not set"), CMD_EXIT);
+		return (/*function to change the directory*/0);
+	}
+	return (/*function to change directory*/0);
+}
+
+
+
+	int i = 0;
+	printf("IN BUITLINS\n");
+	if (data->cmd[index].cmd[1] == NULL)
+		return (error_cmd(data->cmd[index].cmd[0], "missed a option."), CMD_EXIT);
+	printf("step : %d\n", i++);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
+	printf("step : %d\n", i++);
 	if (check_path(data->cmd, index) == false)
 		return (CMD_EXIT);
+	printf("step : %d\n", i++);
 	if (chdir(data->cmd[index].cmd[1]) == -1)
 	{
 		error_system("chdir failed");
 		return (CMD_ERROR);
 	}
+	printf("step : %d\n", i++);
 	set_variable_pwd(data->env);
 	return (CMD_OK);
 }
