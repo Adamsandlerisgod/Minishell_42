@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:14:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:10:25 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,16 @@ bool	expandinator(t_tokens *tokens, t_env *env)
 	i = 0;
 	single_qt = 0;
 	double_qt = 0;
-	printf("command count = %d \n", tokens->token_count);
 	while (i < tokens->token_count)
 	{
 
-		printf("yeet[%d] \n", i);
 		if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))
 		{
-			printf("wigger \n");
 			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
-			printf("pos = %s \n", pos);
 			while (pos != NULL)
 			{
 				if(!(expand_var(env, &(tokens->tokens[i]), pos, &next_pos)))
 					return (false);
-				printf("snigger \n");
 				pos = var_position(next_pos, &single_qt, &double_qt);
 			}
 		}

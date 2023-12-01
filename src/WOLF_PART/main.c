@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/22 15:40:18 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:11:01 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	add_history(line);
 	if (!(checker(line)))
 		return (false);
-	printf("checker \n");
+	// printf("checker \n");
 	if(!(split_token(line, tokens)))
 		return (false);
-	printf("split_token\n");
+	// printf("split_token\n");
 	if (!(token_identify(tokens))) /*Needs adapting for s_cmd struct*/
 		return (false);
-	printf("token_identify\n");
+	// printf("token_identify\n");
 	if (!(token_syntax(tokens)))	/*Needs fixing(incomplete)*/
 		return(false);
 	if (!(expandinator(tokens, data->env)))
@@ -103,7 +103,7 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	// print_test(tokens->tokens, tokens->token_count);
 	if (!(quote_trim(tokens)))
 		return (false);
-	printf("Quote trimmer \n");
+	// printf("Quote trimmer \n");
 	// print_test(tokens->tokens, tokens->token_count);
 	if (!(struct_fill(tokens, data)))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/22 15:48:03 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:11:32 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_cmd_struct(t_cmd *cmd)
 	int i;
 
 	i = 0;
-	printf("I am in free cmd struct \n");
 	if (cmd->cmd != NULL)
 		free_2d_array(cmd->cmd);
 	if (cmd->limiters != NULL)

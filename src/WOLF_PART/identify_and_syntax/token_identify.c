@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/22 15:45:04 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:08:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ bool	token_identify(t_tokens *tokens)
 	}
 	tokens->token_type = type;
 	if (!(type_count_malloc(tokens)))
-		return (false, printf("type_count_malloc_failure"));
+		return (false, printf("type_count_malloc_failure")); /* Attend to when cleaning up*/
 	token_type_counter(tokens);
 	return (true);
 }

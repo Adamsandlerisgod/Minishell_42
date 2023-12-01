@@ -6,8 +6,13 @@ Wolf =
 	- quotetrimmer needs to be adjusted to new set_env.
 	quote trimmer is a biiiiiiitch(solved).
 
-	-with pipe, the structfill is messing up when it comes to the second cmd struct.
+	-with pipe, the structfill is messing up when it comes to the second cmd struct.(solved)
 
 Jeremy = 
 	- ls is not working
+		-->not working when used with redirection
+	- copy wolfs beautiful get_env_value function to find path
+	- ./minishell implementation
+	- verify if the pipes working
+	- take a shower
 	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88

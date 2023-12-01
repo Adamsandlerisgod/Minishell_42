@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/22 15:42:34 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:09:13 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,8 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	int x;
 	
 	x = 0;
-	printf("in identify_2[%d]\n", j);
-	print_env(tokens->tokens);
 	init_cmd(cmd, j, tokens);
-	printf("in identify_2[%d] after initcmd \n", j);
-	print_env(tokens->tokens);
 	mallocer(cmd, tokens, j);
-	printf("in identify_2 after mallocer\n");
-	print_env(tokens->tokens);
 	while (*i < tokens->token_count && tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)
@@ -158,8 +152,6 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 		else if (tokens->token_type[*i] == e_argument)
 		{
 			cmd->cmd[x] = ft_strdup(tokens->tokens[*i]);
-			printf("cmd[%d] print in structfill = %s \n", x, cmd->cmd[x]);
-			printf("token[%d] in structfill = %s \n", x, tokens->tokens[*i]);
 			*i += 1;
 			x++;
 		}
@@ -177,7 +169,6 @@ bool	struct_fill(t_tokens *tokens, t_data *data)
 	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
 	i = 0;
 	j = 0;
-	printf("in structfill pipecount + 1 = %d \n", tokens->pipe_count + 1);
 	while (j < tokens->pipe_count + 1)
 	{
 		identify_2(&cmd_struct[j], tokens, j, &i);
