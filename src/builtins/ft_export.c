@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:56:39 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	add_variable(t_env *tmp_env, char *var)
-{
-	t_env	*new;
-
-	new = (t_env *)malloc(sizeof(t_env));
-	if (new == NULL)
-		error_system("malloc failed\n");
-	new->name = ft_strdup(var);
-	new->next = NULL;
-	tmp_env->next = new;
-}
 
 static void	find_variable(t_env *env, char **var)
 {

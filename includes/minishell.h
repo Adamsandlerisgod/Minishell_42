@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/18 18:52:08 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:12:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ t_env	*set_env(char **env);
 // t_env	*set_env(char **env);
 // void	free_env(t_env *my_env);
 char	**env_array(t_env *env);
+void	add_variable(t_env *tmp_env, char *var);
+char 	*get_env_value(char *var, t_env **env, int var_len);
+
 
 /*checker*/
 int		lenoptr(char *line);

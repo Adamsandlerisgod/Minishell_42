@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/19 17:46:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:56:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ void	print_env(char **env)
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
+}
+
+void	add_variable(t_env *tmp_env, char *var)
+{
+	t_env	*new;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	if (new == NULL)
+		error_system("malloc failed\n");
+	new->name = ft_strdup(var);
+	new->next = NULL;
+	tmp_env->next = new;
 }
