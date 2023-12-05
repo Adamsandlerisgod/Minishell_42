@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/16 17:12:42 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:58:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@ static void	free_array(char **array)
 	free(array);
 }
 
-// static size_t	size_array_pipe(t_cmd *cmd, int index)
-// {
-// 	size_t	i;
+static size_t	size_array_pipe(t_cmd *cmd, int index)
+{
+	size_t	i;
 
-// 	i = 0;
-// 	printf("I am dead in size array pipe[%d]\n", 69);
-// 	while (cmd[index].pipe_out == true && cmd[index].cmd != NULL)
-// 	{
-// 		index++;
-// 		i++;
-// 	}
-// 	return (i);
-// }
+	i = 0;
+	while (cmd[index].pipe_out == true && cmd[index].cmd != NULL)
+	{
+		index++;
+		i++;
+	}
+	return (i + 1);
+}
 
 static int	waiting_pid(size_t len, pid_t *pid)
 {
@@ -52,8 +51,7 @@ static int	pipe_op(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
 
-	data->pipe_len = 1;
-	// data->pipe_len = size_array_pipe(data->cmd, index);
+	data->pipe_len = size_array_pipe(data->cmd, index);
 	open_heredoc(data);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);

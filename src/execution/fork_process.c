@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/16 16:11:50 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/05 21:09:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ static void	child_process(t_data *data, char **env, int index)
 		execute_cmd(data->cmd[index].cmd, env);
 }
 
+static void parent_process(t_data *data, int index)
+{
+	close(data->pipefd[1]);
+	if (data->cmd[index].pipe_out == true && data->cmd[index].file_in == false
+		&& data->cmd[index].here_doc_in == false)
+		dup_files(data->pipefd[0], STDIN_FILENO);
+	// dup_files(data->pipefdls[0], STDIN_FILENO);
+	close(data->pipefd[0]);
+}
+
 pid_t	*fork_process(t_data *data, char **env, int index)
 {
 	pid_t	*pid;
@@ -50,10 +60,7 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 		else if (pid[i] == 0)
 			child_process(data, env, index + i);
 		else if (pid[i] > 0)
-		{
-			close(data->pipefd[0]);
-			close(data->pipefd[1]);
-		}
+			parent_process(data, index);
 		i++;
 	}
 	return (pid);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/16 16:25:10 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/05 21:04:31 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	redirection_heredoc(t_data *data, int index)
 {
 	if (data->cmd[index].here_doc_in == true)
 	{
-		printf("heredoc fd [%d] = [%d] \n", index, data->cmd[index].here_doc_fd);
 		if (dup_files(data->cmd[index].here_doc_fd, STDIN_FILENO) != CMD_OK)
 			return (CMD_ERROR);
 		else
@@ -27,17 +26,13 @@ int	redirection_heredoc(t_data *data, int index)
 
 int	redirection_pipes(t_data *data, int index)
 {
-	if (data->cmd[index].pipe_in == true && data->cmd[index].file_in == false
-		&& data->cmd[index].here_doc_in == false)
-	{
-		if (dup_files(data->pipefd[0], STDIN_FILENO) != CMD_OK)
-			return (CMD_ERROR);
-	}
 	if (data->cmd[index].pipe_out == true && data->cmd[index].file_out == false)
 	{
 		if (dup_files(data->pipefd[1], STDOUT_FILENO) != CMD_OK)
 			return (CMD_ERROR);
 	}
+	close(data->pipefd[0]);
+	close(data->pipefd[1]);
 	return (CMD_OK);
 }
 
