@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/05 20:58:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/05 23:05:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static size_t	size_array_pipe(t_cmd *cmd, int index)
 	size_t	i;
 
 	i = 0;
-	while (cmd[index].pipe_out == true && cmd[index].cmd != NULL)
+	while (cmd[index].cmd != NULL)
 	{
 		index++;
 		i++;
 	}
-	return (i + 1);
+	return (i);
 }
 
 static int	waiting_pid(size_t len, pid_t *pid)

@@ -13,6 +13,6 @@ Jeremy =
 		-->not working when used with redirection
 	- copy wolfs beautiful get_env_value function to find path
 	- ./minishell implementation
-	- verify if the pipes working
+	- verify if the pipes working < = pipe work but need to change some implementation part to reset de STDIN_FILENO 'dup'
 	- take a shower
 	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
