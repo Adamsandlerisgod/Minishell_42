@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/05 23:58:43 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/06 12:41:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void parent_process(t_data *data, int index)
 	(void) index;
 	close(data->pipefd[1]);
 	// printf("INDEX %d \n", index);
-	printf("PIPE_OUT %d \n", data->cmd[index].pipe_out);
-	printf("PIPE_OUT %d \n", data->cmd[index].file_in);
-	printf("PIPE_OUT %d \n", data->cmd[index].here_doc_in);
+	// printf("PIPE_OUT %d \n", data->cmd[index].pipe_out);
+	// printf("PIPE_OUT %d \n", data->cmd[index].file_in);
+	// printf("PIPE_OUT %d \n", data->cmd[index].here_doc_in);
 	if (/*data->cmd[index].pipe_out == true &&*/ data->cmd[index].file_in == false
 		&& data->cmd[index].here_doc_in == false)
 	{
-		printf("DUP_FILES cmd %s \n", data->cmd[index].cmd[0]);
+		// printf("DUP_FILES cmd %s \n", data->cmd[index].cmd[0]);
 		dup_files(data->pipefd[0], STDIN_FILENO);
 	}
 	// printf("HERE STOP 01 \n");

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/05 23:05:46 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/06 12:43:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,38 @@ static int	waiting_pid(size_t len, pid_t *pid)
 	return (status);
 }
 
+static int	capsule_pipe(t_data *data, char **env, int index)
+{
+	int		status;
+	pid_t	*pid_array;
+	pid_t	pid;
+
+	status = CMD_OK;
+	pid = fork();
+	if (pid == -1)
+		return (error_system("fork failed"), CMD_EXIT);
+	else if (pid == 0)
+	{
+		pid_array = fork_process(data, env, index);
+		if (pid_array == NULL)
+			return (CMD_ERROR);
+		status = waiting_pid(data->pipe_len, pid_array);	
+	}
+	else if (pid > 0)
+		waitpid(pid, &status, WUNTRACED);
+	return (status);
+}
+
 static int	pipe_op(t_data *data, char **env, int index)
 {
-	pid_t	*pid;
-
 	data->pipe_len = size_array_pipe(data->cmd, index);
 	open_heredoc(data);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else
 	{
-		pid = fork_process(data, env, index);
-		if (pid == NULL)
-			return (CMD_ERROR);
-		data->status = waiting_pid(data->pipe_len, pid);
+		printf ("HERE WE GO pipe_op \n");
+		data->status = capsule_pipe(data, env, index);
 	}
 	return (CMD_OK);
 }

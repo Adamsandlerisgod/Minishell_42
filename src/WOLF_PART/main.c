@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/01 12:11:01 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:40:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int main(int ac, char** argv, char **ev)
 	printf("after init_data\n");
 	while (true)
 	{
+		printf ("HERE MAIN \n");
 		line = readline("minishell : ");
 		// line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
 		// line = strdup("echo \"dog\"\'frog\'");
