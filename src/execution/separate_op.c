@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/06 12:43:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/06 17:33:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static size_t	size_array_pipe(t_cmd *cmd, int index)
 	{
 		index++;
 		i++;
+		printf("i++ => %zu \n", i);
+		// printf("size_array_pipe cmd[index].cmd = %s", cmd[index].cmd[0]);
 	}
 	return (i);
 }
@@ -44,10 +46,10 @@ static int	waiting_pid(size_t len, pid_t *pid)
 	while (i < len)
 		waitpid(pid[i++], &status, WUNTRACED);
 	free(pid);
-	return (status);
+	exit (status);
 }
 
-static int	capsule_pipe(t_data *data, char **env, int index)
+static void	capsule_pipe(t_data *data, char **env, int index)
 {
 	int		status;
 	pid_t	*pid_array;
@@ -56,17 +58,17 @@ static int	capsule_pipe(t_data *data, char **env, int index)
 	status = CMD_OK;
 	pid = fork();
 	if (pid == -1)
-		return (error_system("fork failed"), CMD_EXIT);
+		error_system("fork failed");
 	else if (pid == 0)
 	{
 		pid_array = fork_process(data, env, index);
 		if (pid_array == NULL)
-			return (CMD_ERROR);
-		status = waiting_pid(data->pipe_len, pid_array);	
+			exit(CMD_EXIT) ;
+		status = waiting_pid(data->pipe_len, pid_array);
 	}
-	else if (pid > 0)
-		waitpid(pid, &status, WUNTRACED);
-	return (status);
+	// else if (pid > 0)
+	printf("waitpid for how long \n");
+	waitpid(pid, &data->status, WUNTRACED);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)
@@ -76,10 +78,7 @@ static int	pipe_op(t_data *data, char **env, int index)
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else
-	{
-		printf ("HERE WE GO pipe_op \n");
-		data->status = capsule_pipe(data, env, index);
-	}
+		capsule_pipe(data, env, index);
 	return (CMD_OK);
 }
 
@@ -92,12 +91,22 @@ int	separator_op(t_data *data)
 {
 	char	**ev;
 
+	printf("===>>> separator_op 00 <<<===\n");
 	data->status = CMD_OK;
+	printf("===>>> separator_op 01 <<<===\n");
+	
 	ev = env_array(data->env);
+	printf("===>>> separator_op 02 <<<===\n");
+
 	if (ev == NULL)
 		return (CMD_ERROR);
+	printf("===>>> separator_op 03 <<<===\n");
+	
 	if (pipe_op(data, ev, 0) != CMD_OK)
 		return (CMD_ERROR);
+	printf("===>>> separator_op 04 <<<===\n");
+
 	free_array(ev);
+	printf("===>>> separator_op 05 <<<===\n");
 	return (WEXITSTATUS(data->status));
 }

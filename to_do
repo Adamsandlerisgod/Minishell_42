@@ -5,14 +5,17 @@ Wolf =
 	- solve issue of variable names that start with the same. (solved)
 	- quotetrimmer needs to be adjusted to new set_env.
 	quote trimmer is a biiiiiiitch(solved).
-
-	-with pipe, the structfill is messing up when it comes to the second cmd struct.(solved)
+	- verify the implementation of the array of cmd >> array is not null terminated.
+	- with pipe, the structfill is messing up when it comes to the second cmd struct.(solved)
 
 Jeremy = 
 	- ls is not working
 		-->not working when used with redirection
-	- copy wolfs beautiful get_env_value function to find path
 	- ./minishell implementation
+	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
+
+
+TASK DONE
+	- copy wolfs beautiful get_env_value function to find path
 	- verify if the pipes working < = pipe work but need to change some implementation part to reset de STDIN_FILENO 'dup'
 	- take a shower
-	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
