@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/06 17:21:43 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/07 15:42:23 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	// print_test(tokens->tokens, tokens->token_count);
 	if (!(struct_fill(tokens, data)))
 		return (false);
+	data->pipe_len = tokens->pipe_count + 1;
 	printf("Struct Filler\n");
 	// print_test_struct(data, tokens);
 	if ((separator_op(data) == CMD_ERROR))
@@ -114,6 +115,7 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	// printf("ITS JEREMY'S FAULT correct \n");
 	if (tokens != NULL)
 		free_tokens(tokens);
+	print_test_struct(data, tokens);
 	if (data->cmd)
 		free_cmd_struct(data->cmd);
 	return (true);

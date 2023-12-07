@@ -5,12 +5,13 @@ Wolf =
 	- solve issue of variable names that start with the same. (solved)
 	- quotetrimmer needs to be adjusted to new set_env.
 	quote trimmer is a biiiiiiitch(solved).
-	- verify the implementation of the array of cmd >> array is not null terminated.
+	- verify the implementation of the array of cmd >> array is not null terminated.(solved)
 	- with pipe, the structfill is messing up when it comes to the second cmd struct.(solved)
+	- look up signal stuff for signal implementation
+	- exit status variable function
 
 Jeremy = 
-	- ls is not working
-		-->not working when used with redirection
+	-doing the redirection for input and output file.
 	- ./minishell implementation
 	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
 

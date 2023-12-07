@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/06 17:33:56 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/07 15:46:53 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ static void	free_array(char **array)
 	free(array);
 }
 
-static size_t	size_array_pipe(t_cmd *cmd, int index)
-{
-	size_t	i;
+// static size_t	size_array_pipe(t_cmd *cmd, int index)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (cmd[index].cmd != NULL)
-	{
-		index++;
-		i++;
-		printf("i++ => %zu \n", i);
-		// printf("size_array_pipe cmd[index].cmd = %s", cmd[index].cmd[0]);
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (cmd[index].cmd != NULL)
+// 	{
+// 		index++;
+// 		i++;
+// 		printf("i++ => %zu \n", i);
+// 		// printf("size_array_pipe cmd[index].cmd = %s", cmd[index].cmd[0]);
+// 	}
+// 	return (i);
+// }
 
 static int	waiting_pid(size_t len, pid_t *pid)
 {
@@ -73,7 +73,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 
 static int	pipe_op(t_data *data, char **env, int index)
 {
-	data->pipe_len = size_array_pipe(data->cmd, index);
+	// data->pipe_len = size_array_pipe(data->cmd, index);
 	open_heredoc(data);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
