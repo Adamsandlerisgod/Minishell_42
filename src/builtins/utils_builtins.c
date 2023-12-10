@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/02 17:56:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/10 23:41:57 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void	print_env(char **env)
 	int	i;
 
 	i = 0;
-	// printf("env[%d] = %s \n", i, env[i]);
 	while (env[i])
 	{
-		// printf("env[%d] = %s \n", i, env[i]);
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}

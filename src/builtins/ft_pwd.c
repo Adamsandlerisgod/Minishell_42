@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/16 16:34:40 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 23:27:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_pwd(t_data *data, int index)
 {
 	char	pwd[PATH_MAX];
 
-	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1] != NULL)
 	{
 		if (data->cmd[index].cmd[1][0] == '-')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/19 17:54:26 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 23:55:19 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	parce_list_var(t_env *env, char *var)
 	prev_env = NULL;
 	while (tmp_env)
 	{
-		if (ft_strncmp(tmp_env->name, var, len_variable(var)) == 0)
+		if (ft_strncmp(tmp_env->name, var, ft_strlen(var)) == 0)
 		{
 			if (prev_env)
 				prev_env->next = tmp_env->next;
@@ -38,12 +38,15 @@ static void	parce_list_var(t_env *env, char *var)
 
 static void	remove_variable(t_env *env, char **var)
 {
+	char	*var_tmp;
 	int		i;
 
 	i = 0;
 	while (var[i])
 	{
-		parce_list_var(env, var[i]);
+		var_tmp = ft_substr(var[i], 0, ft_strlen(var[i]));
+		parce_list_var(env, var_tmp);
+		free (var_tmp);
 		i++;
 	}
 }
@@ -52,18 +55,12 @@ static void	remove_variable(t_env *env, char **var)
 The function unset_builtins is used to remove environment variables.
 */
 
-/*
-Commande does not find the variable but the full data but export work
-Find solution in parcer of word
-*/
-
 int	ft_unset(t_data *data, int index)
 {
 	int	status;
 	int	i;
 
 	status = CMD_OK;
-	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], "no option accepted.");

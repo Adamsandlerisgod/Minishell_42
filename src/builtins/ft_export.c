@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/02 17:56:39 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/10 23:46:34 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	find_variable(t_env *env, char **var)
 {
 	t_env	*tmp_env;
+	char	*var_tmp;
 	int		i;
 
 	i = 0;
@@ -23,10 +24,12 @@ static void	find_variable(t_env *env, char **var)
 		tmp_env = env;
 		while (tmp_env)
 		{
-			if (ft_strncmp(tmp_env->name, var[i], len_variable(var[i])) == 0)
+			var_tmp = ft_substr(var[i], 0, len_variable(var[i]));
+			if (ft_strncmp(tmp_env->name, var_tmp, len_variable(var[i])) == 0)
 			{
 				free(tmp_env->name);
 				tmp_env->name = ft_strdup(var[i]);
+				free (var_tmp);
 			}
 			else if (tmp_env->next == NULL)
 				add_variable(tmp_env, var[i]);
@@ -44,17 +47,12 @@ If export is called with arguments, it adds or changes the value of
 environment variables.
 */
 
-/*
-Change the implementation for add variable and if variable are wrong.
-*/
-
 int	ft_export(t_data *data, char **env, int index)
 {
 	int	status;
 	int	i;
 
 	status = CMD_OK;
-	printf("IN BUITLINS\n");
 	if (data->cmd[index].cmd[1] == NULL)
 		return (print_env(env), status);
 	if (data->cmd[index].cmd[1][0] == '-')
