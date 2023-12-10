@@ -11,12 +11,12 @@ Wolf =
 	- exit status variable function
 
 Jeremy = 
-	-doing the redirection for input and output file.
 	- ./minishell implementation
-	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
-
-
-TASK DONE
+	
+	
+	TASK DONE
 	- copy wolfs beautiful get_env_value function to find path
 	- verify if the pipes working < = pipe work but need to change some implementation part to reset de STDIN_FILENO 'dup'
 	- take a shower
+	-doing the redirection for input and output file.
+	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88

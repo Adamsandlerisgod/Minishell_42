@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_outfiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:22 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:04:06 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	open_outfile(char *outfile, bool append)
 	int	fd_out;
 	int	status;
 	int w_mode;
-
+	
 	if (append == true)
 		w_mode = O_APPEND;
 	else

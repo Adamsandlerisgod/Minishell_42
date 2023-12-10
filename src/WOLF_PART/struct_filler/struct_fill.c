@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_fill.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/01 12:09:13 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:55:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {
+	
 	if (j < (tokens->pipe_count) && tokens->pipe_count > 0)
 		cmd->pipe_out = TRUE;
 	else
@@ -53,16 +54,23 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 		cmd->pipe_in = TRUE;
 	else
 		cmd->pipe_in = FALSE;
-	cmd->here_doc_in = FALSE;
-	cmd->file_in = FALSE;
-	if (tokens->outfile_count != 0 && tokens->outfile_count[j] > 0)
-		cmd->file_out = TRUE;
+	// printf("heredoc count == %d \n", tokens->heredoc_count);
+	if (tokens->heredoc_count[j] != 0 && tokens->heredoc_count[j] > 0 && tokens->infile_count[j] == 0)
+		cmd->here_doc_in = TRUE;
+	else 
+		cmd->here_doc_in = FALSE;
+	if ((tokens->infile_count[j] != 0 && tokens->infile_count[j] > 0 ) || cmd->here_doc_in == TRUE)
+		cmd->file_in = TRUE;
 	else
-		cmd->file_out = FALSE;
+		cmd->file_in = FALSE;
 	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0) /*Check if its only if it appears last*/
 		cmd->append = TRUE;
 	else
 		cmd->append = FALSE;
+	if ((tokens->outfile_count[j] != 0 && tokens->outfile_count[j] > 0 ) || cmd->append == TRUE)
+		cmd->file_out = TRUE;
+	else
+		cmd->file_out = FALSE;
 	cmd->here_doc_fd = -1;
 	cmd->cmd = NULL;
 	cmd->limiters = NULL;

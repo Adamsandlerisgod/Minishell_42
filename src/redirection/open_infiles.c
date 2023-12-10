@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_infiles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/07 17:43:21 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:03:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	open_infile(char *infile)
 
 	status = CMD_OK;
 	fd_in = open(infile, O_RDONLY);
-	fd_in = -1;
 	if (fd_in == -1)
 	{
 		if (pipe(tmpfd) == -1)
