@@ -10,8 +10,14 @@ Wolf =
 	- look up signal stuff for signal implementation
 	- exit status variable function
 
+
+	- add option to ask for the last command in case of nothing after the pipe (exemple: "ls |"), 
+		apparently the bash open an heredoc to catch the next command and take it as limiter.
+		Actually it return an error message "You have failed you sonofbitch" and the next entry in prompt make segmentation fault.
+		Maybe let see together for this part if you need help to understand heredoc to use it.
+
 Jeremy = 
-	- ./minishell implementation
+	- correction of Builtin function
 	
 	
 	TASK DONE
@@ -20,3 +26,4 @@ Jeremy =
 	- take a shower
 	-doing the redirection for input and output file.
 	- https://www.youtube.com/watch?v=Q3Kvu6Kgp88
+	- ./minishell implementation

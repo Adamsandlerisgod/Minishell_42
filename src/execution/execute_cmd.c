@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/20 16:25:50 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:57:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	check_cmd_accessible(char **cmd)
 {
-	if (ft_strncmp(cmd[0], "../", 3) == 0 || ft_strncmp(cmd[0], "./", 3) == 0)
+	if (ft_strncmp(cmd[0], "../", 3) == 0 || ft_strncmp(cmd[0], "./", 2) == 0)
 	{
 		if (access(cmd[0], F_OK) == -1)
 		{
