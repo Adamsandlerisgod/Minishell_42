@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:30 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/18 18:52:14 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:08:43 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	lenvar(char *line)
 	int i;
 
 	i = 1;
-	if (!ft_isalpha(line[i]) && !(line[i] == '_'))
+	if (!ft_isalpha(line[i]) && !(line[i] == '_') && !(line[i] == '?'))
 		return (0);
 	i++;
 	while (line[i] && (ft_isalnum(line[i]) || line[i] == '_'))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 15:02:26 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 22:40:33 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ static void	free_array(char **array)
 	free(array);
 }
 
-static int	waiting_pid(size_t len, pid_t *pid)
+static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
 {
 	int		status;
 	size_t	i;
 
+	(void) data;
 	i = 0;
 	while (i < len)
 		waitpid(pid[i++], &status, WUNTRACED);
 	free(pid);
+	printf("HERE waiting_pid %d \n", status);
 	exit (status);
 }
 
@@ -49,14 +51,18 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 		pid_array = fork_process(data, env, index);
 		if (pid_array == NULL)
 			exit(CMD_EXIT) ;
-		status = waiting_pid(data->pipe_len, pid_array);
+		status = waiting_pid(data, data->pipe_len, pid_array);
 	}
+	printf("HERE capsule_pipe %d \n", status);
 	waitpid(pid, &data->status, WUNTRACED);
+	// printf("HERE capsule_pipe %d \n", data->status);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)
 {
 	open_heredoc(data);
+	if (data->cmd[0].cmd[0] == NULL && data->pipe_len <= 1) /*NOT 100% SURE*/
+		return (CMD_OK);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else

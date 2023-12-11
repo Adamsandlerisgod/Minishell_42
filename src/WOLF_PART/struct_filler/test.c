@@ -65,7 +65,7 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 
 void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 {
-	if (tokens->cmd_count)
+	// if (tokens->cmd_count)
 		cmd->cmd = (char **)calloc(sizeof(char *), (tokens->cmd_count + 1));
 	if (tokens->heredoc_count[j])
 	{

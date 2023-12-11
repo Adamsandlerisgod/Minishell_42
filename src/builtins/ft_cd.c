@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 23:39:09 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:03:25 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	ft_cd(t_data *data, int index)
 		|| data->cmd[index].cmd[1][0] == '\0'
 		|| ft_strncmp(data->cmd[index].cmd[1], "--", 3) == 0)
 	{
-		path = get_env_value("HOME", &data->env, 4);
+		path = get_env_value("HOME", &data->env, 4, 0);
 		return (!change_directory(path, data->env));
 	}
 	if (data->cmd[index].cmd[2])
 		return (error_cmd(data->cmd[index].cmd[0], "too many arguments"), CMD_EXIT);
 	if (ft_strncmp(data->cmd[index].cmd[1], "-", 2) == 0)
 	{
-		path = get_env_value("OLDPWD", &data->env, 6);
+		path = get_env_value("OLDPWD", &data->env, 6, 0);
 		if (!path)
 			return (error_cmd(data->cmd[index].cmd[0], "OLDPWD not set"), CMD_EXIT);
 		return (!change_directory(path, data->env));

@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/07 15:42:23 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:36:23 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void init_data(t_data *data, t_env *env)
 	data->cmd = NULL;
 	
 	data->env = env;
-	data->status = 1;	/*Uncertain can come back to this later*/
+	data->status = 0;	/*Uncertain can come back to this later*/
 	data->pipe_len = 0;
 	data->pipefd[1] = -1; /*Uncertain as well*/
 }
@@ -97,7 +97,7 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	// printf("token_identify\n");
 	if (!(token_syntax(tokens)))	/*Needs fixing(incomplete)*/
 		return(false);
-	if (!(expandinator(tokens, data->env)))
+	if (!(expandinator(tokens, data)))
 		return(false);
 	// printf("Expandinator \n");
 	// print_test(tokens->tokens, tokens->token_count);
@@ -108,14 +108,16 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(struct_fill(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
-	printf("Struct Filler\n");
+	print_test_struct(data, tokens);
+	// printf("Struct Filler\n");
+	if (tokens != NULL)
+		free_tokens(tokens);
 	// print_test_struct(data, tokens);
 	if ((separator_op(data) == CMD_ERROR))
 		return (printf("ITS JEREMY'S FAULT"), false);
 	// printf("ITS JEREMY'S FAULT correct \n");
-	if (tokens != NULL)
-		free_tokens(tokens);
-	print_test_struct(data, tokens);
+	// print_test_struct(data, tokens);
+	// printf("data->status in main = %d \n", data->status);
 	if (data->cmd)
 		free_cmd_struct(data->cmd);
 	return (true);

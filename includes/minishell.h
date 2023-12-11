@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/02 18:12:47 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:02:38 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef	struct s_tokens
 {
 	char **tokens;
 	t_tk_type *token_type;
+	int	status;
 	int	pipe_count;
 	int	token_count;
 	int cmd_count;
@@ -126,7 +127,7 @@ t_env	*set_env(char **env);
 // void	free_env(t_env *my_env);
 char	**env_array(t_env *env);
 void	add_variable(t_env *tmp_env, char *var);
-char 	*get_env_value(char *var, t_env **env, int var_len);
+char 	*get_env_value(char *var, t_env **env, int var_len, int status);
 
 
 /*checker*/
@@ -145,8 +146,8 @@ bool	token_identify(t_tokens *tokens);
 bool 	token_syntax(t_tokens *tokens);
 
 /*Expand_var*/
-bool	expandinator(t_tokens *tokens, t_env *env);
-bool	expand_var(t_env *env, char **token, char *pos, char **next_pos);
+bool	expandinator(t_tokens *tokens, t_data *data);
+bool	expand_var(t_data *data, char **token, char *pos, char **next_pos);
 
 /*Quote_trim*/
 bool quote_trim(t_tokens *tokens);
@@ -196,7 +197,7 @@ void	error_cmd(char *cmd, char *msg);
 void	free_2d_array(char **array);
 void	free_cmd_struct(t_cmd *cmd);
 void	free_tokens(t_tokens *tokens);
-// void	free_data_struct(t_data *data);
+void	free_data_struct(t_data *data);
 
 
 #endif

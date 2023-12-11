@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/01 12:10:25 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:15:35 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	return (0);
 }
 
-bool	expandinator(t_tokens *tokens, t_env *env)
+bool	expandinator(t_tokens *tokens, t_data *data)
 {
 	int	i;
 	int single_qt;
 	int double_qt;
 	char *pos;
 	char *next_pos;
-
+	printf("status check (expandinator) \n");
+	printf("status = %d \n", data->status);
 	i = 0;
 	single_qt = 0;
 	double_qt = 0;
@@ -83,10 +84,15 @@ bool	expandinator(t_tokens *tokens, t_env *env)
 
 		if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))
 		{
+			printf("status check (expandinator 2) \n");
+			printf("status = %d \n", data->status);
 			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
+			printf("status check (expandinator 3) \n");
+			printf("status = %d \n", data->status);
 			while (pos != NULL)
 			{
-				if(!(expand_var(env, &(tokens->tokens[i]), pos, &next_pos)))
+				printf("status check (expand_vigor) \n");
+				if(!(expand_var(data, &(tokens->tokens[i]), pos, &next_pos)))
 					return (false);
 				pos = var_position(next_pos, &single_qt, &double_qt);
 			}

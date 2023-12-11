@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 23:46:34 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:31:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	find_variable(t_env *env, char **var)
 				free(tmp_env->name);
 				tmp_env->name = ft_strdup(var[i]);
 				free (var_tmp);
+				break ;
 			}
 			else if (tmp_env->next == NULL)
 				add_variable(tmp_env, var[i]);

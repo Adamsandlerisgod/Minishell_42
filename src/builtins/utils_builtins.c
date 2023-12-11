@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 23:41:57 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:26:57 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ bool	check_variable(char *var)
 	int	i;
 
 	i = 0;
+	printf("IN WHILE LOOP check_variable 1 \n");
 	if (ft_isdigit(var[i]) || var[i] == '_')
 		return (false);
 	i++;
-	while (var[i] != '=')
+	while (var[i] != '=' && var[i] != '\0')
 	{
+		printf("IN WHILE LOOP check_variable 2 \n");
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 			return (false);
 		i++;
