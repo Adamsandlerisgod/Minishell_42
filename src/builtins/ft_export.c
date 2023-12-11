@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 21:31:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:21:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function export_builtins is used to add or change the value of
+environment variables.
+If export is called without arguments, it prints the environment.
+If export is called with arguments, it adds or changes the value of
+environment variables.
+*/
 
 static void	find_variable(t_env *env, char **var)
 {
@@ -39,14 +47,6 @@ static void	find_variable(t_env *env, char **var)
 		i++;
 	}
 }
-
-/*
-The function export_builtins is used to add or change the value of
-environment variables.
-If export is called without arguments, it prints the environment.
-If export is called with arguments, it adds or changes the value of
-environment variables.
-*/
 
 int	ft_export(t_data *data, char **env, int index)
 {

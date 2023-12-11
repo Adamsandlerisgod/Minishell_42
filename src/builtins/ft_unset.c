@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 21:54:44 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:21:42 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function unset_builtins is used to remove environment variables.
+*/
 
 static void	parce_list_var(t_env *env, char *var)
 {
@@ -51,10 +55,6 @@ static void	remove_variable(t_env *env, char **var)
 		i++;
 	}
 }
-
-/*
-The function unset_builtins is used to remove environment variables.
-*/
 
 int	ft_unset(t_data *data, int index)
 {

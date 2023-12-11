@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 15:01:53 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/11 23:22:30 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	child_process(t_data *data, char **env, int index)
 	}
 	if (check_access_files(data, index) != CMD_OK)
 		exit(CMD_ERROR);
-	if ((data->cmd[index].file_in == true && data->cmd[index].here_doc_in == false) || data->cmd[index].file_out == true)
+	if ((data->cmd[index].file_in == true
+		&& data->cmd[index].here_doc_in == false)
+		|| data->cmd[index].file_out == true)
 	{
 		if (redirection_files(data, index) != CMD_OK)
 			exit(CMD_ERROR);	
@@ -40,7 +42,7 @@ static void parent_process(t_data *data, int index)
 {
 	(void) index;
 	close(data->pipefd[1]);
-	if (/*data->cmd[index].pipe_out == true &&*/ data->cmd[index].file_in == false
+	if (data->cmd[index].file_in == false
 		&& data->cmd[index].here_doc_in == false)
 	{
 		dup_files(data->pipefd[0], STDIN_FILENO);

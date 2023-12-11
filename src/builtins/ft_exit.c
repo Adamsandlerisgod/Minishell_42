@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 20:25:54 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:21:20 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function ft_exit is used to exit the minishell.
+It returns the exit status.
+*/
 
 static bool	ft_isnumber(char *arg)
 {
@@ -48,11 +53,6 @@ static int	get_exit_status(t_data *data, char *arg)
 		status = CMD_OK;
 	return (status);
 }
-
-/*
-The function ft_exit is used to exit the minishell.
-It returns the exit status.
-*/
 
 int	ft_exit(t_data *data, int index)
 {

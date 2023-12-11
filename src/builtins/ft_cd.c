@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 21:03:25 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/11 23:21:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function cd_builtins is used to change the current working directory
+to the directory specified in the path and update the environment.
+If the path is not valid, the function returns 1.
+If the path is valid, the function returns 0.
+*/
 
 static void	set_oldpwd(t_env *env, char *oldpwd)
 {
@@ -52,13 +59,6 @@ static void	set_variable_pwd(t_env *env)
 	}
 	set_oldpwd(env, tmp_pwd);
 }	
-
-/*
-The function cd_builtins is used to change the current working directory
-to the directory specified in the path and update the environment.
-If the path is not valid, the function returns 1.
-If the path is valid, the function returns 0.
-*/
 
 static int	change_directory(char *path, t_env *env)
 {
