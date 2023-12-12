@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/11 23:20:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/12/12 19:42:39 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	g_status;
 
 void print_test(char **tokens, int tc)
 {
@@ -65,6 +67,9 @@ void init_data(t_data *data, t_env *env)
 	data->status = 0;	/*Uncertain can come back to this later*/
 	data->pipe_len = 0;
 	data->pipefd[1] = -1; /*Uncertain as well*/
+	if (!(set_termios(&data->term)))
+		printf("WTF");
+	set_signal();
 }
 
 void init_tokens(t_tokens *tokens)
@@ -145,7 +150,7 @@ int main(int ac, char** argv, char **ev)
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
-	while (true)
+	while (1)
 	{
 		// printf ("HERE MAIN \n");
 		line = readline("minishell : ");
@@ -160,6 +165,6 @@ int main(int ac, char** argv, char **ev)
 		// printf ("HERE MAIN 01 \n");
 		free(line);
 	}
-	
+	restore_termios(&data.term);
 	return (0);
 }

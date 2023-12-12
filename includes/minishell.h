@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/11 21:02:38 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:51:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 #include <curses.h>
 #include <term.h>
 #include <errno.h>
+#include <termios.h>
+
 
 # define RESET "\033[0m"
 # define YELLOW "\033[1;33m"
@@ -66,6 +68,8 @@
 
 // }				t_token;
 
+extern int	g_status;
+
 typedef struct s_env
 {
 	char	*name;
@@ -95,6 +99,7 @@ typedef struct s_data
 	int		status;
 	size_t	pipe_len;
 	int		pipefd[2];
+	struct termios	term;
 }		t_data;
 
 typedef enum e_type_token
@@ -199,5 +204,11 @@ void	free_cmd_struct(t_cmd *cmd);
 void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
 
+/*Signal functions*/
+void	sigint_handler(int signum);
+void	sigint_wait_handler(int signum);
+bool	set_signal(void);
+bool	set_termios(struct termios *term);
+bool	restore_termios(struct termios *term);
 
 #endif

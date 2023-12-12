@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/12/02 17:32:14 by jhurpy           ###   ########.fr        #
+#    Updated: 2023/12/12 18:49:48 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ SRC_FILES = WOLF_PART/main.c \
 			redirection/redirection.c \
 			environment/set_env_jimmy.c \
 			environment/free_env.c \
-			free_functions.c
+			free_functions.c \
+			signal.c
 			# WOLF_PART/environment/set_env.c 
 
 OBJ_DIR = obj
