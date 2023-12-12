@@ -18,7 +18,6 @@ Wolf =
 
 Jeremy = 
 
-
 TASK DONE
 - copy wolfs beautiful get_env_value function to find path
 - verify if the pipes working < = pipe work but need to change some implementation part to reset de STDIN_FILENO 'dup'
