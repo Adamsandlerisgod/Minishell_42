@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/12 18:51:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:59:17 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef	struct s_tokens
 {
 	char **tokens;
 	t_tk_type *token_type;
-	int	status;
+	// int	status;
 	int	pipe_count;
 	int	token_count;
 	int cmd_count;
@@ -207,7 +207,7 @@ void	free_data_struct(t_data *data);
 /*Signal functions*/
 void	sigint_handler(int signum);
 void	sigint_wait_handler(int signum);
-bool	set_signal(void);
+void	set_signal(void);
 bool	set_termios(struct termios *term);
 bool	restore_termios(struct termios *term);
 

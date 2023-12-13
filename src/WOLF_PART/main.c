@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/12 19:42:39 by whendrik         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:49:35 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (tokens != NULL)
 		free_tokens(tokens);
 	// print_test_struct(data, tokens);
-	if ((separator_op(data) == CMD_ERROR))
-		return (printf("ITS JEREMY'S FAULT"), false);
+	if ((separator_op(data) != CMD_OK))
+		return (false);
 	// printf("ITS JEREMY'S FAULT correct \n");
 	// print_test_struct(data, tokens);
 	// printf("data->status in main = %d \n", data->status);
@@ -150,21 +150,27 @@ int main(int ac, char** argv, char **ev)
 	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
 	init_tokens(&tokens);
 	printf("after init_data\n");
+	// signal(SIGINT, &sigint_handler);
+	// signal(SIGQUIT, &sigint_handler);
 	while (1)
 	{
 		// printf ("HERE MAIN \n");
 		line = readline("minishell : ");
+		if (line == NULL)
+			break;
 		// line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
 		// line = strdup("echo \"dog\"\'frog\'");
 		if (*line && !(processor(line, &data, &tokens)))
 		{
-			printf("You have failed you sonofabitch\n");
+			// printf("You have failed you sonofabitch\n");
 			// break;
 			// free_data_struct(&data);
 		}
 		// printf ("HERE MAIN 01 \n");
 		free(line);
 	}
+	printf("ayoo\n");
+	rl_clear_history();
 	restore_termios(&data.term);
 	return (0);
 }
