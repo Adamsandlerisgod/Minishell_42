@@ -16,6 +16,9 @@ Wolf =
 		Actually it return an error message "You have failed you sonofbitch" and the next entry in prompt make segmentation fault.
 		Maybe let see together for this part if you need help to understand heredoc to use it.
 
+	- Ctrl + c prints "minishell : minishell : minishell :"
+	- Ctrl + d works but can cause segmentation fault
+
 Jeremy = 
 
 TASK DONE
