@@ -3,74 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 23:21:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:56:10 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-The function export_builtins is used to add or change the value of
+The function ft_export is used to add or change the value of
 environment variables.
 If export is called without arguments, it prints the environment.
 If export is called with arguments, it adds or changes the value of
 environment variables.
 */
 
+static void	set_var_env(t_env *env, char **var, int index)
+{
+	char	*var_tmp;
+
+	while (env)
+	{
+		var_tmp = ft_substr(var[index], 0, len_variable(var[index]));
+		if (ft_strncmp(env->name, var_tmp, len_variable(var[index])) == 0)
+		{
+			free(env->name);
+			env->name = ft_strdup(var[index]);
+			free (var_tmp);
+			break ;
+		}
+		else if (env->next == NULL
+			&& len_variable(var[index]) <= (int)ft_strlen(var[index]))
+			add_variable(env, var[index]);
+		if (var_tmp != NULL)
+			free(var_tmp);
+		env = env->next;
+	}
+}
+
 static void	find_variable(t_env *env, char **var)
 {
 	t_env	*tmp_env;
-	char	*var_tmp;
 	int		i;
 
 	i = 0;
 	while (var[i])
 	{
 		tmp_env = env;
-		while (tmp_env)
-		{
-			var_tmp = ft_substr(var[i], 0, len_variable(var[i]));
-			if (ft_strncmp(tmp_env->name, var_tmp, len_variable(var[i])) == 0)
-			{
-				free(tmp_env->name);
-				tmp_env->name = ft_strdup(var[i]);
-				free (var_tmp);
-				break ;
-			}
-			else if (tmp_env->next == NULL)
-				add_variable(tmp_env, var[i]);
-			tmp_env = tmp_env->next;
-		}
+		set_var_env(tmp_env, var, i);
 		i++;
 	}
 }
 
-int	ft_export(t_data *data, char **env, int index)
+void	ft_export(t_data *data, char **env, int index)
 {
-	int	status;
 	int	i;
 
-	status = CMD_OK;
+	g_exit_status = CMD_OK;
 	if (data->cmd[index].cmd[1] == NULL)
-		return (print_env(env), status);
-	if (data->cmd[index].cmd[1][0] == '-')
+		print_env(env, 1);
+	else if (data->cmd[index].cmd[1][0] == '-')
 	{
-		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
-		return (CMD_EXIT);
+		error_cmd_var("export", data->cmd[index].cmd[1], NO_OPTION);
+		g_exit_status = CMD_ERROR;
 	}
-	i = 1;
-	while (data->cmd[index].cmd[i])
+	else
 	{
-		if (check_variable(data->cmd[index].cmd[i]) == false)
+		i = 1;
+		while (data->cmd[index].cmd[i])
 		{
-			error_cmd(data->cmd[index].cmd[0], "invalid variable.");
-			status = CMD_ERROR;
+			if (check_variable(data->cmd[index].cmd[i]) == false)
+			{
+				error_cmd_msg("export", data->cmd[index].cmd[i], NO_VALID_ID);
+				g_exit_status = CMD_ERROR;
+				break ;
+			}
+			i++;
 		}
-		i++;
+		find_variable(data->env, data->cmd[index].cmd + 1);
 	}
-	find_variable(data->env, data->cmd[index].cmd + 1);
-	return (status);
 }

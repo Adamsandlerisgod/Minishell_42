@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isquote.c                                       :+:      :+:    :+:   */
+/*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 19:45:22 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 09:22:55 by jhurpy           ###   ########.fr       */
+/*   Created: 2024/01/23 17:28:01 by jhurpy            #+#    #+#             */
+/*   Updated: 2024/01/23 23:54:19 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/minishell.h"
 
-bool	ft_isquote(int c)
+void	exit_status(int status)
 {
-	if (c == '\'' || c == '\"')
-		return (true);
-	return (false);
+	if (WIFSIGNALED(status))
+		g_exit_status = WTERMSIG(status) + 128;
+	else if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
 }

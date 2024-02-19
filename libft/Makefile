@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 01:19:33 by jhurpy            #+#    #+#              #
-#    Updated: 2023/11/15 20:47:34 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/17 01:58:57 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ NAME = libft.a
 SRC_DIR = src
 SRC_FILES = ft_atoi.c \
 		ft_atol.c \
+		ft_atoll.c \
 		ft_bzero.c \
 		ft_calloc.c \
 		ft_hexatoi.c \

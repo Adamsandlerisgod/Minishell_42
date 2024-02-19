@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/12/12 18:49:48 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/23 20:11:06 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,7 @@ AR = ar rc
 NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
-SRC_FILES = WOLF_PART/main.c \
-			WOLF_PART/checker_and_split/lexer.c \
-			WOLF_PART/checker_and_split/split_token.c \
-			WOLF_PART/identify_and_syntax/token_identify.c\
-			WOLF_PART/identify_and_syntax/token_syntax.c\
-			WOLF_PART/var_expander/expand_var.c \
-			WOLF_PART/var_expander/expander.c \
-			WOLF_PART/quote_trimmer/quote_trim.c \
-			WOLF_PART/struct_filler/struct_fill.c \
-			WOLF_PART/utils/utils_1.c \
+SRC_FILES = main.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \
@@ -42,28 +33,39 @@ SRC_FILES = WOLF_PART/main.c \
 			builtins/ft_export.c \
 			builtins/ft_pwd.c \
 			builtins/ft_unset.c \
-			builtins/utils_builtins.c \
+			environment/set_env.c \
+			environment/free_env.c \
 			execution/exec_builtins.c \
-			execution/execute_cmd.c \
 			execution/fork_process.c \
+			execution/child_process.c \
 			execution/separate_op.c \
 			message/error_system.c \
-			redirection/dup_files.c \
+			message/error_cmd.c \
+			parser_lexer/assign_path.c \
+			parser_lexer/check_line.c \
+			parser_lexer/identify_cmd.c \
+			parser_lexer/quote_trim.c \
+			parser_lexer/split_tokens.c \
+			parser_lexer/token_identify.c\
+			parser_lexer/token_syntax.c\
+			parser_lexer/variable_parser.c \
+			redirection/assign_fd.c \
 			redirection/here_doc.c \
-			redirection/open_infiles.c \
-			redirection/open_outfiles.c \
-			redirection/redirection.c \
-			environment/set_env_jimmy.c \
-			environment/free_env.c \
-			free_functions.c \
-			signal.c
-			# WOLF_PART/environment/set_env.c 
+			signal/signal.c \
+			signal/signal_child.c \
+			signal/exit_status.c \
+			utils/free_functions.c \
+			utils/initialization.c \
+			utils/utils_builtins.c \
+			utils/utils_token.c \
+			utils/utils_var.c
 
 OBJ_DIR = obj
 INC_DIR = includes
 LIBFT_DIR = ./libft
 HEAD = -I./includes -I$(READLINE_DIR)include/
 INCS = -I$(INC_DIR) -I$(LIBFT_DIR)
+HDRS = $(INC_DIR)/minishell.h
 
 # ### INCLUDE ###
 LIB 	= -lreadline -L$(READLINE_DIR)lib/
@@ -80,11 +82,11 @@ all: $(LIBFT_DIR) $(NAME)
 
 # Rule to build each personal library
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 # Object file build rule
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HDRS) Makefile
+	mkdir -p $(dir $@)
 	$(CC) $(C_FLAGS) $(HEAD) -c $< -o $@
 
 # Target library build rule
@@ -92,6 +94,9 @@ $(NAME): $(OBJECTS) $(LIBFT)
 	$(CC) $(C_FLAGS) $(LIB) $^ $(INCS) -o $(NAME)
 
 # ---------------------------------------------------------------------------- #
+
+# Phony targets
+.PHONY: all clean fclean re norm
 
 # Clean object files
 clean:
@@ -109,10 +114,6 @@ re: fclean all
 
 # Check code style
 norm:
-	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR)/*.c ;
-	@norminette -R CheckDefine $(INC_DIR)/*.h ;
-	@norminette -R CheckForbiddenSourceHeader $(LIBFT_DIR)/src/*.c ;
-	@norminette -R CheckDefine $(LIBFT_DIR)/includes/*.h
-
-# Phony targets
-.PHONY: all clean fclean re norm
+	@norminette $(SRC_DIR)
+	@norminette $(INC_DIR)
+	@norminette $(LIBFT_DIR)
