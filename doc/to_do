@@ -1,0 +1,57 @@
+Wolf =
+	-- - when using export funciton, and I call the variable with echo it wont print. 
+	-- - the error appears in my mallocer, function which has no problems so it means there's a memory problem that occurs before hand that needs fixing. (shit aint freed);
+	 -->not an error in expander(thats all gucci)
+	-- - solve issue of variable names that start with the same. (solved)
+	-- - quotetrimmer needs to be adjusted to new set_env.
+	-- quote trimmer is a biiiiiiitch(solved).
+	-- - verify the implementation of the array of cmd >> array is not null terminated.(solved)
+	-- - with pipe, the structfill is messing up when it comes to the second cmd struct.(solved)
+	-- - look up signal stuff for signal implementation
+	-- - exit status variable function
+
+
+	-- - add option to ask for the last command in case of nothing after the pipe (exemple: "ls |"), 
+	-- 	apparently the bash open an heredoc to catch the next command and take it as limiter.
+	-- 	Actually it return an error message "You have failed you sonofbitch" and the next entry in prompt make segmentation fault.
+	-- 	Maybe let see together for this part if you need help to understand heredoc to use it.
+
+	-- - Ctrl + c prints "minishell : minishell : minishell :"
+	-- - Ctrl + d works but can cause segmentation fault
+
+	-- - ADD in argument in the 2d array the infiles without the "<" only the infiles
+	-- - IMP in the input the the entry of last command if missing
+
+	minishell-hh: /: is a directory
+	minishell-hh$ echo $?
+	126
+	minishell-hh$ /fea
+	minishell-hh: /fea: command not found
+	minishell(69899,0x1109fadc0) malloc: *** error for object 0x7fde29604a00: pointer being freed was not allocated
+	minishell(69899,0x1109fadc0) malloc: *** set a breakpoint in malloc_error_break to debug
+	zsh: abort      ./minishell
+	
+	To do in english:
+		-get line
+
+	- IMP heredoc before send data struct for execution (sorted)
+	- IMP the opening of every files of the cmd (stop if one file fail), command by command and return an error command if need with the str_error
+	- IMP the path for every command (okay)
+	- Return the fd_in and fd_out // if do not have return -2
+		- USE last infile and last outfiles for the redirection with the type (O_APPEND/O_TRUNC/O_RDONLY)
+
+- Do the int status variable in s_cmd, in PATH instead of error message(bc now we exit)
+
+
+Jeremy = 
+
+TASK DONE
+-- - copy wolfs beautiful get_env_value function to find path
+-- - verify if the pipes working < = pipe work but need to change some implementation part to reset de STDIN_FILENO 'dup'
+-- - take a shower
+-- -doing the redirection for input and output file.
+-- - https://www.youtube.com/watch?v=Q3Kvu6Kgp88
+-- - ./minishell implementation
+-- - correction of Builtin function
+
+	
